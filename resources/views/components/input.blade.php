@@ -6,7 +6,7 @@
             {{ isset($autofocus) ? 'autofocus' : '' }}
             {{ isset($required) ? 'required' : '' }} >
 
-    @error("{{ $name }}")
+    @error($name)
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
         </span>
