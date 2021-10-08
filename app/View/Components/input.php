@@ -6,24 +6,28 @@ use Illuminate\View\Component;
 
 class input extends Component
 {
+    public $type;
     public $name;
     public $placeholder;
     public $autocomplete;
     public $required;
     public $autofocus;
+    public $class;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name, $placeholder = null, $autocomplete = null, $required = null, $autofocus = null)
+    public function __construct($type = 'text', $name, $placeholder = null, $autocomplete = null, $required = null, $autofocus = null, $class = null)
     {
+        $this->type = $type;
         $this->name = $name;
         $this->placeholder = $placeholder;
         $this->autocomplete = $autocomplete;
         $this->require = $required;
         $this->autofocus = $autofocus;
+        $this->class = $class;
     }
 
     /**

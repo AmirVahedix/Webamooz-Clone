@@ -1,6 +1,6 @@
 <div>
-    <input type="text" name="{{ $name }}" id="{{ $name }}"
-            class="txt @error('{{ $name }}') is-invalid @enderror"
+    <input type="{{ $type }}" name="{{ $name }}" id="{{ $name }}"
+            class="txt @error('{{ $name }}') is-invalid @enderror {{ $class }}"
             value="{{ old($name) }}" placeholder="{{ $placeholder }}"
             autocomplete="{{ $autocomplete }}"
             {{ isset($autofocus) ? 'autofocus' : '' }}
