@@ -3284,9 +3284,18 @@ footer {
     height: 42px;
     line-height: 40px;
     border: solid 2px #e2e2e2;
-    margin-bottom: 15px;
     text-align: right;
     color: #444444;
+    margin-top: 10px;
+}
+
+.txt.is-invalid {
+    border: solid 1px red;
+}
+
+.invalid-feedback {
+    color: red;
+    font-size: 11px;
 }
 
 textarea {
