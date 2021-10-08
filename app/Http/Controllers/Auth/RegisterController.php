@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Rules\ValidMobile;
+use App\Rules\ValidPassword;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -52,8 +54,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['nullable', 'string', 'max:14', 'min:9', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'mobile' => ['nullable', 'string', 'unique:users', new ValidMobile()],
+            'password' => ['required', 'string', 'min:8', 'confirmed', new ValidPassword()],
         ]);
     }
 
