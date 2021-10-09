@@ -2,7 +2,7 @@
 
 namespace AmirVahedix\User\Database\factories;
 
-use App\Models\User;
+use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -25,8 +25,8 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'mobile' => "0913". mt_rand(1000000, 9999999),
+            'password' => '$2y$10$XN7IbSJ1O6yOQ0hIwuIc4uqxwWXb7s0Jf52nwPmXK6JSvUr/TjLza', // !@#ABCabc123
             'remember_token' => Str::random(10),
         ];
     }
@@ -36,11 +36,11 @@ class UserFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function unverified()
+    public function verified()
     {
         return $this->state(function (array $attributes) {
             return [
-                'email_verified_at' => null,
+                'email_verified_at' => now(),
             ];
         });
     }

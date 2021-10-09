@@ -2,6 +2,7 @@
 
 namespace AmirVahedix\User\Models;
 
+use AmirVahedix\User\Database\factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,4 +55,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function factory()
+    {
+        return new UserFactory;
+    }
 }
