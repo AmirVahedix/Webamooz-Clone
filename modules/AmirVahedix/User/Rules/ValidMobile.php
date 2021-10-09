@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Rules;
+namespace AmirVahedix\User\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class ValidPassword implements Rule
+class ValidMobile implements Rule
 {
     /**
      * Create a new rule instance.
@@ -13,7 +13,7 @@ class ValidPassword implements Rule
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
@@ -25,7 +25,7 @@ class ValidPassword implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/', $value);
+        return preg_match('/^09[0-9]{9}/', $value);
     }
 
     /**
@@ -35,6 +35,6 @@ class ValidPassword implements Rule
      */
     public function message()
     {
-        return 'رمز عبور باید ترکیبی از عدد، حروف بزرگ و کوچک و کاراکتر باشد.';
+        return 'شماره موبایل باید با 09 شروع شده و 11 رقمی باشد.';
     }
 }
