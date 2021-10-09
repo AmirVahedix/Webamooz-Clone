@@ -11,6 +11,7 @@ class UserServiceProvider extends ServiceProvider {
             ->group(__DIR__.'/../Routes/user_routes.php');
 
         $this->loadMigrationsFrom(__DIR__.'/../Database/migrations');
+        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'User');
     }
 
     public function boot () {

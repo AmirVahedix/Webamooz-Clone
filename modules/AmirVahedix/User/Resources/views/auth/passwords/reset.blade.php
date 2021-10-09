@@ -1,4 +1,4 @@
-@extends('auth.layouts.master')
+@extends('User::auth.layouts.master')
 
 @section('title', 'بازنشانی رمز عبور')
 

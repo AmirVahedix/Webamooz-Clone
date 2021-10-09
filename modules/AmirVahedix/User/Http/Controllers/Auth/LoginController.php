@@ -48,4 +48,14 @@ class LoginController extends Controller
             'password' => $request->get('password')
         ];
     }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showLoginForm()
+    {
+        return view('User::auth.login');
+    }
 }
