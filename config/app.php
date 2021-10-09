@@ -1,5 +1,7 @@
 <?php
 
+use AmirVahedix\User\Providers\UserServiceProvider;
+
 return [
 
     /*
@@ -161,6 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        UserServiceProvider::class,
 
         /*
          * Package Service Providers...
