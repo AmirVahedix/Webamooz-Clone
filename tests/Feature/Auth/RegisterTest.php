@@ -16,6 +16,7 @@ class RegisterTest extends TestCase
     }
 
     public function test_user_can_register () {
+        $this->withoutExceptionHandling();
         $data = User::factory()->make()->toArray();
         $data['password'] = '!@#ABCabc123456';
         $data['password_confirmation'] = '!@#ABCabc123456';
