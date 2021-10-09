@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_user_can_see_register_form()
     {
         $response = $this->get(route('register'));
