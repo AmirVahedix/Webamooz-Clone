@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Validation;
+namespace AmirVahedix\User\Tests\Unit\Validation;
 
 use AmirVahedix\User\Rules\ValidPassword;
 use PHPUnit\Framework\TestCase;
