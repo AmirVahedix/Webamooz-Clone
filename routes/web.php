@@ -19,7 +19,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 })->name('index')->middleware('verified');
-
-Route::get('/test', function() {
-    return new VerifyCodeMail(103060);
-});

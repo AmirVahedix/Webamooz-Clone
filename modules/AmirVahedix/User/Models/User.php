@@ -3,6 +3,7 @@
 namespace AmirVahedix\User\Models;
 
 use AmirVahedix\User\Database\factories\UserFactory;
+use AmirVahedix\User\Notifications\ResetPasswordNotification;
 use AmirVahedix\User\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -65,5 +66,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailNotification());
+    }
+
+    public function sendResetPasswordNotification () {
+        $this->notify(new ResetPasswordNotification());
     }
 }
