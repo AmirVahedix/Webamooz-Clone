@@ -3,6 +3,7 @@
 namespace AmirVahedix\User\Models;
 
 use AmirVahedix\User\Database\factories\UserFactory;
+use AmirVahedix\User\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -59,5 +60,10 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function factory()
     {
         return new UserFactory;
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification());
     }
 }
