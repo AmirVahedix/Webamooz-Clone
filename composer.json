@@ -29,7 +29,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "AmirVahedix\\User\\": "modules/AmirVahedix/User"
+            "AmirVahedix\\User\\": "modules/AmirVahedix/User",
+            "AmirVahedix\\Dashboard\\": "modules/AmirVahedix/Dashboard"
         }
     },
     "autoload-dev": {

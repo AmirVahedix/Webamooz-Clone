@@ -1,5 +1,6 @@
 <?php
 
+use AmirVahedix\Dashboard\Providers\DashboardServiceProvider;
 use AmirVahedix\User\Providers\UserServiceProvider;
 
 return [
@@ -164,6 +165,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         UserServiceProvider::class,
+        DashboardServiceProvider::class,
 
         /*
          * Package Service Providers...
