@@ -30,6 +30,7 @@ class VerifyCodeMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('User::mails.verify-code');
+        return $this->markdown('User::mails.verify-code')
+            ->subject('کد فعالسازی وب آموز');
     }
 }
