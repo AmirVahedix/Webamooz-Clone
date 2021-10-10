@@ -1,5 +1,6 @@
 <?php
 
+use AmirVahedix\User\Mail\VerifyCodeMail;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,3 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 })->name('index')->middleware('verified');
+
+Route::get('/test', function() {
+    return new VerifyCodeMail(103060);
+});

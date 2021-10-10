@@ -2,6 +2,7 @@
 
 namespace AmirVahedix\User\Notifications;
 
+use AmirVahedix\User\Mail\VerifyCodeMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -43,11 +44,9 @@ class VerifyEmailNotification extends Notification
         $code = random_int(100000, 999999);
         cache()->set("verify_code_$notifiable->id", $code, now()->addMinutes(3));
 
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->line("Your code is: $code")
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return (new VerifyCodeMail($code))
+            ->to($notifiable->email)
+            ->subject('کد فعالسازی وب آموز');
     }
 
     /**
