@@ -38,4 +38,16 @@ class VerifyCodeService
     public static function destroy ($user_id) {
         cache()->delete(self::$prefix . $user_id);
     }
+
+    /**
+     * Checks if verification code is correct for specific user
+     */
+    public static function check ($user_id, $code) {
+        if ($code == self::get($user_id)) {
+            self::destroy($user_id);
+            return true;
+        }
+
+        return false;
+    }
 }

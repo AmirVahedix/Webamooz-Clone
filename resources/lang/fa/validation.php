@@ -152,6 +152,7 @@ return [
         "phone_email" => "شماره تلفن یا ایمیل",
         "token" => "کد تایید",
         "cart_number" => "شماره کارت",
-        "attachments" => "فایل ضمیمه"
+        "attachments" => "فایل ضمیمه",
+        "verify_code" => "کد تایید"
     ],
 ];

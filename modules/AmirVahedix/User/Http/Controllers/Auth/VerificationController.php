@@ -2,6 +2,7 @@
 
 namespace AmirVahedix\User\Http\Controllers\Auth;
 
+use AmirVahedix\User\Http\Requests\VerifyCodeRequest;
 use AmirVahedix\User\Services\VerifyCodeService;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -55,22 +56,17 @@ class VerificationController extends Controller
                         : view('User::auth.verify');
     }
 
-    public function verify(Request $request, $id)
+    public function verify(VerifyCodeRequest $request, $id)
     {
-        $request->validate([
-            'verify_code' => ['required', 'numeric', 'digits:6']
-        ]);
+        $code = VerifyCodeService::get($id);
 
-        $code = VerifyCodeService::get(auth()->id());
+        $result = VerifyCodeService::check($id, $code);
 
-        if ($code == $request->get('verify_code')) {
-            auth()->user()->markEmailAsVerified();
-            VerifyCodeService::destroy(auth()->id());
-            return redirect(route('index'));
-        }
+        if (!$result)
+            return back()->withErrors([ 'verify_code' => 'کد تایید نامعتبر است.' ]);
 
-        return back()->withErrors([
-            'verify_code' => 'کد تایید نامعتبر است.'
-        ]);
+
+        auth()->user()->markEmailAsVerified();
+        return redirect(route('index'));
     }
 }
