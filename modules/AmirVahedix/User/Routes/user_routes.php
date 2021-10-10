@@ -17,12 +17,15 @@ Route::get('register', [RegisterController::class, 'showRegistrationForm'])->nam
 Route::post('register', [RegisterController::class, 'register']);
 
 // Password Reset Routes...
-Route::get('password/request', [ForgotPasswordController::class, 'showVerifyCodeRequestForm'])->name('password.request');
+Route::get('password/request', [ForgotPasswordController::class, 'showVerifyCodeRequestForm'])
+    ->name('password.request')->middleware('guest');
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetCodeEmail'])
-    ->name('password.email')->middleware('throttle:5,1');
+    ->name('password.email')->middleware(['throttle:5,1', 'guest']);
 
-Route::get('password/verify', [ForgotPasswordController::class, 'showVerifyForm'])->name('password.verify.form');
-Route::post('password/verify', [ForgotPasswordController::class, 'verify'])->name('password.reset.verify');
+Route::get('password/verify', [ForgotPasswordController::class, 'showVerifyForm'])
+    ->name('password.verify.form')->middleware('guest');
+Route::post('password/verify', [ForgotPasswordController::class, 'verify'])
+    ->name('password.reset.verify')->middleware('guest');
 
 Route::get('password/reset', [ResetPasswordController::class, 'showResetForm'])
     ->name('password.reset')->middleware('auth');
