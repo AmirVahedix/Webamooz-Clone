@@ -9,6 +9,13 @@
         <a class="account-logo" href="{{ route('index') }}">
             <img src="{{ asset('img/weblogo.png') }}" alt="">
         </a>
+
+        @if (session('resent'))
+            <div class="alert alert-success" role="alert">
+                کد تایید دوباره به ایمیل شما ارسال شد.
+            </div>
+        @endif
+
         <div class="card-header">
             <p class="activation-code-title">
                 کد تایید به ایمیل شما ارسال شد.
@@ -20,6 +27,7 @@
             <x-input name="verify_code" class="activation-code-input" placeholder="فعال سازی" />
             <br>
             <button class="btn i-t">تایید</button>
+            <a href="{{ route('verification.resend') }}" style="font-size: 14px">ارسال مجدد کد فعالسازی</a>
         </div>
         <div class="form-footer">
             <a href="{{ route('register') }}">صفحه ثبت نام</a>
