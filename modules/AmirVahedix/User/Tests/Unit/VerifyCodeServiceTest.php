@@ -19,18 +19,34 @@ class VerifyCodeServiceTest extends TestCase
 
     public function test_verification_code_is_stored_in_cache ()
     {
+        $user = User::factory()->create();
         $code = VerifyCodeService::generate();
-        VerifyCodeService::store(1, $code, 5);
+        VerifyCodeService::store($user->id, $code, 5);
 
-        $this->assertEquals($code, cache()->get("verify_code_1"));
+        $this->assertEquals($code, VerifyCodeService::get($user->id));
     }
 
-    public function test_verification_code_is_expired_after_5_minutes () {
+    public function test_verification_code_is_expired_after_certain_minutes () {
+        $user = User::factory()->create();
         $code = VerifyCodeService::generate();
-        VerifyCodeService::store(1, $code, 5);
+        VerifyCodeService::store($user->id, $code);
 
-        $this->assertEquals($code, cache()->get("verify_code_1"));
+        $this->assertEquals($code, VerifyCodeService::get($user->id));
         $this->travel(6)->minutes();
-        $this->assertNull(cache()->get("verify_code_1"));
+        $this->assertNull(VerifyCodeService::get($user->id));
+    }
+
+    public function test_verification_code_is_deleted_after_successful_verification () {
+        $user = User::factory()->create();
+        $code = VerifyCodeService::generate();
+        VerifyCodeService::store($user->id, $code);
+
+        $this->actingAs($user)
+            ->post(
+                route('verification.verify', $user->id),
+                ['verify_code' => $code]
+            );
+
+        $this->assertNull(VerifyCodeService::get($user->id));
     }
 }
