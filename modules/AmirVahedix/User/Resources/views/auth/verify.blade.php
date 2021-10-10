@@ -23,12 +23,14 @@
                 کد فرستاده شده را در کادر زیر وارد کنید.
             </p>
         </div>
+
         <div class="form-content form-content1">
             <x-input name="verify_code" class="activation-code-input" placeholder="فعال سازی" />
             <br>
             <button class="btn i-t">تایید</button>
             <a href="{{ route('verification.resend') }}" style="font-size: 14px">ارسال مجدد کد فعالسازی</a>
         </div>
+
         <div class="form-footer">
             <a href="{{ route('register') }}">صفحه ثبت نام</a>
         </div>

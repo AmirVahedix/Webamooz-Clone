@@ -3,6 +3,7 @@
 namespace AmirVahedix\User\Tests\Feature\Auth;
 
 use AmirVahedix\User\Models\User;
+use AmirVahedix\User\Services\VerifyCodeService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -44,5 +45,22 @@ class RegisterTest extends TestCase
 
         $resopnse = $this->get(route('index'));
         $resopnse->assertOk();
+    }
+
+    public function test_user_can_verify_account () {
+        $user = User::factory()->create();
+        $code = VerifyCodeService::generate();
+        VerifyCodeService::store($user->id, $code);
+
+        $this->actingAs($user);
+        $this->assertAuthenticated();
+
+        $response = $this->post(
+            route('verification.verify', $user->id),
+            [ 'verify_code' => $code ]
+        );
+        $response->assertRedirect(route('index'));
+
+        $this->assertTrue($user->hasVerifiedEmail());
     }
 }
