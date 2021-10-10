@@ -4,6 +4,8 @@ namespace AmirVahedix\User\Services;
 
 class VerifyCodeService
 {
+    private static $prefix = 'verify_code_';
+
     /**
      * Creates a new 6-digit verification code
      */
@@ -15,11 +17,25 @@ class VerifyCodeService
     /**
      * Stores verification code in cache for a specific user
      */
-    public static function store ($user_id, $code, $expire_minutes) {
+    public static function store ($user_id, $code) {
         cache()->set(
-            "verify_code_$user_id",
+            self::$prefix . $user_id,
             $code,
-            now()->addMinutes($expire_minutes)
+            now()->addSeconds(config('auth.verification_code.timeout'))
         );
+    }
+
+    /**
+     * Get stored verification code for specific user
+     */
+    public static function get ($user_id) {
+        return cache()->get(self::$prefix . $user_id);
+    }
+
+    /**
+     * Deletes verify code from cache (to be called after verify code is used)
+     */
+    public static function destroy ($user_id) {
+        cache()->delete(self::$prefix . $user_id);
     }
 }

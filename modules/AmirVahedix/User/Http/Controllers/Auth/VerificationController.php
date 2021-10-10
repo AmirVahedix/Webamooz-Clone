@@ -2,6 +2,7 @@
 
 namespace AmirVahedix\User\Http\Controllers\Auth;
 
+use AmirVahedix\User\Services\VerifyCodeService;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
@@ -37,7 +38,7 @@ class VerificationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
+        // $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
@@ -54,4 +55,22 @@ class VerificationController extends Controller
                         : view('User::auth.verify');
     }
 
+    public function verify(Request $request, $id)
+    {
+        $request->validate([
+            'verify_code' => ['required', 'numeric', 'digits:6']
+        ]);
+
+        $code = VerifyCodeService::get(auth()->id());
+
+        if ($code == $request->get('verify_code')) {
+            auth()->user()->markEmailAsVerified();
+            VerifyCodeService::destroy(auth()->id());
+            return redirect(route('index'));
+        }
+
+        return back()->withErrors([
+            'verify_code' => 'کد تایید نامعتبر است.'
+        ]);
+    }
 }

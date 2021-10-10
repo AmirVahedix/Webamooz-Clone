@@ -3330,6 +3330,7 @@ textarea {
 
 .txt.txt-l {
     text-align: left;
+    direction: ltr;
 }
 
 .contact-us .h2 {

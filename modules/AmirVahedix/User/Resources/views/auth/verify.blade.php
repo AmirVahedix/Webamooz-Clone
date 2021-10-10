@@ -3,30 +3,31 @@
 @section('title', 'تایید حساب کاربری')
 
 @section('content')
-    <form class="form" method="POST" action="{{ route('verification.resend') }}">
+    <form action="{{ route('verification.verify', auth()->id()) }}" method="POST" class="form">
         @csrf
 
-        <a class="account-logo" href="index.html">
+        <a class="account-logo" href="{{ route('index') }}">
             <img src="{{ asset('img/weblogo.png') }}" alt="">
         </a>
-        @if (session('resent'))
-            <div class="alert alert-success" role="alert">
-                لینک فعالسازی جدید به ایمیل شما ارسال شد.
-            </div>
-        @endif
-
         <div class="card-header">
             <p class="activation-code-title">
-                لینک فعالسازی به ایمیل شما ارسال شده است. لطفا ایمیل خود را چک کنید.
+                کد تایید به ایمیل شما ارسال شد.
+                <br />
+                کد فرستاده شده را در کادر زیر وارد کنید.
             </p>
         </div>
         <div class="form-content form-content1">
-            <button type="submit" class="btn btn-link p-0 m-0 align-baseline">
-                ارسال مجدد ایمیل فعالسازی
-            </button>
-            <div class="form-footer">
-                <a href="{{ route('register') }}">صفحه ثبت نام</a>
-            </div>
+            <x-input name="verify_code" class="activation-code-input" placeholder="فعال سازی" />
+            <br>
+            <button class="btn i-t">تایید</button>
+        </div>
+        <div class="form-footer">
+            <a href="{{ route('register') }}">صفحه ثبت نام</a>
         </div>
     </form>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('js/activation-code.js') }}"></script>
 @endsection
