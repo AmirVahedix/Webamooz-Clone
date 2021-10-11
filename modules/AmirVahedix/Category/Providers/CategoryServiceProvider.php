@@ -14,8 +14,7 @@ class CategoryServiceProvider extends ServiceProvider
         Route::middleware(['web', 'auth', 'verified'])
             ->prefix('categories')
             ->group(__DIR__.'/../Routes/CategoryRoutes.php');
-
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Category');
-
+        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
     }
 }
