@@ -17,6 +17,10 @@ class DashboardServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
+        config()->set('sidebar.items.dashboard', [
+            'icon' => 'i-dashboard',
+            'title' => 'داشبورد',
+            'url' => 'dashboard.index'
+        ]);
     }
 }
