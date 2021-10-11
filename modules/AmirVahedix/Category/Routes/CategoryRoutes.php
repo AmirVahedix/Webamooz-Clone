@@ -10,3 +10,5 @@ Route::post('/', [CategoryController::class, 'store'])->name('admin.categories.s
 
 Route::get('/{category}', [CategoryController::class, 'edit'])->name('admin.categories.edit');
 Route::patch('/{category}', [CategoryController::class, 'update'])->name('admin.categories.update');
+
+Route::delete('/{category}', [CategoryController::class, 'delete'])->name('admin.categories.destroy');

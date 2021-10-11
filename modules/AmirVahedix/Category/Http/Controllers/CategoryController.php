@@ -14,7 +14,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::latest()->get();
+        $categories = Category::all();
         return view('Category::index', [
             'categories' => $categories
         ]);
@@ -38,5 +38,12 @@ class CategoryController extends Controller
         $category->update($request->validated());
 
         return redirect(route('admin.categories.index'));
+    }
+
+    public function delete(Category $category): RedirectResponse
+    {
+        $category->delete();
+
+        return back();
     }
 }
