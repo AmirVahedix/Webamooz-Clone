@@ -4,5 +4,6 @@ return [
     'items' => [
         'dashboard' => [],
         'categories' => [],
+        'authorization' => []
     ]
 ];

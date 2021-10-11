@@ -1,5 +1,6 @@
 <?php
 
+use AmirVahedix\Authorization\Providers\AuthorizationServiceProvider;
 use AmirVahedix\Category\Providers\CategoryServiceProvider;
 use AmirVahedix\Dashboard\Providers\DashboardServiceProvider;
 use AmirVahedix\User\Providers\UserServiceProvider;
@@ -168,6 +169,7 @@ return [
         UserServiceProvider::class,
         DashboardServiceProvider::class,
         CategoryServiceProvider::class,
+        AuthorizationServiceProvider::class,
 
         /*
          * Package Service Providers...

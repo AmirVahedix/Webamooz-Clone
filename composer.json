@@ -33,7 +33,8 @@
             "Database\\Seeders\\": "database/seeders/",
             "AmirVahedix\\User\\": "modules/AmirVahedix/User",
             "AmirVahedix\\Dashboard\\": "modules/AmirVahedix/Dashboard",
-            "AmirVahedix\\Category\\": "modules/AmirVahedix/Category"
+            "AmirVahedix\\Category\\": "modules/AmirVahedix/Category",
+            "AmirVahedix\\Authorization\\": "modules/AmirVahedix/Authorization"
         }
     },
     "autoload-dev": {
