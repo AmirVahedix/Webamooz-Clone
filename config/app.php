@@ -1,5 +1,6 @@
 <?php
 
+use AmirVahedix\Category\Providers\CategoryServiceProvider;
 use AmirVahedix\Dashboard\Providers\DashboardServiceProvider;
 use AmirVahedix\User\Providers\UserServiceProvider;
 
@@ -166,6 +167,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         UserServiceProvider::class,
         DashboardServiceProvider::class,
+        CategoryServiceProvider::class,
 
         /*
          * Package Service Providers...

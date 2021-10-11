@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpParamsInspection */
 
 namespace AmirVahedix\User\Tests\Feature\Auth;
 
@@ -29,9 +29,12 @@ class RegisterTest extends TestCase
     }
 
     public function test_user_must_verify_email () {
+        $user = User::factory()->create();
         $this->post(route('register'), User::factory()->make()->toArray());
 
-        $response = $this->get(route('index'));
+        $response = $this
+            ->actingAs($user)
+            ->get(route('dashboard.index'));
         $response->assertRedirect(route('verification.notice'));
     }
 
