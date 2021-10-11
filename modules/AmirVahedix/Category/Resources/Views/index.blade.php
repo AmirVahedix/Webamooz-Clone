@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="{{ asset('panel/css/style.css') }}">
 @endsection
 
+@section('breadcrumbs')
+    <li><a href="{{ route('dashboard.index') }}">پیشخوان</a></li>
+    <li><a href="#">دسته‌بندی ها</a></li>
+@endsection
+
 @section('content')
     <div class="main-content padding-0 categories">
         <div class="row no-gutters">

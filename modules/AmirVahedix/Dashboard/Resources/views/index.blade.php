@@ -2,6 +2,10 @@
 
 @section('title', 'داشبورد وب آموز')
 
+@section('breadcrumbs')
+    <li><a href="#">پیشخوان</a></li>
+@endsection
+
 @section('content')
     <div class="main-content">
         <div class="row no-gutters font-size-13 margin-bottom-10">

@@ -2,6 +2,12 @@
 
 @section('title', 'ویرایش دسته‌بندی')
 
+@section('breadcrumbs')
+    <li><a href="{{ route('dashboard.index') }}">پیشخوان</a></li>
+    <li><a href="{{ route('admin.categories.index') }}">دسته‌بندی ها</a></li>
+    <li><a href="#">ویرایش دسته‌بندی</a></li>
+@endsection
+
 @section('content')
     <div class="row no-gutters padding-30 margin-bottom-20">
         <div class="col-12">
