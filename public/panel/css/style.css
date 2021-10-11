@@ -1887,6 +1887,10 @@ span.tagRemove:hover {
     transition: .2s all;
 }
 
+.modal.hidden {
+    display: none;
+}
+
 .modal-content {
     background-color: #FFF;
     display: inline-block;

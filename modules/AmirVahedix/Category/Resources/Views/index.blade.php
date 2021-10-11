@@ -36,7 +36,7 @@
                                     <a href="{{ route('admin.categories.edit', $category->id) }}" class="item-edit " title="ویرایش"></a>
                                 </td>
                                 <td>
-                                    <div class="modal visible" x-show="modal" x-transition.opacity>
+                                    <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="modal" x-transition.opacity>
                                         <div class="modal-content" x-on:click.outside="modal=false">
                                             <h3>آیا از حذف این دسته‌بندی اطمینان دارید؟</h3>
                                             <p>با کلیک بر روی حذف، این دسته‌بندی حذف خواهد شد ولی دسته‌های فرزند آن حذف نمیشود.</p>
