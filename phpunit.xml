@@ -18,6 +18,10 @@
         <testsuite name="Feature">
             <directory suffix="Test.php">./modules/AmirVahedix/User/Tests/Feature</directory>
         </testsuite>
+
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./modules/AmirVahedix/Category/Tests/Feature</directory>
+        </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">
         <include>
