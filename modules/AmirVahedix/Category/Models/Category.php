@@ -13,4 +13,11 @@ class Category extends Model
 
     protected $fillable = ['title', 'slug', 'parent_id'];
     // endregion model config
+
+    // region relations
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
+    // endregion relations
 }

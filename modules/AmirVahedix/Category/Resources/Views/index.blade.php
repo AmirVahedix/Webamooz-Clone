@@ -12,36 +12,26 @@
                         <thead role="rowgroup">
                         <tr role="row" class="title-row">
                             <th>شناسه</th>
-                            <th>نام دسته بندی</th>
-                            <th>نام انگلیسی دسته بندی</th>
+                            <th>نام</th>
+                            <th>اسلاگ</th>
                             <th>دسته پدر</th>
                             <th>عملیات</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr role="row" class="">
-                            <td><a href="">1</a></td>
-                            <td><a href="">برنامه نویسی</a></td>
-                            <td>programming</td>
-                            <td>ندارد</td>
-                            <td>
-                                <a href="" class="item-delete mlg-15" title="حذف"></a>
-                                <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                                <a href="edit-category.html" class="item-edit " title="ویرایش"></a>
-                            </td>
-                        </tr>
-                        <tr role="row" class="">
-                            <td><a href="">1</a></td>
-                            <td><a href="">وب</a></td>
-                            <td>programming</td>
-                            <td>وب</td>
-                            <td>
-                                <a href="" class="item-delete mlg-15" title="حذف"></a>
-                                <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                                <a href="edit-category.html" class="item-edit " title="ویرایش"></a>
-                            </td>
-                        </tr>
-
+                        @foreach($categories as $category)
+                            <tr role="row" class="">
+                                <td>{{ $category->id }}</td>
+                                <td><a href="">{{ $category->title }}</a></td>
+                                <td>{{ $category->slug }}</td>
+                                <td>{{ $category->parent->title ?? 'دسته اصلی' }}</td>
+                                <td>
+                                    <a href="" class="item-delete mlg-15" title="حذف"></a>
+                                    <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
+                                    <a href="edit-category.html" class="item-edit " title="ویرایش"></a>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
