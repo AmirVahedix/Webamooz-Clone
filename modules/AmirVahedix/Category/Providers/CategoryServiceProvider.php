@@ -11,7 +11,7 @@ class CategoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        Route::middleware(['web', 'auth', 'verified'])
+        Route::middleware(['web', 'auth', 'verified', 'permission:manage_categories'])
             ->prefix('categories')
             ->group(__DIR__.'/../Routes/CategoryRoutes.php');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Category');
