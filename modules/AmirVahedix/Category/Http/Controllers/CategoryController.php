@@ -24,6 +24,7 @@ class CategoryController extends Controller
     {
         Category::create($request->validated());
 
+        toast('دسته‌بندی باموفقیت ایجاد شد.', 'success');
         return back();
     }
 
@@ -37,6 +38,7 @@ class CategoryController extends Controller
     {
         $category->update($request->validated());
 
+        toast('تغییرات باموفقیت ذخیره شد.', 'success');
         return redirect(route('admin.categories.index'));
     }
 
@@ -44,6 +46,7 @@ class CategoryController extends Controller
     {
         $category->delete();
 
+        toast('دسته‌بندی باموفقیت حذف شد.', 'success');
         return back();
     }
 }

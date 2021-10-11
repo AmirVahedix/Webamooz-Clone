@@ -6,7 +6,7 @@
     <x-input name="slug" placeholder="نام انگلیسی دسته‌بندی" class="text" ltr requierd />
 
     <p class="box__title margin-bottom-15">انتخاب دسته پدر</p>
-    <select name="parent_id" id="parent_id">
+    <select class="custom-select" name="parent_id" id="parent_id">
         <option value="">بدون دسته پدر</option>
         @foreach($categories as $category)
             <option value="{{ $category->id }}">{{ $category->title }}</option>
