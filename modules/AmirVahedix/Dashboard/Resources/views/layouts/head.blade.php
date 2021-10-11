@@ -4,3 +4,4 @@
 <link rel="stylesheet" href="{{ asset('panel/css/font.css') }}">
 
 @yield('styles')
+
