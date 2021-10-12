@@ -33,7 +33,7 @@
                 </span><br>
                 @enderror
 
-                <button class="btn btn-webamooz_net">ثبت تغییرات</button>
+                <button class="btn btn-webamooz_net" style="margin-top: 16px">ثبت تغییرات</button>
             </form>
         </div>
     </div>

@@ -38,31 +38,29 @@
                                     </ul>
                                 </td>
                                 <td>
-{{--                                    <a href="#" class="item-delete mlg-15" title="حذف"--}}
-{{--                                       x-on:click="modal=true; deleteId=3"></a>--}}
-{{--                                    <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>--}}
+                                    <a href="#" class="item-delete mlg-15" title="حذف"
+                                       x-on:click="modal=true;"></a>
                                     <a href="{{ route('admin.authorization.edit', $role->id) }}" class="item-edit "
                                        title="ویرایش"></a>
                                 </td>
                                 <td>
-{{--                                    <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="modal"--}}
-{{--                                         x-transition.opacity>--}}
-{{--                                        <div class="modal-content" x-on:click.outside="modal=false">--}}
-{{--                                            <h3>آیا از حذف این دسته‌بندی اطمینان دارید؟</h3>--}}
-{{--                                            <p>با کلیک بر روی حذف، این دسته‌بندی حذف خواهد شد ولی دسته‌های فرزند آن حذف--}}
-{{--                                                نمیشود.</p>--}}
-{{--                                            <div class="modal-actions">--}}
-{{--                                                <button class="btn margin-left-10" x-on:click="modal=false">انصراف--}}
-{{--                                                </button>--}}
-{{--                                                <form action="{{ route('admin.categories.destroy', $role->id) }}"--}}
-{{--                                                      method="POST">--}}
-{{--                                                    @csrf--}}
-{{--                                                    @method('DELETE')--}}
-{{--                                                    <button type="submit" class="btn btn-webamooz_net">حذف</button>--}}
-{{--                                                </form>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                                    <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="modal"
+                                         x-transition.opacity>
+                                        <div class="modal-content" x-on:click.outside="modal=false">
+                                            <h3>آیا از حذف این نقش اطمینان دارید؟</h3>
+                                            <p>با کلیک بر روی حذف، این نقش حذف خواهد شد ولی دسترسی ها باقی می‌مانند.</p>
+                                            <div class="modal-actions">
+                                                <button class="btn margin-left-10" x-on:click="modal=false">انصراف
+                                                </button>
+                                                <form action="{{ route('admin.authorization.delete', $role->id) }}"
+                                                      method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-webamooz_net">حذف</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

@@ -52,4 +52,12 @@ class AuthorizationController extends Controller
         toast('تغییرات باموفقیت اعمال شد.', 'success');
         return redirect()->route('admin.authorization.index');
     }
+
+    public function delete(Role $role)
+    {
+        $role->delete();
+
+        toast('نقش باموفقیت حذف شد.', 'success');
+        return redirect()->route('admin.authorization.index');
+    }
 }
