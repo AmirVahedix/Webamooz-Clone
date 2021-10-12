@@ -33,7 +33,7 @@
                                 <td>
                                     <ul>
                                         @foreach($role->permissions as $permission)
-                                            <li>{{ $permission->name }}</li>
+                                            <li>{{ __($permission->name) }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
@@ -41,8 +41,8 @@
 {{--                                    <a href="#" class="item-delete mlg-15" title="حذف"--}}
 {{--                                       x-on:click="modal=true; deleteId=3"></a>--}}
 {{--                                    <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>--}}
-{{--                                    <a href="{{ route('admin.categories.edit', $role->id) }}" class="item-edit "--}}
-{{--                                       title="ویرایش"></a>--}}
+                                    <a href="{{ route('admin.authorization.edit', $role->id) }}" class="item-edit "
+                                       title="ویرایش"></a>
                                 </td>
                                 <td>
 {{--                                    <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="modal"--}}
