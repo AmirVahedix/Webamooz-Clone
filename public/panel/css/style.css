@@ -127,10 +127,20 @@ a, span {
     height: 42px;
     line-height: 40px;
     border: solid 2px #e2e2e2;
-    margin-bottom: 15px;
+    margin-bottom: 0 !important;
     text-align: right;
     font-size: 13px !important;
 }
+
+.text.is-invalid {
+    border: solid 1px red;
+}
+
+.invalid-feedback {
+    color: red;
+    font-size: 11px;
+}
+
 textarea {
     resize: none;
     padding: 12px;
@@ -671,6 +681,10 @@ textarea {
 
 .sidebar__nav .i-my__purchases a::before {
     content: '\e031';
+}
+
+.sidebar__nav .i-authorization a::before {
+    content: '\e084';
 }
 
 .sidebar__nav .i-my__peyments a::before {
@@ -1431,6 +1445,11 @@ span.tagRemove:hover {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    margin-top: 8px;
+}
+
+.checkbox__label {
+    margin-right: 30px;
 }
 
 .ui-checkbox input {

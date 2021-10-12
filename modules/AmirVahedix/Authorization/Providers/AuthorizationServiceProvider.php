@@ -17,13 +17,14 @@ class AuthorizationServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Authorization');
+        $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
     }
 
     public function boot()
     {
         config()->set('sidebar.items.authorization', [
-            'icon' => 'i-role-permissions',
-            'title' => 'اجازه دسترسی',
+            'icon' => 'i-authorization',
+            'title' => 'نقش‌های کاربری',
             'url' => 'admin.authorization.index'
         ]);
     }

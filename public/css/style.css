@@ -2222,6 +2222,10 @@ footer {
     user-select: none;
 }
 
+.checkbox__label {
+    margin-right: 30px !important;
+}
+
 .ui-checkbox input {
     position: absolute;
     cursor: pointer;

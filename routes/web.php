@@ -21,6 +21,5 @@ Route::get('/', function () {
 })->name('index');
 
 Route::get('/test', function() {
-    \auth()->user()->givePermissionTo('manage_categories');
-    return \auth()->user()->permissions;
+    return 'test';
 });
