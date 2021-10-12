@@ -3,7 +3,8 @@
 return [
     'items' => [
         'dashboard' => [],
+        'courses' => [],
         'categories' => [],
-        'authorization' => []
+        'authorization' => [],
     ]
 ];

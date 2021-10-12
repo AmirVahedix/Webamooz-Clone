@@ -2,6 +2,7 @@
 
 use AmirVahedix\Authorization\Providers\AuthorizationServiceProvider;
 use AmirVahedix\Category\Providers\CategoryServiceProvider;
+use AmirVahedix\Course\Providers\CourseServiceProvider;
 use AmirVahedix\Dashboard\Providers\DashboardServiceProvider;
 use AmirVahedix\User\Providers\UserServiceProvider;
 
@@ -170,6 +171,7 @@ return [
         DashboardServiceProvider::class,
         CategoryServiceProvider::class,
         AuthorizationServiceProvider::class,
+        CourseServiceProvider::class,
 
         /*
          * Package Service Providers...

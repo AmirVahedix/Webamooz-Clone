@@ -34,7 +34,8 @@
             "AmirVahedix\\User\\": "modules/AmirVahedix/User",
             "AmirVahedix\\Dashboard\\": "modules/AmirVahedix/Dashboard",
             "AmirVahedix\\Category\\": "modules/AmirVahedix/Category",
-            "AmirVahedix\\Authorization\\": "modules/AmirVahedix/Authorization"
+            "AmirVahedix\\Authorization\\": "modules/AmirVahedix/Authorization",
+            "AmirVahedix\\Course\\": "modules/AmirVahedix/Course"
         }
     },
     "autoload-dev": {
