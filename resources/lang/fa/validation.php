@@ -153,6 +153,14 @@ return [
         "token" => "کد تایید",
         "cart_number" => "شماره کارت",
         "attachments" => "فایل ضمیمه",
-        "verify_code" => "کد تایید"
+        "verify_code" => "کد تایید",
+        "slug" => "شناسه",
+        "price" => "قیمت",
+        "percent" => "درصد",
+        "teacher_id" => "مدرس",
+        "type" => "نوع",
+        "status" => "وضعیت",
+        "category_id" => "دسته بندی",
+        "banner" => 'بنر'
     ],
 ];

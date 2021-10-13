@@ -1111,7 +1111,6 @@ select {
     display: none;
 }
 .dropdown-select {
-    margin-bottom: 15px;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%);
     background-repeat: repeat-x;
     background-color: #fff;

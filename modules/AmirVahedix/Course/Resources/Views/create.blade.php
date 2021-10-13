@@ -10,9 +10,6 @@
 
 @section('content')
     <div class="main-content padding-0">
-        @if($errors->any())
-            {{ implode('', $errors->all('<div>:message</div>')) }}
-        @endif
         <p class="box__title">ایجاد دوره جدید</p>
         <div class="row no-gutters bg-white">
             <div class="col-12">
@@ -28,44 +25,53 @@
                         <x-input name="price" placeholder="مبلغ دوره" class="text-left text mlg-15" required />
                         <x-input name="percent" placeholder="درصد مدرس" class="text-left text" required />
                     </div>
-                    <select name="teacher_id" class="custom-select" required>
-                        <option value="0">انتخاب مدرس دوره</option>
+
+                    <x-select name="teacher_id" >
+                        <option value="">انتخاب مدرس دوره</option>
                         @foreach($teachers as $teacher)
-                            <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                            <option value="{{ $teacher->id }}" {{ $teacher->id == old('teacher_id') ? 'selected' : '' }}>
+                                {{ $teacher->name }}
+                            </option>
                         @endforeach
-                    </select>
+                    </x-select>
+
                     <ul class="tags" style="margin-top: 8px">
                         <li class="tagAdd taglist">
                             <input name="tags" type="text" id="search-field" placeholder="برچسب ها" />
                         </li>
                     </ul>
-                    <select class="custom-select" name="type" required>
-                        <option value="0">نوع دوره</option>
+
+                    <x-select name="type" >
+                        <option value="">نوع دوره</option>
                         @foreach(\AmirVahedix\Course\Models\Course::types as $type)
-                            <option value="{{ $type }}">{{ __($type) }}</option>
+                            <option value="{{ $type }}" {{ $type == old('type') ? 'selected' : '' }}>
+                                {{ __($type) }}
+                            </option>
                         @endforeach
-                    </select>
-                    <select class="custom-select" name="status" required>
-                        <option value="0">وضعیت دوره</option>
+                    </x-select>
+
+                    <x-select name="status" >
+                        <option value="">وضعیت دوره</option>
                         @foreach(\AmirVahedix\Course\Models\Course::statuses as $status)
-                            <option value="{{ $status }}">{{ __($status) }}</option>
+                            <option value="{{ $status }}" {{ $status == old('status') ? 'selected' : '' }}>
+                                {{ __($status) }}
+                            </option>
                         @endforeach
-                    </select>
-                    <select class="custom-select" name="category_id" required>
-                        <option value="0">دسته بندی</option>
+                    </x-select>
+
+                    <x-select name="category_id" >
+                        <option value="">دسته بندی</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                            <option value="{{ $category->id }}" {{ $category->id == old('category_id') ? 'selected' : '' }}>
+                                {{ $category->title }}
+                            </option>
                         @endforeach
-                    </select>
-                    <div class="file-upload">
-                        <div class="i-file-upload">
-                            <span>آپلود بنر دوره</span>
-                            <input name="banner" type="file" class="file-upload" id="files" required/>
-                        </div>
-                        <span class="filesize"></span>
-                        <span class="selectedFiles">فایلی انتخاب نشده است</span>
-                    </div>
-                    <textarea name="description" placeholder="توضیحات دوره" class="text h" required></textarea>
+                    </x-select>
+
+                    <x-file name="banner" label="بنر دوره" />
+
+                    <x-textarea name="description" label="توضیحات دوره"/>
+
                     <button class="btn btn-webamooz_net">ایجاد دوره</button>
                 </form>
             </div>

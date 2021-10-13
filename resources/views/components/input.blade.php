@@ -7,9 +7,5 @@
             {{ isset($required) ? 'required' : '' }}
             {{ isset($readonly) ? 'readonly' : '' }} />
 
-    @error($name)
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
+    <x-error name="{{ $name }}" />
 </div>
