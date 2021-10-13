@@ -5,6 +5,7 @@ namespace AmirVahedix\Course\Models;
 
 
 use AmirVahedix\Media\Models\Media;
+use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
@@ -41,7 +42,27 @@ class Course extends Model
     // region relations
     public function banner()
     {
-        return $this->belongsTo(Media::class, 'banner_id', 'id');
+        return $this->belongsTo(Media::class, 'banner_id');
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(User::class, 'teacher_id');
+    }
+
+    public function categroy()
+    {
+        return $this->belongsTo(User::class, 'category_id');
     }
     // endregion relations
+
+    // region custom attributes
+    public function getThumbAttribute()
+    {
+        if (!$this->banner) return null;
+
+        $banners = (array) json_decode($this->banner->files);
+        return '/storage/'. $banners[300];
+    }
+    // endregion custom attributes
 }

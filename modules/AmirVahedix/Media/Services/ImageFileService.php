@@ -28,10 +28,10 @@ class ImageFileService
     {
         $image = Image::make(storage_path($image));
         $resized_images = [];
-        $resized_images['original'] = "$dir/$filename.$extension";
+        $resized_images['original'] = "$filename.$extension";
 
         foreach (self::$sizes as $size) {
-            $resized_images[$size] = "$dir/{$filename}_$size.$extension";
+            $resized_images[$size] = "{$filename}_$size.$extension";
             $image->resize($size, null, function ($aspect) {
                 $aspect->aspectRatio();
             })->save(storage_path("$dir/{$filename}_$size.$extension"));

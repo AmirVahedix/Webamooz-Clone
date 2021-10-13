@@ -26,7 +26,8 @@ class CourseController extends Controller
 
     public function index()
     {
-        return 'ok';
+        $courses = $this->courseRepo->index();
+        return view('Course::index', compact('courses'));
     }
 
     public function create()
