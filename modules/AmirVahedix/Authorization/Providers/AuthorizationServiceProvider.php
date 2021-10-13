@@ -4,6 +4,8 @@
 namespace AmirVahedix\Authorization\Providers;
 
 
+use AmirVahedix\Authorization\Database\Seeders\AuthorizationTablesSeeder;
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,6 +20,7 @@ class AuthorizationServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Authorization');
         $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
+        DatabaseSeeder::$seeders[] = AuthorizationTablesSeeder::class;
     }
 
     public function boot()
