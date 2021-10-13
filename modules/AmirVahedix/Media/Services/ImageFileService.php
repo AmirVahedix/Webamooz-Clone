@@ -4,7 +4,9 @@
 namespace AmirVahedix\Media\Services;
 
 
+use AmirVahedix\Media\Models\Media;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Monolog\Formatter\ElasticaFormatter;
 
@@ -38,5 +40,12 @@ class ImageFileService
         }
 
         return $resized_images;
+    }
+
+    public static function delete(Media $media)
+    {
+        foreach (json_decode($media->files) as $file) {
+            Storage::delete('public\\'.$file);
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace AmirVahedix\Media\Services;
 
 use AmirVahedix\Media\Models\Media;
 
-class MediaUploadService
+class MediaService
 {
     public static function upload($file)
     {
@@ -33,6 +33,14 @@ class MediaUploadService
                 VideoFileService::upload($file);
                 break;
         }
+    }
 
+    public static function delete(Media $media)
+    {
+        switch ($media->type) {
+            case 'image':
+                ImageFileService::delete($media);
+                break;
+        }
     }
 }

@@ -53,11 +53,12 @@
                     <th>تعداد تایید</th>
                     <th>وضعیت دوره</th>
                     <th>عملیات</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($courses as $course)
-                    <tr role="row">
+                    <tr role="row" x-data="{modal: false}">
                         <td>{{ $course->id }}</td>
                         <td>{{ $course->priority }}</td>
                         <td><img src="{{ $course->thumb }}" alt="{{ $course->title }}" width="100"></td>
@@ -72,12 +73,28 @@
                         <td>تایید شده</td>
                         <td>{{ __($course->status) }}</td>
                         <td>
-                            <a href="" class="item-delete mlg-15" title="حذف"></a>
+                            <a href="#" class="item-delete mlg-15" x-on:click="modal=true" title="حذف"></a>
                             <a href="" class="item-reject mlg-15" title="رد"></a>
                             <a href="" class="item-lock mlg-15" title="قفل دوره"></a>
                             <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                             <a href="" class="item-confirm mlg-15" title="تایید"></a>
                             <a href="" class="item-edit " title="ویرایش"></a>
+                        </td>
+                        <td>
+                            <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="modal" x-transition.opacity>
+                                <div class="modal-content" x-on:click.outside="modal=false">
+                                    <h3>آیا از حذف این دوره اطمینان دارید؟</h3>
+                                    <p>با کلیک بر روی حذف، این دوره، سرفصل ها و تمامی جلسات آن حذف میشود.</p>
+                                    <div class="modal-actions">
+                                        <button class="btn margin-left-10" x-on:click="modal=false">انصراف</button>
+                                        <form action="{{ route('admin.courses.delete', $course->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-webamooz_net">حذف</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
