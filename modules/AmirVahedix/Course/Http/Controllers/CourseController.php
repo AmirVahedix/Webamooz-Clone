@@ -11,6 +11,7 @@ use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Media\Services\MediaService;
 use AmirVahedix\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 
 class CourseController extends Controller
 {
@@ -38,7 +39,7 @@ class CourseController extends Controller
         return view('Course::create', compact('teachers', 'categories'));
     }
 
-    public function store(CreateCourseRequest $request)
+    public function store(CreateCourseRequest $request): RedirectResponse
     {
         $banner_id = MediaService::upload($request->file('banner'))->id;
         $request->request->add([
@@ -51,7 +52,14 @@ class CourseController extends Controller
         return redirect()->route('admin.courses.index');
     }
 
-    public function delete(Course $course)
+    public function edit(Course $course)
+    {
+        $teachers = $this->userRepo->getTeachers();
+        $categories = $this->categoryRepo->all();
+        return view('Course::edit', compact('course', 'teachers', 'categories'));
+    }
+
+    public function delete(Course $course): RedirectResponse
     {
         if ($course->banner) {
             $course->banner->delete();

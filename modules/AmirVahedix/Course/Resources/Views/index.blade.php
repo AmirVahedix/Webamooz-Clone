@@ -1,6 +1,6 @@
 @extends('Dashboard::master')
 
-@section('title', 'ایجاد دوره جدید')
+@section('title', 'همه دوره‌ها')
 
 @section('breadcrumbs')
     <li><a href="{{ route('dashboard.index') }}">پیشخوان</a></li>
@@ -78,7 +78,7 @@
                             <a href="" class="item-lock mlg-15" title="قفل دوره"></a>
                             <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                             <a href="" class="item-confirm mlg-15" title="تایید"></a>
-                            <a href="" class="item-edit " title="ویرایش"></a>
+                            <a href="{{ route('admin.courses.edit', $course->id) }}" class="item-edit " title="ویرایش"></a>
                         </td>
                         <td>
                             <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="modal" x-transition.opacity>

@@ -64,5 +64,13 @@ class Course extends Model
         $banners = (array) json_decode($this->banner->files);
         return '/storage/'. $banners[300];
     }
+
+    public function getOriginalBannerAttribute()
+    {
+        if (!$this->banner) return null;
+
+        $banners = (array) json_decode($this->banner->files);
+        return '/storage/'. $banners['original'];
+    }
     // endregion custom attributes
 }
