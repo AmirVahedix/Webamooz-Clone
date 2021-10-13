@@ -26,6 +26,7 @@ class CreateCoursesTable extends Migration
             $table->unsignedBigInteger('banner_id')->nullable();
             $table->enum('type', Course::types)->default(Course::TYPE_FREE);
             $table->enum('status', Course::statuses)->default(Course::STATUS_PENDING);
+            $table->enum('confirmation_status', Course::confirmation_statuses)->default(Course::CONFIRMATION_PENDING);
             $table->text('description')->nullable();
             $table->timestamps();
 

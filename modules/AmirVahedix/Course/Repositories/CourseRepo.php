@@ -32,4 +32,11 @@ class CourseRepo
 
         return $course->update($request->all());
     }
+
+    public function updateConfirmationStatus(Course $course, string $status): bool
+    {
+        return $course->update([
+            'confirmation_status' => $status
+        ]);
+    }
 }

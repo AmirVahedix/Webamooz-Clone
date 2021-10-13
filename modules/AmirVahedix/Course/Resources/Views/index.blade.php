@@ -50,8 +50,8 @@
                     <th>تراکنش ها</th>
                     <th>نظرات</th>
                     <th>تعداد دانشجویان</th>
-                    <th>تعداد تایید</th>
-                    <th>وضعیت دوره</th>
+                    <th>وضعیت تایید</th>
+                    <th>وضعیت برگزاری</th>
                     <th>عملیات</th>
                     <th></th>
                 </tr>
@@ -70,14 +70,12 @@
                         <td><a href="course-transaction.html" class="color-2b4a83">مشاهده</a></td>
                         <td><a href="" class="color-2b4a83">مشاهده (10 نظر)</a></td>
                         <td>120</td>
-                        <td>تایید شده</td>
+                        <td>{{ __($course->confirmation_status) }}</td>
                         <td>{{ __($course->status) }}</td>
                         <td>
                             <a href="#" class="item-delete mlg-15" x-on:click="modal=true" title="حذف"></a>
-                            <a href="" class="item-reject mlg-15" title="رد"></a>
-                            <a href="" class="item-lock mlg-15" title="قفل دوره"></a>
-                            <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                            <a href="" class="item-confirm mlg-15" title="تایید"></a>
+                            <a href="{{ route('admin.courses.reject', $course->id) }}" class="item-reject mlg-15" title="رد"></a>
+                            <a href="{{ route('admin.courses.accept', $course->id) }}" class="item-confirm mlg-15" title="تایید"></a>
                             <a href="{{ route('admin.courses.edit', $course->id) }}" class="item-edit " title="ویرایش"></a>
                         </td>
                         <td>

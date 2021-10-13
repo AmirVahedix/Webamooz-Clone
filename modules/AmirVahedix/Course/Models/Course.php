@@ -19,6 +19,11 @@ class Course extends Model
     const STATUS_PENDING = 'pending';
     const STATUS_LOCKED = 'locked';
     const statuses = [self::STATUS_COMPLETED, self::STATUS_PENDING, self::STATUS_LOCKED];
+
+    const CONFIRMATION_ACCEPTED = 'accepted';
+    const CONFIRMATION_PENDING = 'waiting';
+    const CONFIRMATION_REJECTED = 'rejected';
+    const confirmation_statuses = [self::CONFIRMATION_ACCEPTED, self::CONFIRMATION_PENDING, self::CONFIRMATION_REJECTED];
     // endregion constants
 
     // region modal config
@@ -34,6 +39,7 @@ class Course extends Model
         'percent',
         'type',
         'status',
+        'confirmation_status',
         'description',
         'banner_id'
     ];

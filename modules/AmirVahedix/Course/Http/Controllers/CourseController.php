@@ -78,4 +78,20 @@ class CourseController extends Controller
         toast('دوره باموفقیت حذف شد.', 'success');
         return back();
     }
+
+    public function accept(Course $course)
+    {
+        $this->courseRepo->updateConfirmationStatus($course, Course::CONFIRMATION_ACCEPTED);
+
+        toast('وضعیت دوره باموفقیت اپدیت شد.', 'success');
+        return back();
+    }
+
+    public function reject(Course $course)
+    {
+        $this->courseRepo->updateConfirmationStatus($course, Course::CONFIRMATION_REJECTED);
+
+        toast('وضعیت دوره باموفقیت اپدیت شد.', 'success');
+        return back();
+    }
 }
