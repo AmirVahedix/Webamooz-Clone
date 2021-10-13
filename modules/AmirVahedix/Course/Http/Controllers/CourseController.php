@@ -1,10 +1,11 @@
 <?php
 
 
-namespace AmirVahedix\Course\Http\Requests;
+namespace AmirVahedix\Course\Http\Controllers;
 
 
 use AmirVahedix\Category\Repositories\CategoryRepo;
+use AmirVahedix\Course\Http\Requests\CreateCourseRequest;
 use AmirVahedix\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
 
@@ -29,5 +30,10 @@ class CourseController extends Controller
         $teachers = $this->userRepo->getTeachers();
         $categories = $this->categoryRepo->all();
         return view('Course::create', compact('teachers', 'categories'));
+    }
+
+    public function store(CreateCourseRequest $request)
+    {
+        dd($request->validated());
     }
 }

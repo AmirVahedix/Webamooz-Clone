@@ -10,11 +10,14 @@
 
 @section('content')
     <div class="main-content padding-0">
+        @if($errors->any())
+            {{ implode('', $errors->all('<div>:message</div>')) }}
+        @endif
         <p class="box__title">ایجاد دوره جدید</p>
         <div class="row no-gutters bg-white">
             <div class="col-12">
 
-                <form action="{{ route('admin.courses.store') }}" method="POST" class="padding-30">
+                <form action="{{ route('admin.courses.store') }}" method="POST" enctype="multipart/form-data" class="padding-30">
                     @csrf
 
                     <x-input name="title" class="text" placeholder="عنوان دوره" required />

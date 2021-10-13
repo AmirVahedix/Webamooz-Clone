@@ -19,7 +19,7 @@ class CreateCoursesTable extends Migration
             $table->unsignedBigInteger('teacher_id');
             $table->unsignedBigInteger('category_id')->nullable();
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->float('priority')->nullable();
             $table->string('price');
             $table->string('percent');
@@ -43,6 +43,6 @@ class CreateCoursesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('courses');
     }
 }

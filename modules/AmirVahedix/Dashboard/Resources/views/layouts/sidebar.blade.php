@@ -12,7 +12,7 @@
 
     <ul>
         @foreach(config('sidebar.items') as $item)
-            <li class="item-li {{ $item['icon'] }} {{ request()->route()->getName() == $item['url'] ? 'is-active' : '' }}">
+            <li class="item-li {{ $item['icon'] }} {{  request()->route()->getName() == $item['url'] ? 'is-active' : '' }}">
                 <a href="{{ route($item['url']) }}">{{ $item['title'] }}</a>
             </li>
         @endforeach
