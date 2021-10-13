@@ -4,11 +4,11 @@
 namespace AmirVahedix\Course\Models;
 
 
+use AmirVahedix\Media\Models\Media;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-
     // region constants
     const TYPE_FREE = 'free';
     const TYPE_PAID = 'paid';
@@ -34,6 +34,14 @@ class Course extends Model
         'type',
         'status',
         'description',
+        'banner_id'
     ];
     // endregion modal config
+
+    // region relations
+    public function banner()
+    {
+        return $this->belongsTo(Media::class, 'banner_id', 'id');
+    }
+    // endregion relations
 }
