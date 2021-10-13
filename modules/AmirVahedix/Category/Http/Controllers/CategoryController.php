@@ -22,6 +22,8 @@ class CategoryController extends Controller
 
     public function index()
     {
+        $this->authorize('manage_categories', Category::class);
+
         $categories = $this->categoryRepo->all('desc');
         return view('Category::index', [
             'categories' => $categories
@@ -30,6 +32,8 @@ class CategoryController extends Controller
 
     public function store(CreateCategoryRequest $request): RedirectResponse
     {
+        $this->authorize('manage_categories', Category::class);
+
         $this->categoryRepo->create($request);
 
         toast('دسته‌بندی باموفقیت ایجاد شد.', 'success');
@@ -38,12 +42,16 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        $this->authorize('manage_categories', Category::class);
+
         $categories = $this->categoryRepo->all('asc');
         return view('Category::edit', compact('category', 'categories'));
     }
 
     public function update(Category $category, UpdateCategoryRequest $request)
     {
+        $this->authorize('manage_categories', Category::class);
+
         $this->categoryRepo->update($category, $request);
         toast('تغییرات باموفقیت ذخیره شد.', 'success');
         return redirect(route('admin.categories.index'));
@@ -51,6 +59,8 @@ class CategoryController extends Controller
 
     public function delete(Category $category): RedirectResponse
     {
+        $this->authorize('manage_categories', Category::class);
+
         $this->categoryRepo->delete($category);
 
         toast('دسته‌بندی باموفقیت حذف شد.', 'success');

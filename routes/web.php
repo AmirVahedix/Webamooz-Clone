@@ -1,5 +1,6 @@
 <?php
 
+use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\User\Mail\VerifyCodeMail;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -21,5 +22,6 @@ Route::get('/', function () {
 })->name('index');
 
 Route::get('/test', function() {
+    \auth()->user()->givePermissionTo(Permission::PERMISSION_MANAGE_COURSES);
     return 'test';
 });

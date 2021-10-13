@@ -1,5 +1,7 @@
 {
     "manage_categories": "مدیریت دسته‌بندی ها",
     "manage_authorization": "مدیریت نقش‌های کاربری",
-    "teach": "تدریس"
+    "teach": "تدریس",
+    "manage_courses": "مدیریت دوره‌ها",
+    "super_admin": "مدیر کل"
 }
