@@ -16,6 +16,7 @@
 
                 <form action="{{ route('admin.courses.edit', $course->id) }}" method="POST" enctype="multipart/form-data" class="padding-30">
                     @csrf
+                    @method('PATCH')
 
                     <img src="{{ $course->original_banner }}" alt="{{ $course->title }}">
 
@@ -75,7 +76,7 @@
                     <x-textarea name="description" value="{{ $course->description }}" label="توضیحات دوره"/>
 
 
-                    <button class="btn btn-webamooz_net">ایجاد دوره</button>
+                    <button class="btn btn-webamooz_net">ثبت تغییرات</button>
                 </form>
             </div>
         </div>

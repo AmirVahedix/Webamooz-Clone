@@ -6,6 +6,7 @@ namespace AmirVahedix\Course\Http\Controllers;
 
 use AmirVahedix\Category\Repositories\CategoryRepo;
 use AmirVahedix\Course\Http\Requests\CreateCourseRequest;
+use AmirVahedix\Course\Http\Requests\UpdateCourseRequest;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Media\Services\MediaService;
@@ -57,6 +58,14 @@ class CourseController extends Controller
         $teachers = $this->userRepo->getTeachers();
         $categories = $this->categoryRepo->all();
         return view('Course::edit', compact('course', 'teachers', 'categories'));
+    }
+
+    public function update(Course $course, UpdateCourseRequest $request)
+    {
+        $this->courseRepo->update($course, $request);
+
+        toast('دوره باموفقیت ویرایش شد.', 'success');
+        return redirect()->route('admin.courses.index');
     }
 
     public function delete(Course $course): RedirectResponse
