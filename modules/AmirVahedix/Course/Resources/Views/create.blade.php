@@ -38,14 +38,15 @@
                     </ul>
                     <select class="custom-select" name="type" required>
                         <option value="0">نوع دوره</option>
-                        <option value="1">نقدی</option>
-                        <option value="2">رایگان</option>
+                        @foreach(\AmirVahedix\Course\Models\Course::types as $type)
+                            <option value="{{ $type }}">{{ __($type) }}</option>
+                        @endforeach
                     </select>
                     <select class="custom-select" name="status" required>
                         <option value="0">وضعیت دوره</option>
-                        <option value="1">درحال برگزاری</option>
-                        <option value="2">تکمیل</option>
-                        <option value="3">قفل شده</option>
+                        @foreach(\AmirVahedix\Course\Models\Course::statuses as $status)
+                            <option value="{{ $status }}">{{ __($status) }}</option>
+                        @endforeach
                     </select>
                     <select class="custom-select" name="category_id" required>
                         <option value="0">دسته بندی</option>

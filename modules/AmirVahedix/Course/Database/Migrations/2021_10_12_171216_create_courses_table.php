@@ -1,10 +1,11 @@
 <?php
 
+use AmirVahedix\Course\Models\Course;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatCoursesTable extends Migration
+class CreateCoursesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -22,8 +23,8 @@ class CreatCoursesTable extends Migration
             $table->float('priority')->nullable();
             $table->string('price');
             $table->string('percent');
-            $table->enum('type', ['free', 'paid']);
-            $table->enum('status', ['completed', 'pending', 'locked']);
+            $table->enum('type', Course::types)->default(Course::TYPE_FREE);
+            $table->enum('status', Course::statuses)->default(Course::STATUS_PENDING);
             $table->text('description');
             $table->timestamps();
 
