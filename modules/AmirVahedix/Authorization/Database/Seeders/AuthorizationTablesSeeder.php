@@ -2,23 +2,23 @@
 
 namespace AmirVahedix\Authorization\Database\Seeders;
 
+use AmirVahedix\Authorization\Models\Permission;
+use AmirVahedix\Authorization\Models\Role;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission as SpatiePermission;
+use Spatie\Permission\Models\Role as SpatieRole;
 
 class AuthorizationTablesSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        Permission::findOrCreate('manage_categories');
-        Permission::findOrCreate('manage_authorization');
-        Permission::findOrCreate('teach');
+        foreach (Permission::permissions as $permission) {
+            SpatiePermission::findOrCreate($permission);
+        }
 
-        Role::findOrCreate('teacher')->givePermissionTo(['teach']);
+        foreach (Role::roles as $role => $permissions) {
+            SpatieRole::findOrCreate($role)
+                ->givePermissionTo($permissions);
+        }
     }
 }
