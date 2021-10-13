@@ -28,7 +28,7 @@
                     <select name="teacher_id" class="custom-select" required>
                         <option value="0">انتخاب مدرس دوره</option>
                         @foreach($teachers as $teacher)
-                            <option value="1">محمد نیکو</option>
+                            <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                         @endforeach
                     </select>
                     <ul class="tags" style="margin-top: 8px">
@@ -49,9 +49,9 @@
                     </select>
                     <select class="custom-select" name="category_id" required>
                         <option value="0">دسته بندی</option>
-                        <option value="1">برنامه نویسی</option>
-                        <option value="2">گرافیک</option>
-                        <option value="3">کسب کار</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                        @endforeach
                     </select>
                     <div class="file-upload">
                         <div class="i-file-upload">

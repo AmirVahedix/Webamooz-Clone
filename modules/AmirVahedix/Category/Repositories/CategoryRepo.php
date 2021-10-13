@@ -8,7 +8,7 @@ use AmirVahedix\Category\Models\Category;
 
 class CategoryRepo
 {
-    public function all($order)
+    public function all($order = 'asc')
     {
         return Category::orderBy('created_at', $order)->get();
     }
