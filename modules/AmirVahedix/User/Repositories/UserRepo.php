@@ -17,4 +17,9 @@ class UserRepo
     {
         return User::whereEmail($email)->first();
     }
+
+    public function getTeachers()
+    {
+        return [];
+    }
 }

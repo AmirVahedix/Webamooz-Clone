@@ -15,6 +15,7 @@ class CourseServiceProvider extends ServiceProvider
             ->group(__DIR__.'/../Routes/CourseRoutes.php');
 
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
+        $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Course');
     }
 
     public function boot()
