@@ -8,6 +8,11 @@ use AmirVahedix\User\Models\User;
 
 class UserRepo
 {
+    public function paginate($per_page = 25)
+    {
+        return User::latest()->paginate($per_page);
+    }
+
     public function find($id)
     {
         return User::findOrFail($id);

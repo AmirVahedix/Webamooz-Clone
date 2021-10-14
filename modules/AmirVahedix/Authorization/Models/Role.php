@@ -6,11 +6,16 @@ namespace AmirVahedix\Authorization\Models;
 
 class Role extends \Spatie\Permission\Models\Role
 {
-    const ROLE_TEACHER = 'teacher';
+    const ROLE_TEACHER = 'مدرس';
+    const ROLE_SUPER_ADMIN = 'مدیر کل';
 
     const roles = [
         self::ROLE_TEACHER => [
-            Permission::PERMISSION_TEACH
+            Permission::PERMISSION_TEACH,
+            Permission::PERMISSION_MANAGE_OWN_COURSES,
+        ],
+        self::ROLE_SUPER_ADMIN => [
+            Permission::PERMISSION_SUPER_ADMIN
         ]
     ];
 }

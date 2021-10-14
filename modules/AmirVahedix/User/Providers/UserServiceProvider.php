@@ -12,9 +12,14 @@ class UserServiceProvider extends ServiceProvider {
 
         $this->loadMigrationsFrom(__DIR__.'/../Database/migrations');
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'User');
+        $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
     }
 
     public function boot () {
-
+        config()->set('sidebar.items.users', [
+            'icon' => 'i-users',
+            'title' => 'کاربران',
+            'url' => 'admin.users.index'
+        ]);
     }
 }

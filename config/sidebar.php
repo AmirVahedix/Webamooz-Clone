@@ -6,5 +6,6 @@ return [
         'courses' => [],
         'categories' => [],
         'authorization' => [],
+        'users' => [],
     ]
 ];

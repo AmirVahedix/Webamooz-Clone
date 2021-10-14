@@ -5,6 +5,7 @@ use AmirVahedix\User\Http\Controllers\Auth\LoginController;
 use AmirVahedix\User\Http\Controllers\Auth\RegisterController;
 use AmirVahedix\User\Http\Controllers\Auth\ResetPasswordController;
 use AmirVahedix\User\Http\Controllers\Auth\VerificationController;
+use AmirVahedix\User\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Authentication Routes...
@@ -36,3 +37,12 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])
 Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
 Route::post('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+
+
+Route::prefix('admin')->name('admin.')->group(function() {
+    Route::resource('users', UserController::class);
+    Route::patch('user/{user}/syncRoles', [UserController::class, 'syncRoles'])->name('users.syncRoles');
+});
+
+
+
