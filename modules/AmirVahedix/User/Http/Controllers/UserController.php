@@ -40,6 +40,14 @@ class UserController extends Controller
         return redirect(route('admin.users.index'));
     }
 
+    public function delete(User $user)
+    {
+        $user->delete();
+
+        toast('کاربر باموفقیت حذف شد.', 'success');
+        return redirect(route('admin.users.index'));
+    }
+
     public function syncRoles(User $user, Request $request)
     {
         $this->authorize('manage_user_roles', User::class);
@@ -47,6 +55,18 @@ class UserController extends Controller
         $user->syncRoles($request->get('roles'));
 
         toast('تغییرات باموفقیت اعمال شد.', 'success');
+        return redirect()->route('admin.users.index');
+    }
+
+    public function banToggle(User $user)
+    {
+        if ($user->status == User::STATUS_ACTIVE) {
+            $user->update(['status' => User::STATUS_BAN ]);
+            toast('کاربر بن شد.', 'success');
+        } else if ($user->status == User::STATUS_BAN) {
+            $user->update(['status' => User::STATUS_ACTIVE ]);
+            toast('کاربر فعال شد.', 'success');
+        }
         return redirect()->route('admin.users.index');
     }
 }

@@ -47,6 +47,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
     Route::delete('users/{user}', [UserController::class, 'delete'])->name('users.destroy');
 
+    Route::get('user/{user}/ban/toggle', [UserController::class, 'banToggle'])->name('users.ban.toggle');
     Route::patch('user/{user}/syncRoles', [UserController::class, 'syncRoles'])->name('users.syncRoles');
 });
 

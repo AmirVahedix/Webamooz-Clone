@@ -61,7 +61,11 @@
                         <td>{{ jdate($user->created_at)->format('%Y/%m/%d') }}</td>
                         <td>
                             <a href="#" class="item-delete mlg-15" x-on:click="delete_modal=true" title="حذف"></a>
-                            <a href="{{ route('admin.users.edit', $user->id) }}" class="item-lock mlg-15" title="تایید"></a>
+                            @if($user->status === \AmirVahedix\User\Models\User::STATUS_ACTIVE)
+                                <a href="{{ route('admin.users.ban.toggle', $user->id) }}" class="item-lock mlg-15" title="بن"></a>
+                            @elseif($user->status === \AmirVahedix\User\Models\User::STATUS_BAN)
+                                <a href="{{ route('admin.users.ban.toggle', $user->id) }}" class="item-lock mlg-15 text-error" title="فعالسازی"></a>
+                            @endif
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="item-edit " title="ویرایش"></a>
                         </td>
 
