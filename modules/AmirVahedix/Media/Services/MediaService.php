@@ -16,7 +16,7 @@ class MediaService
             case 'png':
             case 'jpeg':
                 return Media::create([
-                    'user_id' => auth()->id(),
+                    'user_id' => auth()->id() ?? 1,
                     'files' => json_encode(ImageFileService::upload($file)),
                     'type' => 'image',
                     'filename' => $file->getClientOriginalName()

@@ -13,5 +13,5 @@ Route::patch('/dashboard/courses/{course}', [CourseController::class, 'update'])
 
 Route::delete('/dashboard/courses/{course}', [CourseController::class, 'delete'])->name('admin.courses.delete');
 
-Route::get('/dashboard/courses/{course}/reject', [CourseController::class, 'reject'])->name('admin.courses.reject');
 Route::get('/dashboard/courses/{course}/accept', [CourseController::class, 'accept'])->name('admin.courses.accept');
+Route::get('/dashboard/courses/{course}/reject', [CourseController::class, 'reject'])->name('admin.courses.reject');

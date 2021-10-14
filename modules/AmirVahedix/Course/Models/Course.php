@@ -4,6 +4,7 @@
 namespace AmirVahedix\Course\Models;
 
 
+use AmirVahedix\Course\Database\Factories\CourseFactory;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -79,4 +80,9 @@ class Course extends Model
         return '/storage/'. $banners['original'];
     }
     // endregion custom attributes
+
+    public static function factory()
+    {
+        return new CourseFactory;
+    }
 }

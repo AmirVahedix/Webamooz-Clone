@@ -3,5 +3,6 @@
     "manage_authorization": "مدیریت نقش‌های کاربری",
     "teach": "تدریس",
     "manage_courses": "مدیریت دوره‌ها",
-    "super_admin": "مدیر کل"
+    "super_admin": "مدیر کل",
+    "manage_own_courses": "مدیریت دوره‌های خود"
 }

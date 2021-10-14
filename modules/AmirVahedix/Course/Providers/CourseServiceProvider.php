@@ -6,7 +6,7 @@ namespace AmirVahedix\Course\Providers;
 
 use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\Course\Models\Course;
-use AmirVahedix\Course\Policies\CategoryPolicy;
+use AmirVahedix\Course\Policies\CoursePolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -22,7 +22,7 @@ class CourseServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Course');
         $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
 
-        Gate::policy(Course::class, CategoryPolicy::class);
+        Gate::policy(Course::class, CoursePolicy::class);
         Gate::before(function($user) {
             return $user->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN) ? true : null;
         });

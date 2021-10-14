@@ -37,7 +37,7 @@ class CourseController extends Controller
 
     public function create()
     {
-        $this->authorize('manage_courses', Course::class);
+        $this->authorize('create_course', Course::class);
 
         $teachers = $this->userRepo->getTeachers();
         $categories = $this->categoryRepo->all();
@@ -46,7 +46,7 @@ class CourseController extends Controller
 
     public function store(CreateCourseRequest $request): RedirectResponse
     {
-        $this->authorize('manage_courses', Course::class);
+        $this->authorize('create_course', Course::class);
 
         $banner_id = MediaService::upload($request->file('banner'))->id;
         $request->request->add([
@@ -61,7 +61,7 @@ class CourseController extends Controller
 
     public function edit(Course $course)
     {
-        $this->authorize('manage_courses', Course::class);
+        $this->authorize('edit', [Course::class, $course]);
 
         $teachers = $this->userRepo->getTeachers();
         $categories = $this->categoryRepo->all();
@@ -70,7 +70,7 @@ class CourseController extends Controller
 
     public function update(Course $course, UpdateCourseRequest $request)
     {
-        $this->authorize('manage_courses', Course::class);
+        $this->authorize('edit', Course::class);
 
         $this->courseRepo->update($course, $request);
 
@@ -80,7 +80,7 @@ class CourseController extends Controller
 
     public function delete(Course $course): RedirectResponse
     {
-        $this->authorize('manage_courses', Course::class);
+        $this->authorize('delete', Course::class);
 
         if ($course->banner) {
             $course->banner->delete();
@@ -88,26 +88,26 @@ class CourseController extends Controller
         $course->delete();
 
         toast('دوره باموفقیت حذف شد.', 'success');
-        return back();
+        return redirect()->route('admin.courses.index');
     }
 
     public function accept(Course $course)
     {
-        $this->authorize('manage_courses', Course::class);
+        $this->authorize('confirm', Course::class);
 
         $this->courseRepo->updateConfirmationStatus($course, Course::CONFIRMATION_ACCEPTED);
 
         toast('وضعیت دوره باموفقیت اپدیت شد.', 'success');
-        return back();
+        return redirect()->route('admin.courses.index');
     }
 
     public function reject(Course $course)
     {
-        $this->authorize('manage_courses', Course::class);
+        $this->authorize('confirm', Course::class);
 
         $this->courseRepo->updateConfirmationStatus($course, Course::CONFIRMATION_REJECTED);
 
         toast('وضعیت دوره باموفقیت اپدیت شد.', 'success');
-        return back();
+        return redirect()->route('admin.courses.index');
     }
 }
