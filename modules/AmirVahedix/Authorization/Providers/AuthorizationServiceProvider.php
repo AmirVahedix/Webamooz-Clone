@@ -5,7 +5,11 @@ namespace AmirVahedix\Authorization\Providers;
 
 
 use AmirVahedix\Authorization\Database\Seeders\AuthorizationTablesSeeder;
+use AmirVahedix\Authorization\Models\Permission;
+use AmirVahedix\Authorization\Models\Role;
+use AmirVahedix\Authorization\Policies\RolePolicy;
 use Database\Seeders\DatabaseSeeder;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +25,11 @@ class AuthorizationServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Authorization');
         $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
         DatabaseSeeder::$seeders[] = AuthorizationTablesSeeder::class;
+
+        Gate::policy(Role::class, RolePolicy::class);
+        Gate::before(function($user) {
+            return $user->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN) ? true : null;
+        });
     }
 
     public function boot()

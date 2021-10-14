@@ -1,12 +1,11 @@
 <?php
 
-namespace AmirVahedix\Category\Policies;
+namespace App\Policies;
 
-use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\User\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CategoryPolicy
+class TestPolicy
 {
     use HandlesAuthorization;
 
@@ -18,10 +17,5 @@ class CategoryPolicy
     public function __construct()
     {
         //
-    }
-
-    public function manage_categories(User $user)
-    {
-        return $user->can(Permission::PERMISSION_MANAGE_CATEGORIES);
     }
 }

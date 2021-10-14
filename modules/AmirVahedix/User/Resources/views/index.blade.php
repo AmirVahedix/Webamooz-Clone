@@ -19,11 +19,11 @@
                     <th>شماره تلفن</th>
                     <th>ایمیل</th>
                     <th>نقش کاربری</th>
-                    <th></th>
                     <th>وضعیت تایید</th>
                     <th>وضعیت حساب</th>
                     <th>تاریخ عضویت</th>
                     <th>عملیات</th>
+                    <th></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -45,7 +45,9 @@
                                 <span>کاربر عادی</span>
                             @endif
 
-                            <a href="#" class="item-edit " x-on:click="role_modal=true"></a>
+                            @can('manage_authorization')
+                                <a href="#" class="item-edit " x-on:click="role_modal=true"></a>
+                            @endcan
                         </td>
 
                         <td>
@@ -86,7 +88,7 @@
                             <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="role_modal" x-transition.opacity>
                                 <div class="modal-content" x-on:click.outside="role_modal=false">
                                     <h3>مدیریت نقش‌های {{ $user->name }}</h3>
-                                    <p>از اینجا میتوانید نقش‌های کاربر مورد نظر را مدیریت کنید. تمامی تغییرات قابل برگشت می‌باشد.</p>
+                                    <p>لطفا نقش‌های کاربر مورد نظر را انتخاب کنید. در صورت خالی بودن، کاربر نقش عادی میگیرد.</p>
                                     <div class="modal-actions">
                                         <form action="{{ route('admin.users.syncRoles', $user->id) }}" method="POST">
                                             @csrf

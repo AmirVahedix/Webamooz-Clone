@@ -20,12 +20,16 @@ class UserController extends Controller
 
     public function index()
     {
+        $this->authorize('index_users', User::class);
+
         $users = $this->userRepo->paginate();
         return view('User::index', compact('users'));
     }
 
     public function syncRoles(User $user, Request $request)
     {
+        $this->authorize('manage_user_roles', User::class);
+
         $user->syncRoles($request->get('roles'));
 
         toast('تغییرات باموفقیت اعمال شد.', 'success');
