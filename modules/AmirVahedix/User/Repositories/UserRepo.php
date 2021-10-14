@@ -4,6 +4,7 @@
 namespace AmirVahedix\User\Repositories;
 
 
+use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\User\Models\User;
 
 class UserRepo
@@ -25,6 +26,6 @@ class UserRepo
 
     public function getTeachers()
     {
-        return User::permission('teach')->get();
+        return User::permission(Permission::PERMISSION_TEACH)->get();
     }
 }

@@ -18,7 +18,7 @@ class UserPolicy
 
     }
 
-    public function index_users(User $user)
+    public function manage_users(User $user)
     {
         return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_USERS);
     }

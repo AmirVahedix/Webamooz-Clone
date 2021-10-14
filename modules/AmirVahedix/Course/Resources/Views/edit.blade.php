@@ -14,7 +14,7 @@
         <div class="row no-gutters bg-white">
             <div class="col-12">
 
-                <form action="{{ route('admin.courses.edit', $course->id) }}" method="POST" enctype="multipart/form-data" class="padding-30">
+                <form action="{{ route('admin.courses.update', $course->id) }}" method="POST" enctype="multipart/form-data" class="padding-30">
                     @csrf
                     @method('PATCH')
 

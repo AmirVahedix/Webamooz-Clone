@@ -1,82 +1,52 @@
 @extends('Dashboard::master')
 
-@section('title', 'ویرایش دوره')
+@section('title', 'ویرایش کاربر')
 
 @section('breadcrumbs')
     <li><a href="{{ route('dashboard.index') }}">پیشخوان</a></li>
-    <li><a href="{{ route('admin.courses.index') }}">دوره ها</a></li>
-    <li><a href="#">ویرایش دوره</a></li>
+    <li><a href="{{ route('admin.courses.index') }}">کاربر ها</a></li>
+    <li><a href="#">ویرایش کاربر</a></li>
 @endsection
 
 @section('content')
     <div class="main-content padding-0">
-        <p class="box__title">ویرایش دوره</p>
+        <p class="box__title">ویرایش کاربر</p>
         <div class="row no-gutters bg-white">
             <div class="col-12">
 
-                <form action="{{ route('admin.courses.edit', $course->id) }}" method="POST" enctype="multipart/form-data" class="padding-30">
+                <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data" class="padding-30">
                     @csrf
                     @method('PATCH')
 
-                    <img src="{{ $course->original_banner }}" alt="{{ $course->title }}">
+                    <x-input name="name" value="{{ $user->name }}" class="text" placeholder="نام کاربر" />
+                    <x-input name="email" value="{{ $user->email }}" class="text" placeholder="ایمیل" ltr readonly />
+                    <x-input name="phone" value="{{ $user->phone }}" class="text" placeholder="شماره تلفن" ltr readonly />
+                    <x-input name="username" value="{{ $user->username }}" class="text" placeholder="نام کاربری" ltr />
+                    <x-input name="headline" value="{{ $user->headline }}" class="text" placeholder="عنوان" />
+                    <x-input name="bio" value="{{ $user->bio }}" class="text" placeholder="درباره" />
+                    <x-input name="website" value="{{ $user->website }}" class="text" placeholder="وبسایت" />
+                    <x-input name="linkedin" value="{{ $user->linkedin }}" class="text" placeholder="لینکداین" />
+                    <x-input name="facebook" value="{{ $user->facebook }}" class="text" placeholder="فیسبوک" />
+                    <x-input name="twitter" value="{{ $user->twitter }}" class="text" placeholder="توییتر" />
+                    <x-input name="instagram" value="{{ $user->instagram }}" class="text" placeholder="اینستاگرام" />
+                    <x-input name="youtube" value="{{ $user->youtube }}" class="text" placeholder="یوتیوب" />
+                    <x-input name="telegram" value="{{ $user->telegram }}" class="text" placeholder="تلگرام" />
 
-                    <x-input name="title" value="{{ $course->title }}" class="text" placeholder="عنوان دوره" required />
-                    <x-input name="slug" value="{{ $course->slug }}" class="text" placeholder="نام انگلیسی دوره" ltr required />
-
-                    <div class="d-flex multi-text">
-                        <x-input name="priority" value="{{ $course->priority }}" class="text text-left mlg-15" placeholder="ردیف دوره" />
-                        <x-input name="price" value="{{ $course->price }}" placeholder="مبلغ دوره" class="text-left text mlg-15" required />
-                        <x-input name="percent" value="{{ $course->percent }}" placeholder="درصد مدرس" class="text-left text" required />
+                    <div style="margin-top: 10px">
+                        <span>وضعیت ایمیل:</span>
+                        <span>{{ $user->email_verified_at ? 'تایید شده' : 'تایید نشده' }}</span>
+                    </div>
+                    <div style="margin-top: 10px">
+                        <span>وضعیت حساب:</span>
+                        <span>{{ __($user->status) }}</span>
+                        <a class="btn btn-webamooz_net">بن</a>
+                    </div>
+                    <div style="margin-top: 10px">
+                        <span>تاریخ عضویت:</span>
+                        <span>{{ jdate($user->created_at) }}</span>
                     </div>
 
-                    <x-select name="teacher_id" >
-                        <option value="">انتخاب مدرس دوره</option>
-                        @foreach($teachers as $teacher)
-                            <option value="{{ $teacher->id }}" {{ $teacher->id == $course->teacher->id ? 'selected' : '' }}>
-                                {{ $teacher->name }}
-                            </option>
-                        @endforeach
-                    </x-select>
-
-                    <ul class="tags" style="margin-top: 8px">
-                        <li class="tagAdd taglist">
-                            <input name="tags" type="text" id="search-field" placeholder="برچسب ها" />
-                        </li>
-                    </ul>
-
-                    <x-select name="type" >
-                        <option value="">نوع دوره</option>
-                        @foreach(\AmirVahedix\Course\Models\Course::types as $type)
-                            <option value="{{ $type }}" {{ $type == $course->type ? 'selected' : '' }}>
-                                {{ __($type) }}
-                            </option>
-                        @endforeach
-                    </x-select>
-
-                    <x-select name="status" >
-                        <option value="">وضعیت دوره</option>
-                        @foreach(\AmirVahedix\Course\Models\Course::statuses as $status)
-                            <option value="{{ $status }}" {{ $status == $course->status ? 'selected' : '' }}>
-                                {{ __($status) }}
-                            </option>
-                        @endforeach
-                    </x-select>
-
-                    <x-select name="category_id" >
-                        <option value="">دسته بندی</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ $category->id == $course->category_id ? 'selected' : '' }}>
-                                {{ $category->title }}
-                            </option>
-                        @endforeach
-                    </x-select>
-
-                    <x-file name="banner" label="بنر دوره" />
-
-                    <x-textarea name="description" value="{{ $course->description }}" label="توضیحات دوره"/>
-
-
-                    <button class="btn btn-webamooz_net">ثبت تغییرات</button>
+                    <button class="btn btn-webamooz_net" style="margin-top: 28px">ثبت تغییرات</button>
                 </form>
             </div>
         </div>

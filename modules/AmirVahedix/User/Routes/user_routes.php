@@ -40,7 +40,13 @@ Route::get('email/resend', [VerificationController::class, 'resend'])->name('ver
 
 
 Route::prefix('admin')->name('admin.')->group(function() {
-    Route::resource('users', UserController::class);
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+
+    Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::patch('users/{user}', [UserController::class, 'update'])->name('users.update');
+
+    Route::delete('users/{user}', [UserController::class, 'delete'])->name('users.destroy');
+
     Route::patch('user/{user}/syncRoles', [UserController::class, 'syncRoles'])->name('users.syncRoles');
 });
 

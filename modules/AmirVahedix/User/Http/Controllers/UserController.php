@@ -20,10 +20,24 @@ class UserController extends Controller
 
     public function index()
     {
-        $this->authorize('index_users', User::class);
+        $this->authorize('manage_users', User::class);
 
         $users = $this->userRepo->paginate();
         return view('User::index', compact('users'));
+    }
+
+    public function edit(User $user)
+    {
+        $this->authorize('manage_users', User::class);
+        return view('User::edit', compact('user'));
+    }
+
+    public function update(User $user, Request $request)
+    {
+        $user->update($request->all());
+
+        toast('تغییرات باموفقیت انجام شد.', 'success');
+        return redirect(route('admin.users.index'));
     }
 
     public function syncRoles(User $user, Request $request)
