@@ -22,6 +22,7 @@
                     <th>وضعیت تایید</th>
                     <th>وضعیت حساب</th>
                     <th>تاریخ عضویت</th>
+                    <th>آیپی</th>
                     <th>عملیات</th>
                     <th></th>
                     <th></th>
@@ -59,6 +60,7 @@
                         </td>
                         <td>{{ __($user->status) }}</td>
                         <td>{{ jdate($user->created_at)->format('%Y/%m/%d') }}</td>
+                        <td>{{ $user->ip }}</td>
                         <td>
                             <a href="#" class="item-delete mlg-15" x-on:click="delete_modal=true" title="حذف"></a>
                             @if($user->status === \AmirVahedix\User\Models\User::STATUS_ACTIVE)
