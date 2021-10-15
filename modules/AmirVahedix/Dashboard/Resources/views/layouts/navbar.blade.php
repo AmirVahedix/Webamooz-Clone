@@ -13,6 +13,12 @@
                 </div>
             </div>
         </div>
-        <a href="" class="logout" title="خروج"></a>
+        <div x-data>
+            <a href="#" class="logout" title="خروج" x-on:click="$refs.logoutForm.submit()"></a>
+
+            <form action="{{ route('logout') }}" method="POST" x-ref="logoutForm">
+                @csrf
+            </form>
+        </div>
     </div>
 </div>
