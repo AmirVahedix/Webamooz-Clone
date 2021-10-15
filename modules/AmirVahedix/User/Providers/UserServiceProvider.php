@@ -32,5 +32,11 @@ class UserServiceProvider extends ServiceProvider {
             'title' => 'کاربران',
             'url' => 'admin.users.index'
         ]);
+
+        config()->set('sidebar.items.profile', [
+            'icon' => 'i-user__inforamtion',
+            'title' => 'اطلاعات کاربری',
+            'url' => 'users.profile.show'
+        ]);
     }
 }

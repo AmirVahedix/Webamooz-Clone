@@ -25,13 +25,13 @@ class UserController extends Controller
         $this->authorize('manage_users', User::class);
 
         $users = $this->userRepo->paginate();
-        return view('User::index', compact('users'));
+        return view('User::admin.index', compact('users'));
     }
 
     public function edit(User $user)
     {
         $this->authorize('manage_users', User::class);
-        return view('User::edit', compact('user'));
+        return view('User::admin.edit', compact('user'));
     }
 
     public function update(User $user, Request $request)
@@ -69,20 +69,6 @@ class UserController extends Controller
             $user->update(['status' => User::STATUS_ACTIVE ]);
             toast('کاربر فعال شد.', 'success');
         }
-        return back();
-    }
-
-    public function updateAvatar(UpdateAvatarRequest $request)
-    {
-        $media = MediaService::upload($request->file('image'));
-
-        if (auth()->user()->avatar) {
-            auth()->user()->avatar->delete();
-        }
-
-        auth()->user()->update(['avatar_id' => $media->id]);
-
-        toast('عکس پروفایل باموفقیت آپدیت شد.', 'success');
         return back();
     }
 }

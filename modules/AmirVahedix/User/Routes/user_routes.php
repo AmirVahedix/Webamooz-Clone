@@ -5,6 +5,7 @@ use AmirVahedix\User\Http\Controllers\Auth\LoginController;
 use AmirVahedix\User\Http\Controllers\Auth\RegisterController;
 use AmirVahedix\User\Http\Controllers\Auth\ResetPasswordController;
 use AmirVahedix\User\Http\Controllers\Auth\VerificationController;
+use AmirVahedix\User\Http\Controllers\ProfileController;
 use AmirVahedix\User\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,4 +53,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
 });
 
 // User Profile Routes
-Route::post('users/{user}/avatar', [UserController::class, 'updateAvatar'])->name('users.avatar.update');
+Route::post('users/{user}/avatar', [ProfileController::class, 'updateAvatar'])->name('users.avatar.update');
+Route::get('users/profile', [ProfileController::class, 'show'])->name('users.profile.show');
+Route::patch('users/profile', [ProfileController::class, 'update'])->name('users.profile.update');
