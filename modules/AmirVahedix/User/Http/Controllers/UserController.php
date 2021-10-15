@@ -67,6 +67,6 @@ class UserController extends Controller
             $user->update(['status' => User::STATUS_ACTIVE ]);
             toast('کاربر فعال شد.', 'success');
         }
-        return redirect()->route('admin.users.index');
+        return back();
     }
 }
