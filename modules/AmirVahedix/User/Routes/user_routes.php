@@ -38,7 +38,7 @@ Route::get('email/verify', [VerificationController::class, 'show'])->name('verif
 Route::post('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
-
+// Admin User Routes
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
@@ -51,5 +51,5 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::patch('user/{user}/syncRoles', [UserController::class, 'syncRoles'])->name('users.syncRoles');
 });
 
-
-
+// User Profile Routes
+Route::post('users/{user}/avatar', [UserController::class, 'updateAvatar'])->name('users.avatar.update');

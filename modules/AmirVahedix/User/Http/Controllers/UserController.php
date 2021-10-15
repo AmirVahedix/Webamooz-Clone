@@ -4,6 +4,8 @@
 namespace AmirVahedix\User\Http\Controllers;
 
 
+use AmirVahedix\Media\Services\MediaService;
+use AmirVahedix\User\Http\Requests\UpdateAvatarRequest;
 use AmirVahedix\User\Models\User;
 use AmirVahedix\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
@@ -67,6 +69,20 @@ class UserController extends Controller
             $user->update(['status' => User::STATUS_ACTIVE ]);
             toast('کاربر فعال شد.', 'success');
         }
+        return back();
+    }
+
+    public function updateAvatar(UpdateAvatarRequest $request)
+    {
+        $media = MediaService::upload($request->file('image'));
+
+        if (auth()->user()->avatar) {
+            auth()->user()->avatar->delete();
+        }
+
+        auth()->user()->update(['avatar_id' => $media->id]);
+
+        toast('عکس پروفایل باموفقیت آپدیت شد.', 'success');
         return back();
     }
 }

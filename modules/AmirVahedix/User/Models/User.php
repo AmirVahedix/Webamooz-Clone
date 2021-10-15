@@ -2,11 +2,13 @@
 
 namespace AmirVahedix\User\Models;
 
+use AmirVahedix\Media\Models\Media;
 use AmirVahedix\User\Database\factories\UserFactory;
 use AmirVahedix\User\Notifications\ResetPasswordNotification;
 use AmirVahedix\User\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,22 +19,23 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
+    // region constants
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
     const STATUS_BAN = 'ban';
 
     const statuses = [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_BAN];
+    // endregion constants
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
+    // region model config
+    protected $table = 'users';
+
     protected $fillable = [
         'name',
         'email',
         'mobile',
         'username',
+        'avatar_id',
         'headline',
         'bio',
         'ip',
@@ -48,21 +51,11 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
         'status',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -71,7 +64,9 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
     {
         return new UserFactory;
     }
+    // endregion model config
 
+    // region notifications
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailNotification());
@@ -80,4 +75,22 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
     public function sendResetPasswordNotification () {
         $this->notify(new ResetPasswordNotification());
     }
+    // endregion notifications
+
+    // region relations
+    public function avatar()
+    {
+        return $this->belongsTo(Media::class, 'avatar_id');
+    }
+    // endregion relations
+
+    // region custom attributes
+    public function getUserAvatarAttribute()
+    {
+        if (!$this->avatar) return null;
+
+        $avatars = (array) json_decode($this->avatar->files);
+        return "/storage/$avatars[600]";
+    }
+    // endregion custom attributes
 }
