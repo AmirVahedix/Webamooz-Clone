@@ -5,8 +5,8 @@ namespace AmirVahedix\Course\Http\Controllers;
 
 
 use AmirVahedix\Category\Repositories\CategoryRepo;
-use AmirVahedix\Course\Http\Requests\CreateCourseRequest;
-use AmirVahedix\Course\Http\Requests\UpdateCourseRequest;
+use AmirVahedix\Course\Http\Requests\Course\CreateCourseRequest;
+use AmirVahedix\Course\Http\Requests\Course\UpdateCourseRequest;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Media\Services\MediaService;

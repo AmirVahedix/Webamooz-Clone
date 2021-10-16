@@ -17,14 +17,28 @@
             </thead>
             <tbody>
             @foreach($course->seasons as $season)
-                <tr role="row" class="">
+                <tr role="row" class="" x-data="{delete_modal: false}">
                     <td><a href="">{{ $season->number }}</a></td>
                     <td><a href="">{{ $season->title }}</a></td>
                     <td>
-                        <a href="" class="item-delete mlg-15" title="حذف"></a>
+                        <a class="item-delete mlg-15 cursor-pointer" x-on:click="delete_modal=true"></a>
+                        <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="delete_modal" x-transition.opacity>
+                            <div class="modal-content" x-on:click.outside="delete_modal=false">
+                                <h3>آیا از حذف این سرفصل اطمینان دارید؟</h3>
+                                <p>با کلیک بر روی حذف، این سرفصل حذف میشود ولی جلسات آن باقی می‌ماند.</p>
+                                <div class="modal-actions">
+                                    <button class="btn margin-left-10" x-on:click="delete_modal=false">انصراف</button>
+                                    <form action="{{ route('admin.seasons.destroy', $season->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-webamooz_net">حذف</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <a href="" class="item-reject mlg-15" title="رد"></a>
                         <a href="" class="item-confirm mlg-15" title="تایید"></a>
-                        <a href="" class="item-edit " title="ویرای÷ش"></a>
+                        <a href="{{ route('admin.seasons.edit', $season->id) }}" class="item-edit " title="ویرایش"></a>
                     </td>
                 </tr>
             @endforeach

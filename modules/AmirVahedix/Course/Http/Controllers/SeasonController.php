@@ -2,7 +2,8 @@
 
 namespace AmirVahedix\Course\Http\Controllers;
 
-use AmirVahedix\Course\Http\Requests\CreateSeasonRequest;
+use AmirVahedix\Course\Http\Requests\Season\StoreSeasonRequest;
+use AmirVahedix\Course\Http\Requests\Season\UpdateSeasonRequest;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Models\Season;
 use AmirVahedix\Course\Repositories\SeasonRepo;
@@ -18,7 +19,7 @@ class SeasonController extends Controller
         $this->seasonRepo = $seasonRepo;
     }
 
-    public function store(CreateSeasonRequest $request, Course $course)
+    public function store(StoreSeasonRequest $request, Course $course)
     {
         if (!$request->get('number')) {
             $max_number = Season::where('course_id', $course->id)->max('number');
@@ -27,6 +28,27 @@ class SeasonController extends Controller
         $this->seasonRepo->create($request, $course->id);
 
         toast('سرفصل باموفقیت ایجاد شد.', 'success');
+        return back();
+    }
+
+    public function edit(Season $season)
+    {
+        return view("Course::season.edit", compact('season'));
+    }
+
+    public function update(UpdateSeasonRequest $request, Season $season)
+    {
+        $season->update($request->validated());
+
+        toast('سرفصل باموفقیت ایجاد شد.', 'success');
+        return redirect()->route('admin.courses.details', $season->course->id);
+    }
+
+    public function delete(Season $season)
+    {
+        $season->delete();
+
+        toast('سرفصل باموفقیت حذف شد.', 'success');
         return back();
     }
 }

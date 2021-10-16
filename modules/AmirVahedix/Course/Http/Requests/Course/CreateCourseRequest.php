@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AmirVahedix\Course\Http\Requests;
+namespace AmirVahedix\Course\Http\Requests\Course;
 
 
 use AmirVahedix\Course\Models\Course;
@@ -9,7 +9,7 @@ use AmirVahedix\Course\Rules\IsTeacher;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateCourseRequest extends FormRequest
+class CreateCourseRequest extends FormRequest
 {
     public function authorize()
     {
@@ -20,12 +20,7 @@ class UpdateCourseRequest extends FormRequest
     {
         return [
             'title' => ['required'],
-            'slug' => [
-                'required',
-                'min:3',
-                Rule::unique('courses', 'slug')
-                    ->ignore(request()->route()->course->id)
-            ],
+            'slug' => ['required', 'min:3', 'unique:courses,slug'],
             'priority' => ['nullable', 'numeric'],
             'price' => ['required', 'numeric', 'min:0'],
             'percent' => ['required', 'numeric', 'min:0', 'max:100'],
@@ -33,8 +28,8 @@ class UpdateCourseRequest extends FormRequest
             'type' => ['required', Rule::in(Course::types)],
             'status' => ['required', Rule::in(Course::statuses)],
             'category_id' => ['required', 'exists:categories,id'],
-            'banner' => ['nullable', 'file', 'image', 'mimes:jpg,png,jpeg'],
-            'description' => ['nullable'],
+            'banner' => ['required', 'file', 'image', 'mimes:jpg,png,jpeg'],
+            'description' => ['nullable']
         ];
     }
 }

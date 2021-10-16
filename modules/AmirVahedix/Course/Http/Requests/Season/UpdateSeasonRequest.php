@@ -1,12 +1,12 @@
 <?php
 
 
-namespace AmirVahedix\Course\Http\Requests;
+namespace AmirVahedix\Course\Http\Requests\Season;
 
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateSeasonRequest extends FormRequest
+class UpdateSeasonRequest extends FormRequest
 {
     public function authorize()
     {
@@ -17,7 +17,7 @@ class CreateSeasonRequest extends FormRequest
     {
         return [
             'title' => ['required', 'min:3'],
-            'number' => ['nullable', 'integer'],
+            'number' => ['required', 'integer'],
         ];
     }
 
