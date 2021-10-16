@@ -21,7 +21,7 @@ class SeasonController extends Controller
 
     public function store(StoreSeasonRequest $request, Course $course)
     {
-        $this->authorize('create', Season::class);
+        $this->authorize('store', [Season::class, $course]);
 
         if (!$request->get('number')) {
             $max_number = Season::where('course_id', $course->id)->max('number');
@@ -30,7 +30,7 @@ class SeasonController extends Controller
         $this->seasonRepo->create($request, $course->id);
 
         toast('سرفصل باموفقیت ایجاد شد.', 'success');
-        return back();
+        return redirect()->route('admin.courses.details', $course->id);
     }
 
     public function edit(Season $season)
@@ -52,12 +52,12 @@ class SeasonController extends Controller
 
     public function delete(Season $season)
     {
-        $this->authorize('delete', Season::class);
+        $this->authorize('delete', [Season::class, $season]);
 
         $season->delete();
 
         toast('سرفصل باموفقیت حذف شد.', 'success');
-        return back();
+        return redirect()->route('admin.courses.details', $season->course->id);
     }
 
     public function reject(Season $season)

@@ -17,10 +17,11 @@ class SeasonPolicy
         //
     }
 
-    public function create(User $user)
+    public function store(User $user, Course $course)
     {
-        return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)
-            || $user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES);
+        if ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)) return true;
+
+        return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES) && ($course->teacher_id == $user->id);
     }
 
     public function edit(User $user, Season $season)
@@ -30,9 +31,11 @@ class SeasonPolicy
         return ($season->user_id == $user->id) && $user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES);
     }
 
-    public function delete(User $user)
+    public function delete(User $user, Season $season)
     {
-        return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES);
+        if ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)) return true;
+
+        return ($season->user_id == $user->id) && $user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES);
     }
 
     public function confirm(User $user)

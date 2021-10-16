@@ -2,7 +2,9 @@
 
 namespace AmirVahedix\Course\Models;
 
+use AmirVahedix\Course\Database\Factories\SeasonFactory;
 use AmirVahedix\User\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +22,11 @@ class Season extends Model
         'number',
         'confirmation_status',
     ];
+
+    public static function factory()
+    {
+        return new SeasonFactory();
+    }
     // endregion model config
 
     // region constants
