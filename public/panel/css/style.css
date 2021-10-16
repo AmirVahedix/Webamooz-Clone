@@ -496,11 +496,11 @@ textarea {
 }
 
 .margin-0 {
-    margin: 0;
+    margin: 0 !important;
 }
 
 .padding-0 {
-    padding: 0;
+    padding: 0 !important;
 }
 
 .mrg-0 {
@@ -1931,4 +1931,8 @@ span.tagRemove:hover {
 .modal-actions {
     margin-top: 16px;
     display: flex;
+}
+
+.align-items-center {
+    align-items: center;
 }
