@@ -19,6 +19,10 @@ class CourseServiceProvider extends ServiceProvider
             ->prefix('dashboard')
             ->group(__DIR__.'/../Routes/CourseRoutes.php');
 
+        Route::middleware(['web', 'auth', 'verified'])
+            ->prefix('dashboard/seasons')
+            ->group(__DIR__.'/../Routes/SeasonRoutes.php');
+
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Course');
         $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');

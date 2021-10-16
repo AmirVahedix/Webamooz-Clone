@@ -113,6 +113,6 @@ class CourseController extends Controller
 
     public function details(Course $course)
     {
-        return view('Course::details');
+        return view('Course::details', compact('course'));
     }
 }
