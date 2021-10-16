@@ -12,6 +12,7 @@
             <tr role="row" class="title-row">
                 <th class="p-r-90">ردیف</th>
                 <th>عنوان فصل</th>
+                <th>وضعیت</th>
                 <th>عملیات</th>
             </tr>
             </thead>
@@ -20,6 +21,7 @@
                 <tr role="row" class="" x-data="{delete_modal: false}">
                     <td><a href="">{{ $season->number }}</a></td>
                     <td><a href="">{{ $season->title }}</a></td>
+                    <td><a href="">{{ __($season->confirmation_status) }}</a></td>
                     <td>
                         <a class="item-delete mlg-15 cursor-pointer" x-on:click="delete_modal=true"></a>
                         <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="delete_modal" x-transition.opacity>
@@ -36,8 +38,12 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="" class="item-reject mlg-15" title="رد"></a>
-                        <a href="" class="item-confirm mlg-15" title="تایید"></a>
+                        @unless($season->confirmation_status == \AmirVahedix\Course\Models\Season::CONFIRMATION_REJECTED)
+                            <a href="{{ route('admin.seasons.reject', $season->id) }}" class="item-reject mlg-15" title="رد"></a>
+                        @endunless
+                        @unless($season->confirmation_status == \AmirVahedix\Course\Models\Season::CONFIRMATION_ACCEPTED)
+                            <a href="{{ route('admin.seasons.accept', $season->id) }}" class="item-confirm mlg-15" title="تایید"></a>
+                        @endunless
                         <a href="{{ route('admin.seasons.edit', $season->id) }}" class="item-edit " title="ویرایش"></a>
                     </td>
                 </tr>

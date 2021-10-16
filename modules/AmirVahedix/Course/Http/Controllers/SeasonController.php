@@ -51,4 +51,20 @@ class SeasonController extends Controller
         toast('سرفصل باموفقیت حذف شد.', 'success');
         return back();
     }
+
+    public function reject(Season $season)
+    {
+        $season->update([ 'confirmation_status' => Season::CONFIRMATION_REJECTED ]);
+
+        toast('سرفصل باموفقیت رد شد.', 'success');
+        return back();
+    }
+
+    public function accept(Season $season)
+    {
+        $season->update([ 'confirmation_status' => Season::CONFIRMATION_ACCEPTED ]);
+
+        toast('سرفصل باموفقیت تایید شد.', 'success');
+        return back();
+    }
 }

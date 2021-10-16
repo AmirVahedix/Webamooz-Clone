@@ -23,11 +23,11 @@ class Season extends Model
     // endregion model config
 
     // region constants
-    const CONFIRMATION_PENDING = 'pending';
+    const CONFIRMATION_WAITING = 'waiting';
     const CONFIRMATION_ACCEPTED = 'accepted';
     const CONFIRMATION_REJECTED = 'rejected';
 
-    const confirmation_statuses = [self::CONFIRMATION_PENDING, self::CONFIRMATION_ACCEPTED, self::CONFIRMATION_REJECTED];
+    const confirmation_statuses = [self::CONFIRMATION_WAITING, self::CONFIRMATION_ACCEPTED, self::CONFIRMATION_REJECTED];
     // endregion constants
 
     // region relations

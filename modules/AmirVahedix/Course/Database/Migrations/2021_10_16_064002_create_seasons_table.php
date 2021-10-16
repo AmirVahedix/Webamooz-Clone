@@ -21,7 +21,7 @@ class CreateSeasonsTable extends Migration
             $table->string('title');
             $table->integer('number')->unsigned();
             $table->enum('confirmation_status', Season::confirmation_statuses)
-                ->default(Season::CONFIRMATION_PENDING);
+                ->default(Season::CONFIRMATION_WAITING);
 
 
             $table->timestamps();
