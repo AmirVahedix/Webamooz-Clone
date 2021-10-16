@@ -15,6 +15,12 @@ class CourseRepo
         return Course::orderBy('created_at', $order)->get();
     }
 
+    public function indexOwnCourses($order = 'desc')
+    {
+        return Course::where('teacher_id', auth()->id())->orderBy('created_at', $order)->get();
+    }
+
+
     public function create($request)
     {
         return Course::create($request->all());

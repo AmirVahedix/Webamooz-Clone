@@ -4,6 +4,7 @@
 namespace AmirVahedix\Course\Http\Controllers;
 
 
+use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\Category\Repositories\CategoryRepo;
 use AmirVahedix\Course\Http\Requests\Course\CreateCourseRequest;
 use AmirVahedix\Course\Http\Requests\Course\UpdateCourseRequest;
@@ -31,7 +32,14 @@ class CourseController extends Controller
     {
         $this->authorize('manage_courses', Course::class);
 
-        $courses = $this->courseRepo->index();
+        $courses = [];
+
+        if (auth()->user()->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)) {
+            $courses = $this->courseRepo->index();
+        } else if (auth()->user()->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES)) {
+            $courses = $this->courseRepo->indexOwnCourses();
+        }
+
         return view('Course::index', compact('courses'));
     }
 
@@ -61,7 +69,7 @@ class CourseController extends Controller
 
     public function edit(Course $course)
     {
-        $this->authorize('edit', [Course::class, $course]);
+        $this->authorize('edit_course', [Course::class, $course]);
 
         $teachers = $this->userRepo->getTeachers();
         $categories = $this->categoryRepo->all();
@@ -70,7 +78,7 @@ class CourseController extends Controller
 
     public function update(Course $course, UpdateCourseRequest $request)
     {
-        $this->authorize('edit', Course::class);
+        $this->authorize('edit_course', Course::class);
 
         $this->courseRepo->update($course, $request);
 
@@ -80,7 +88,7 @@ class CourseController extends Controller
 
     public function delete(Course $course): RedirectResponse
     {
-        $this->authorize('delete', Course::class);
+        $this->authorize('delete_course', Course::class);
 
         if ($course->banner) {
             $course->banner->delete();
@@ -113,6 +121,8 @@ class CourseController extends Controller
 
     public function details(Course $course)
     {
+        $this->authorize('details', [Course::class, $course]);
+
         return view('Course::details', compact('course'));
     }
 }

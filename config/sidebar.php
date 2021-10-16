@@ -7,5 +7,6 @@ return [
         'categories' => [],
         'authorization' => [],
         'users' => [],
+        'profile' => [],
     ]
 ];

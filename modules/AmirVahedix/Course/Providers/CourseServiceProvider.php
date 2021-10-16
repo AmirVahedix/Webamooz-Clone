@@ -6,7 +6,9 @@ namespace AmirVahedix\Course\Providers;
 
 use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\Course\Models\Course;
+use AmirVahedix\Course\Models\Season;
 use AmirVahedix\Course\Policies\CoursePolicy;
+use AmirVahedix\Course\Policies\SeasonPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +30,8 @@ class CourseServiceProvider extends ServiceProvider
         $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
 
         Gate::policy(Course::class, CoursePolicy::class);
+        Gate::policy(Season::class, SeasonPolicy::class);
+
         Gate::before(function($user) {
             return $user->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN) ? true : null;
         });
@@ -38,7 +42,8 @@ class CourseServiceProvider extends ServiceProvider
         config()->set('sidebar.items.courses', [
             'icon' => 'i-courses',
             'title' => 'دوره ها',
-            'url' => 'admin.courses.index'
+            'url' => 'admin.courses.index',
+            'permission' => [Permission::PERMISSION_MANAGE_COURSES, Permission::PERMISSION_MANAGE_OWN_COURSES]
         ]);
     }
 }

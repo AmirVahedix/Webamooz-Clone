@@ -21,6 +21,8 @@ class SeasonController extends Controller
 
     public function store(StoreSeasonRequest $request, Course $course)
     {
+        $this->authorize('create', Season::class);
+
         if (!$request->get('number')) {
             $max_number = Season::where('course_id', $course->id)->max('number');
             $request->request->add(['number' => $max_number+1]);
@@ -33,11 +35,15 @@ class SeasonController extends Controller
 
     public function edit(Season $season)
     {
+        $this->authorize('edit', [Season::class, $season]);
+
         return view("Course::season.edit", compact('season'));
     }
 
     public function update(UpdateSeasonRequest $request, Season $season)
     {
+        $this->authorize('edit', [Season::class, $season]);
+
         $season->update($request->validated());
 
         toast('سرفصل باموفقیت ایجاد شد.', 'success');
@@ -46,6 +52,8 @@ class SeasonController extends Controller
 
     public function delete(Season $season)
     {
+        $this->authorize('delete', Season::class);
+
         $season->delete();
 
         toast('سرفصل باموفقیت حذف شد.', 'success');
@@ -54,6 +62,8 @@ class SeasonController extends Controller
 
     public function reject(Season $season)
     {
+        $this->authorize('confirm', Season::class);
+
         $season->update([ 'confirmation_status' => Season::CONFIRMATION_REJECTED ]);
 
         toast('سرفصل باموفقیت رد شد.', 'success');
@@ -62,6 +72,8 @@ class SeasonController extends Controller
 
     public function accept(Season $season)
     {
+        $this->authorize('confirm', Season::class);
+
         $season->update([ 'confirmation_status' => Season::CONFIRMATION_ACCEPTED ]);
 
         toast('سرفصل باموفقیت تایید شد.', 'success');

@@ -38,12 +38,14 @@
                                 </div>
                             </div>
                         </div>
-                        @unless($season->confirmation_status == \AmirVahedix\Course\Models\Season::CONFIRMATION_REJECTED)
-                            <a href="{{ route('admin.seasons.reject', $season->id) }}" class="item-reject mlg-15" title="رد"></a>
-                        @endunless
-                        @unless($season->confirmation_status == \AmirVahedix\Course\Models\Season::CONFIRMATION_ACCEPTED)
-                            <a href="{{ route('admin.seasons.accept', $season->id) }}" class="item-confirm mlg-15" title="تایید"></a>
-                        @endunless
+                        @can(\AmirVahedix\Authorization\Models\Permission::PERMISSION_MANAGE_COURSES)
+                            @unless($season->confirmation_status == \AmirVahedix\Course\Models\Season::CONFIRMATION_REJECTED)
+                                <a href="{{ route('admin.seasons.reject', $season->id) }}" class="item-reject mlg-15" title="رد"></a>
+                            @endunless
+                            @unless($season->confirmation_status == \AmirVahedix\Course\Models\Season::CONFIRMATION_ACCEPTED)
+                                <a href="{{ route('admin.seasons.accept', $season->id) }}" class="item-confirm mlg-15" title="تایید"></a>
+                            @endunless
+                        @endcan
                         <a href="{{ route('admin.seasons.edit', $season->id) }}" class="item-edit " title="ویرایش"></a>
                     </td>
                 </tr>

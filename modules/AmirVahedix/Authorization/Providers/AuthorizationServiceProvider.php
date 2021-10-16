@@ -37,7 +37,8 @@ class AuthorizationServiceProvider extends ServiceProvider
         config()->set('sidebar.items.authorization', [
             'icon' => 'i-authorization',
             'title' => 'نقش‌های کاربری',
-            'url' => 'admin.authorization.index'
+            'url' => 'admin.authorization.index',
+            'permission' => Permission::PERMISSION_MANAGE_AUTHORIZATION
         ]);
     }
 }

@@ -32,7 +32,8 @@ class CategoryServiceProvider extends ServiceProvider
         config()->set('sidebar.items.categories', [
             'icon' => 'i-categories',
             'title' => 'دسته‌بندی ها',
-            'url' => 'admin.categories.index'
+            'url' => 'admin.categories.index',
+            'permission' => Permission::PERMISSION_MANAGE_CATEGORIES
         ]);
     }
 }

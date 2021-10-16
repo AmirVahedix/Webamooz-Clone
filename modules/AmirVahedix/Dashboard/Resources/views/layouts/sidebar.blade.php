@@ -5,9 +5,18 @@
 
     <ul>
         @foreach(config('sidebar.items') as $item)
-            <li class="item-li {{ $item['icon'] }} {{  request()->route()->getName() == $item['url'] ? 'is-active' : '' }}">
-                <a href="{{ route($item['url']) }}">{{ $item['title'] }}</a>
-            </li>
+{{--            {{ isset($item['permission']) ? 'true': 'false' }}--}}
+{{--        {{ auth()->user()->hasPermissionTo($item['permission']) ? 'permission' : 'no-permission' }}--}}
+
+            @if(
+                    !isset($item['permission']) ||
+                    auth()->user()->hasAnyPermission($item['permission']) ||
+                    auth()->user()->hasPermissionTo(\AmirVahedix\Authorization\Models\Permission::PERMISSION_SUPER_ADMIN)
+                )
+                <li class="item-li {{ $item['icon'] }} {{  request()->route()->getName() == $item['url'] ? 'is-active' : '' }}">
+                    <a href="{{ route($item['url']) }}">{{ $item['title'] }}</a>
+                </li>
+            @endif
         @endforeach
 
 {{--        <li class="item-li i-dashboard is-active"><a href="index.html">پیشخوان</a></li>--}}
