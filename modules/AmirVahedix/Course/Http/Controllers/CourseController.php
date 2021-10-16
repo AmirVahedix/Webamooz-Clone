@@ -110,4 +110,9 @@ class CourseController extends Controller
         toast('وضعیت دوره باموفقیت اپدیت شد.', 'success');
         return redirect()->route('admin.courses.index');
     }
+
+    public function details(Course $course)
+    {
+        return view('Course::details');
+    }
 }

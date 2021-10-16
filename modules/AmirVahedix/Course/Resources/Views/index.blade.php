@@ -66,7 +66,7 @@
                         <td>{{ $course->teacher->name }}</td>
                         <td>{{ $course->price ? number_format($course->price) : 'رایگان' }}</td>
                         <td>{{ $course->percent }}%</td>
-                        <td><a href="course-detail.html" class="color-2b4a83">مشاهده</a></td>
+                        <td><a href="{{ route('admin.courses.details', $course->id) }}" class="color-2b4a83">جزئیات</a></td>
                         <td><a href="course-transaction.html" class="color-2b4a83">مشاهده</a></td>
                         <td><a href="" class="color-2b4a83">مشاهده (10 نظر)</a></td>
                         <td>120</td>

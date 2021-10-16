@@ -7,6 +7,7 @@ namespace AmirVahedix\Course\Models;
 use AmirVahedix\Course\Database\Factories\CourseFactory;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\User\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
@@ -44,6 +45,11 @@ class Course extends Model
         'description',
         'banner_id'
     ];
+
+    public static function factory()
+    {
+        return new CourseFactory;
+    }
     // endregion modal config
 
     // region relations
@@ -60,6 +66,11 @@ class Course extends Model
     public function categroy()
     {
         return $this->belongsTo(User::class, 'category_id');
+    }
+
+    public function seasons()
+    {
+        return $this->hasMany(Season::class);
     }
     // endregion relations
 
@@ -81,8 +92,5 @@ class Course extends Model
     }
     // endregion custom attributes
 
-    public static function factory()
-    {
-        return new CourseFactory;
-    }
+
 }

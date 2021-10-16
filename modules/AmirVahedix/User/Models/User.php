@@ -2,6 +2,8 @@
 
 namespace AmirVahedix\User\Models;
 
+use AmirVahedix\Course\Models\Course;
+use AmirVahedix\Course\Models\Season;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\User\Database\factories\UserFactory;
 use AmirVahedix\User\Notifications\ResetPasswordNotification;
@@ -81,6 +83,16 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
     public function avatar()
     {
         return $this->belongsTo(Media::class, 'avatar_id');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function seasons()
+    {
+        return $this->hasMany(Season::class);
     }
     // endregion relations
 

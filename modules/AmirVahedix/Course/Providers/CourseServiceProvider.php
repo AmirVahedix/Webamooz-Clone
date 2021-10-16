@@ -16,6 +16,7 @@ class CourseServiceProvider extends ServiceProvider
     public function register()
     {
         Route::middleware(['web', 'auth', 'verified'])
+            ->prefix('dashboard')
             ->group(__DIR__.'/../Routes/CourseRoutes.php');
 
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
