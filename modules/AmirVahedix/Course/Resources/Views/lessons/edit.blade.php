@@ -17,8 +17,9 @@
             <p class="box__title">ویرایش درس</p>
             <div class="row no-gutters bg-white">
             <div class="col-12">
-                <form action="{{ route('admin.lessons.store', $course->id) }}" method="POST" class="padding-30" enctype="multipart/form-data">
+                <form action="{{ route('admin.lessons.update', [$course->id, $lesson->id]) }}" method="POST" class="padding-30" enctype="multipart/form-data">
                     @csrf
+                    @method('PATCH')
 
                     <x-input name="title" value="{{ $lesson->title }}" class="text" placeholder="عنوان درس *" />
                     <x-input name="slug" value="{{ $lesson->slug }}" class="text text-left " placeholder="نام انگلیسی درس (اختیاری)" />

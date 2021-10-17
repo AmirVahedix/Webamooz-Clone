@@ -5,6 +5,7 @@ namespace AmirVahedix\Course\Http\Controllers;
 
 
 use AmirVahedix\Course\Http\Requests\Lesson\StoreLessonRequest;
+use AmirVahedix\Course\Http\Requests\Lesson\UpdateLessonRequest;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Models\Lesson;
 use AmirVahedix\Course\Repositories\LessonRepo;
@@ -45,6 +46,19 @@ class LessonController extends Controller
     {
         $seasons = $this->seasonRepo->getCourseSeasons($course);
         return view('Course::lessons.edit', compact('lesson', 'course', 'seasons'));
+    }
+
+    public function update(UpdateLessonRequest $request, Course $course, Lesson $lesson)
+    {
+        if ($request->hasFile('file')){
+            $lesson->media->delete();
+            $media = MediaService::privateUpload($request->file('file'));
+            $request->request->add(["media_id" => $media->id]);
+        }
+        $lesson->update($request->all());
+
+        toast('درس باموفقیت ویرایش شد.', 'success');
+        return redirect()->route('admin.courses.details', $course->id);
     }
 
     public function delete(Course $course, Lesson $lesson)

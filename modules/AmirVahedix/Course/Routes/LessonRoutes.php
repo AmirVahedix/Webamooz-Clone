@@ -12,7 +12,7 @@ Route::post('courses/{course}/lessons', [LessonController::class, 'store'])
 Route::get('courses/{course}/lessons/{lesson}/edit', [LessonController::class, 'edit'])
     ->name('admin.lessons.edit');
 
-Route::patch('courses/{course}/lessons/{lesson}/edit', [LessonController::class, 'update'])
+Route::patch('courses/{course}/lessons/{lesson}', [LessonController::class, 'update'])
     ->name('admin.lessons.update');
 
 Route::delete('courses/{course}/lesson/{lesson}/delete', [LessonController::class, 'delete'])

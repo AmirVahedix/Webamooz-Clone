@@ -19,7 +19,7 @@ class CreateLessonsTable extends Migration
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('season_id')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('media_id');
+            $table->unsignedBigInteger('media_id')->nullable();
             $table->string('title');
             $table->string('slug');
             $table->integer('duration')->unsigned()->nullable();
@@ -39,7 +39,7 @@ class CreateLessonsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('media_id')->references('id')->on('media')
-                ->onDelete('cascade')->onUpdate('cascade');
+                ->onDelete('set null')->onUpdate('cascade');
         });
     }
 
