@@ -22,7 +22,11 @@
                     <button class="btn confirm-btn">تایید جلسات</button>
                     <button class="btn reject-btn">رد جلسات</button>
                     <button class="btn delete-btn">حذف جلسات</button>
-
+                    <form action="{{ route('admin.lessons.delete.multiple', $course->id) }}" id="deleteMultipleLessonsForm" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" id="deleteMultipleLessonsInput" name="lessons" value="">
+                    </form>
                 </div>
                 <div class="table__box">
                     <table class="table">

@@ -11,6 +11,7 @@ use AmirVahedix\Course\Repositories\LessonRepo;
 use AmirVahedix\Course\Repositories\SeasonRepo;
 use AmirVahedix\Media\Services\MediaService;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
@@ -48,6 +49,20 @@ class LessonController extends Controller
         $lesson->delete();
 
         toast('درس باموفقیت حذف شد.', 'success');
+        return redirect()->route('admin.courses.details', $course->id);
+    }
+
+    public function multipleDelete(Course $course, Request $request)
+    {
+        $lessons = explode(',', $request->get('lessons'));
+        foreach ($lessons as $id) {
+            $lesson = Lesson::findOrFail($id);
+            if ($lesson->media)
+                $lesson->media->delete();
+            $lesson->delete();
+        }
+
+        toast('دروس باموفقیت حذف شدند.', 'success');
         return redirect()->route('admin.courses.details', $course->id);
     }
 }

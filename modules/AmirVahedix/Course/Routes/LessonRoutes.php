@@ -11,3 +11,6 @@ Route::post('courses/{course}/lessons', [LessonController::class, 'store'])
 
 Route::delete('courses/{course}/lesson/{lesson}/delete', [LessonController::class, 'delete'])
     ->name('admin.lessons.destroy');
+
+Route::delete('courses/{course}/lesson/multiple/deleteMultiple', [LessonController::class, 'multipleDelete'])
+    ->name('admin.lessons.delete.multiple');

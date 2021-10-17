@@ -4,6 +4,7 @@
 namespace AmirVahedix\Course\Models;
 
 
+use AmirVahedix\Course\Database\Factories\LessonFactory;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +39,11 @@ class Lesson extends Model
         'confirmation_status',
         'status',
     ];
+
+    public static function factory()
+    {
+        return new LessonFactory;
+    }
     // endregion model config
 
     // region relations

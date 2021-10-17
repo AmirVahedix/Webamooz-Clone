@@ -140,53 +140,30 @@ $('.checkedAll').on('click', function (e) {
     }
 });
 
-// jQuery('.delete-btn').on('click', function (e) {
-//     var allVals = [];
-//     $(".sub-checkbox:checked").each(function () {
-//         allVals.push($(this).attr('data-id'));
-//     });
-    //alert(allVals.length); return false;
-    // if (allVals.length <= 0) {
-    //     alert("یک سطر انتخاب کنید");
-    // } else {
-        //$("#loading").show();
-        // WRN_PROFILE_DELETE = "آیا مطمئن هستید که می خواهید این سطر را حذف کنید؟";
-        // var check = confirm(WRN_PROFILE_DELETE);
-        // if (check == true) {
-            //for server side
-            /*
-            var join_selected_values = allVals.join(",");
+ jQuery('.delete-btn').on('click', function (e) {
+     var allVals = [];
+     $(".sub-checkbox:checked").each(function () {
+         allVals.push($(this).attr('data-id'));
+     });
+     if (allVals.length <= 0) {
+         alert("یک سطر انتخاب کنید");
+        return false;
+     }
+     var check = confirm("آیا مطمئن هستید که می خواهید این سطر را حذف کنید؟");
+     if (check === true) {
+         console.log(allVals.join(','))
+        $("#deleteMultipleLessonsInput").val(allVals.join(','));
+         $("#deleteMultipleLessonsForm").submit();
+     }
+ });
 
-            $.ajax({
-
-                type: "POST",
-                url: "delete.php",
-                cache:false,
-                data: 'ids='+join_selected_values,
-                success: function(response)
-                {
-                    $("#loading").hide();
-                    $("#msgdiv").html(response);
-                    //referesh table
-                }
-            });*/
-            //for client side
-            // $.each(allVals, function (index, value) {
-            //     $('table tr').filter("[data-row-id='" + value + "']").remove();
-            // });
-        //
-        //
-        // }
-    // }
-// });
-
-// $('.course__detial .item-delete').on('click', function (e) {
-//     WRN_PROFILE_DELETE = "آیا مطمئن هستید که می خواهید این سطر را حذف کنید؟";
-//     var check = confirm(WRN_PROFILE_DELETE);
-//     if (check == true) {
-//         $('table tr').filter("[data-row-id='" + $(this).attr('data-id') + "']").remove();
-//     }
-// });
+ $('.course__detial .item-delete').on('click', function (e) {
+     WRN_PROFILE_DELETE = "آیا مطمئن هستید که می خواهید این سطر را حذف کنید؟";
+     var check = confirm(WRN_PROFILE_DELETE);
+     if (check == true) {
+         $('table tr').filter("[data-row-id='" + $(this).attr('data-id') + "']").remove();
+     }
+ });
 $(document).on('click touchstart', function (e) {
     var serach__box = $('.t-header-search');
     var input = $('.search-input__box');
