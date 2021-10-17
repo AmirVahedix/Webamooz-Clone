@@ -4,6 +4,7 @@
 namespace AmirVahedix\Course\Models;
 
 
+use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Lesson extends Model
@@ -37,5 +38,22 @@ class Lesson extends Model
         'status',
     ];
     // endregion model config
+
+    // region relations
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    public function season()
+    {
+        return $this->belongsTo(Season::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    // endregion relations
 }
 

@@ -5,7 +5,7 @@
 @section('breadcrumbs')
     <li><a href="{{ route('dashboard.index') }}">پیشخوان</a></li>
     <li><a href="{{ route('admin.courses.index') }}">دوره ها</a></li>
-    <li><a href="#">جزئیات دوره</a></li>
+    <li><a href="#">{{ $course->title }}</a></li>
 @endsection
 
 @section('content')
@@ -14,7 +14,8 @@
             <div class="col-8 bg-white padding-30 margin-left-10 margin-bottom-15 border-radius-3">
                 <div class="margin-bottom-30 align-items-center flex-wrap font-size-14 d-flex bg-white padding-0">
                     <p class="mlg-15">دوره مقدماتی تا پیشرفته لاراول</p>
-                    <a class="btn btn-webamooz_net" href="{{ route('admin.lessons.create', $course->id) }}">آپلود جلسه جدید</a>
+                    <a class="btn btn-webamooz_net" href="{{ route('admin.lessons.create', $course->id) }}">آپلود جلسه
+                        جدید</a>
                 </div>
                 <div class="d-flex item-center flex-wrap margin-bottom-15 operations__btns">
                     <button class="btn all-confirm-btn">تایید همه جلسات</button>
@@ -43,72 +44,30 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr role="row" class="" data-row-id="1">
-                            <td>
-                                <label class="ui-checkbox">
-                                    <input type="checkbox" class="sub-checkbox" data-id="1">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td><a href="">1</a></td>
-                            <td><a href="">دوره مقدماتی تا پیشرفته لاراول</a></td>
-                            <td>بخش بک اند پروژه</td>
-                            <td>12 دقیقه</td>
-                            <td>تایید شده</td>
-                            <td>همه</td>
-                            <td>
-                                <a href="" class="item-delete mlg-15" data-id="1" href="javascript: void(0)"
-                                   title="حذف"></a>
-                                <a href="" class="item-reject mlg-15" title="رد"></a>
-                                <a href="" class="item-lock mlg-15" title="قفل "></a>
-                                <a href="" class="item-confirm mlg-15" title="تایید"></a>
-                                <a href="" class="item-edit " title="ویرایش"></a>
-                            </td>
-                        </tr>
-
-                        <tr role="row" data-row-id="2">
-                            <td>
-                                <label class="ui-checkbox">
-                                    <input type="checkbox" class="sub-checkbox" data-id="2">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td><a href="">1</a></td>
-                            <td><a href="">دوره مقدماتی تا پیشرفته لاراول</a></td>
-                            <td>بخش بک اند پروژه</td>
-                            <td>12 دقیقه</td>
-                            <td>تایید شده</td>
-                            <td>همه</td>
-                            <td>
-                                <a href="" class="item-delete mlg-15" title="حذف"></a>
-                                <a href="" class="item-reject mlg-15" title="رد"></a>
-                                <a href="" class="item-lock mlg-15" title="قفل "></a>
-                                <a href="" class="item-confirm mlg-15" title="تایید"></a>
-                                <a href="" class="item-edit " title="ویرایش"></a>
-                            </td>
-                        </tr>
-                        <tr role="row" data-row-id="3">
-                            <td>
-                                <label class="ui-checkbox">
-                                    <input type="checkbox" class="sub-checkbox" data-id="3">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td><a href="">1</a></td>
-                            <td><a href="">دوره مقدماتی تا پیشرفته لاراول</a></td>
-                            <td>بخش بک اند پروژه</td>
-                            <td>12 دقیقه</td>
-                            <td>تایید شده</td>
-                            <td>شرکت کنندگان</td>
-                            <td>
-                                <a href="" class="item-delete mlg-15" data-id="2" href="javascript: void(0)"
-                                   title="حذف"></a>
-                                <a href="" class="item-reject mlg-15" title="رد"></a>
-                                <a href="" class="item-lock mlg-15" title="قفل "></a>
-                                <a href="" class="item-confirm mlg-15" title="تایید"></a>
-                                <a href="" class="item-edit " title="ویرایش"></a>
-                            </td>
-                        </tr>
+                        @foreach($course->lessons as $lesson)
+                            <tr role="row" class="" data-row-id="{{ $lesson->id }}">
+                                <td>
+                                    <label class="ui-checkbox">
+                                        <input type="checkbox" class="sub-checkbox" data-id="{{ $lesson->id }}">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td>{{ $lesson->number }}</td>
+                                <td>{{ $lesson->title }}</td>
+                                <td>{{ $lesson->season->title ?? '' }}</td>
+                                <td>{{ $lesson->duration }} دقیقه</td>
+                                <td>{{ __($lesson->confirmation_status) }}</td>
+                                <td>{{ $lesson->free ? 'همه' : 'شرکت کنندگان' }}</td>
+                                <td>
+                                    <a href="" class="item-delete mlg-15" data-id="1" href="javascript: void(0)"
+                                       title="حذف"></a>
+                                    <a href="" class="item-reject mlg-15" title="رد"></a>
+                                    <a href="" class="item-lock mlg-15" title="قفل "></a>
+                                    <a href="" class="item-confirm mlg-15" title="تایید"></a>
+                                    <a href="" class="item-edit " title="ویرایش"></a>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

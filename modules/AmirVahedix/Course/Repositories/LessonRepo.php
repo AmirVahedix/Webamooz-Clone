@@ -16,12 +16,12 @@ class LessonRepo
         return Lesson::create([
             'title' => $request->get('title'),
             'slug' => $request->get('slug')
-                ? $request->get('slug')
+                ? Str::slug($request->get('slug'))
                 : Str::slug($request->get('title')),
             'duration' => $request->get('duration'),
             'number' => $request->get('number')
                 ? $request->get('number')
-                : Lesson::where('course_id', $request->course_id)->max('number') ?? 1,
+                : Lesson::where('course_id', $course->id)->get()->pluck('number')->max() + 1 ?? 1,
             'description' => $request->get('description'),
             'season_id' => $request->get('season'),
             'course_id' => $course->id,

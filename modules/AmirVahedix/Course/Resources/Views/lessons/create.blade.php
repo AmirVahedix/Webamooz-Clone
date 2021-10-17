@@ -1,6 +1,6 @@
 @extends('Dashboard::master')
 
-@section('title', 'ایجاد دوره جدید')
+@section('title', 'ایجاد درس جدید')
 
 @section('breadcrumbs')
     <li><a href="{{ route('dashboard.index') }}">پیشخوان</a></li>

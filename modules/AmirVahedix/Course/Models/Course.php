@@ -72,6 +72,11 @@ class Course extends Model
     {
         return $this->hasMany(Season::class);
     }
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
     // endregion relations
 
     // region custom attributes
@@ -91,6 +96,4 @@ class Course extends Model
         return '/storage/'. $banners['original'];
     }
     // endregion custom attributes
-
-
 }
