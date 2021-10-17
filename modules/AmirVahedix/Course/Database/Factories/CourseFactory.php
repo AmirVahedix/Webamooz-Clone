@@ -26,7 +26,7 @@ class CourseFactory extends Factory
             'percent' => $this->faker->numberBetween(1, 100),
             'teacher_id' => User::factory()->create()->id,
             'category_id' => Category::factory()->create()->id,
-            'banner_id' => MediaService::upload(UploadedFile::fake()->image('test.png'))->id,
+            'banner_id' => MediaService::publicUpload(UploadedFile::fake()->image('test.png'))->id,
             'type' => $this->faker->randomElement(Course::types),
             'status' => $this->faker->randomElement(Course::statuses),
             'confirmation_status' => $this->faker->randomElement(Course::confirmation_statuses),

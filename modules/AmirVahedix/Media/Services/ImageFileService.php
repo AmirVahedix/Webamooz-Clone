@@ -4,22 +4,19 @@
 namespace AmirVahedix\Media\Services;
 
 
+use AmirVahedix\Media\Contracts\MediaServiceContract;
 use AmirVahedix\Media\Models\Media;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Monolog\Formatter\ElasticaFormatter;
 
-class ImageFileService
+class ImageFileService implements MediaServiceContract
 {
     protected static $sizes = ['300', '600'];
 
-    public static function upload($file)
+    public static function upload($file, $filename, $extension, $dir): array
     {
-        $filename = uniqid();
-        $extension = $file->getClientOriginalExtension();
-        $dir = 'public\\';
-
         Storage::putFileAs($dir, $file, "$filename.$extension");
         $path = "$dir/$filename.$extension";
 

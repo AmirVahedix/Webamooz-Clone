@@ -26,7 +26,7 @@ class ProfileController extends Controller
 
     public function updateAvatar(UpdateAvatarRequest $request)
     {
-        $media = MediaService::upload($request->file('image'));
+        $media = MediaService::publicUpload($request->file('image'));
 
         if (auth()->user()->avatar) {
             auth()->user()->avatar->delete();

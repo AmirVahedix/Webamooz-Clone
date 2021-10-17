@@ -31,7 +31,7 @@ class LessonController extends Controller
 
     public function store(StoreLessonRequest $request, Course $course)
     {
-        $media = MediaService::upload($request->file('file'));
+        $media = MediaService::privateUpload($request->file('file'));
         $request->request->add([ 'media_id' => $media->id ]);
 
         $this->lessonRepo->store($course, $request);

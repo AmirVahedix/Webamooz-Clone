@@ -56,7 +56,7 @@ class CourseController extends Controller
     {
         $this->authorize('create_course', Course::class);
 
-        $banner_id = MediaService::upload($request->file('banner'))->id;
+        $banner_id = MediaService::publicUpload($request->file('banner'))->id;
         $request->request->add([
             'banner_id' => $banner_id
         ]);

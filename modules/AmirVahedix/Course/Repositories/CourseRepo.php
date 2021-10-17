@@ -4,7 +4,7 @@
 namespace AmirVahedix\Course\Repositories;
 
 
-use AmirVahedix\Course\Http\Requests\UpdateCourseRequest;
+use AmirVahedix\Course\Http\Requests\Course\UpdateCourseRequest;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Media\Services\MediaService;
 
@@ -30,7 +30,7 @@ class CourseRepo
     {
         if ($request->has('banner')) {
             $course->banner->delete();
-            $banner_id = MediaService::upload($request->file('banner'))->id;
+            $banner_id = MediaService::publicUpload($request->file('banner'))->id;
             $request->request->add(['banner_id' => $banner_id]);
         } else {
             $request->request->add(['banner_id' => $course->banner_id]);

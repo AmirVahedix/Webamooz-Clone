@@ -4,39 +4,37 @@
 namespace AmirVahedix\Media\Services;
 
 
+use AmirVahedix\Media\Contracts\MediaServiceContract;
 use AmirVahedix\Media\Models\Media;
+use Illuminate\Http\UploadedFile;
 
 class MediaService
 {
-    public static function upload($file)
+    private static $dir;
+
+    public static function privateUpload(UploadedFile $file)
     {
-        $extension = strtolower($file->getClientOriginalExtension());
-        switch ($extension) {
-            case 'jpg':
-            case 'png':
-            case 'jpeg':
-                return Media::create([
-                    'user_id' => auth()->id() ?? 1,
-                    'files' => json_encode(ImageFileService::upload($file)),
-                    'type' => 'image',
-                    'filename' => $file->getClientOriginalName()
-                ]);
-            case 'zip':
-            case 'rar':
-            case 'tar':
-                ZipFileService::upload($file);
-                break;
-            case 'avi':
-            case 'mp4':
-            case 'mpeg':
-            case 'mkv':
-                return Media::create([
-                    'user_id' => auth()->id() ?? 1,
-                    'files' => json_encode(VideoFileService::upload($file)),
-                    'type' => 'video',
-                    'filename' => $file->getClientOriginalName()
-                ]);
+        self::$dir = "private/";
+        return self::upload($file);
+    }
+
+    public static function publicUpload(UploadedFile $file)
+    {
+        self::$dir = "public/";
+        return self::upload($file);
+    }
+
+    private static function upload($file)
+    {
+        $extension = self::getExtension($file);
+
+        foreach (config('media.types') as $key => $type) {
+            if (in_array($extension, $type['extensions'])) {
+                return self::CreateMedia($type['handler'], $file, $key);
+            }
         }
+
+        return null;
     }
 
     public static function delete(Media $media)
@@ -46,5 +44,32 @@ class MediaService
                 ImageFileService::delete($media);
                 break;
         }
+    }
+
+    private static function getExtension($file): string
+    {
+        return strtolower($file->getClientOriginalExtension());
+    }
+
+    private static function generateFilename()
+    {
+        return uniqid();
+    }
+
+    private static function CreateMedia(MediaServiceContract $handler, UploadedFile $file, string $key)
+    {
+        return Media::create([
+            'user_id' => auth()->id() ?? 1,
+            'files' => json_encode(
+                $handler::upload(
+                    $file,
+                    self::generateFilename(),
+                    self::getExtension($file),
+                    self::$dir
+                )
+            ),
+            'type' => $key,
+            'filename' => $file->getClientOriginalName()
+        ]);
     }
 }
