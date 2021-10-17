@@ -4,6 +4,7 @@
 namespace AmirVahedix\Course\Models;
 
 
+use AmirVahedix\Media\Models\Media;
 use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -53,6 +54,11 @@ class Lesson extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function media()
+    {
+        return $this->belongsTo(Media::class);
     }
     // endregion relations
 }

@@ -41,11 +41,12 @@
                             <th>وضعیت تایید</th>
                             <th>سطح دسترسی</th>
                             <th>عملیات</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($course->lessons as $lesson)
-                            <tr role="row" class="" data-row-id="{{ $lesson->id }}">
+                            <tr role="row" class="" data-row-id="{{ $lesson->id }}" x-data="{delete_modal:false}">
                                 <td>
                                     <label class="ui-checkbox">
                                         <input type="checkbox" class="sub-checkbox" data-id="{{ $lesson->id }}">
@@ -59,12 +60,27 @@
                                 <td>{{ __($lesson->confirmation_status) }}</td>
                                 <td>{{ $lesson->free ? 'همه' : 'شرکت کنندگان' }}</td>
                                 <td>
-                                    <a href="" class="item-delete mlg-15" data-id="1" href="javascript: void(0)"
-                                       title="حذف"></a>
+                                    <a x-on:click="delete_modal=true" class="item-delete mlg-15 cursor-pointer" title="حذف"></a>
                                     <a href="" class="item-reject mlg-15" title="رد"></a>
                                     <a href="" class="item-lock mlg-15" title="قفل "></a>
                                     <a href="" class="item-confirm mlg-15" title="تایید"></a>
                                     <a href="" class="item-edit " title="ویرایش"></a>
+                                </td>
+                                <td>
+                                    <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="delete_modal" x-transition.opacity>
+                                        <div class="modal-content" x-on:click.outside="delete_modal=false">
+                                            <h3>آیا از حذف این جلسه اطمینان دارید؟</h3>
+                                            <p>با کلیک بر روی حذف، این جلسه و فایل های مربوط به آن حذف میشود.</p>
+                                            <div class="modal-actions">
+                                                <button class="btn margin-left-10" x-on:click="delete_modal=false">انصراف</button>
+                                                <form action="{{ route('admin.lessons.destroy', [$lesson->course->id, $lesson->id]) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-webamooz_net">حذف</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

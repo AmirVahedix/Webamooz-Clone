@@ -42,10 +42,10 @@ class MediaService
 
     public static function delete(Media $media)
     {
-        switch ($media->type) {
-            case 'image':
-                ImageFileService::delete($media);
-                break;
+        foreach (config('media.types') as $key => $type) {
+            if ($media->type == $key) {
+                return $type['handler']::delete($media);
+            }
         }
     }
 

@@ -39,4 +39,15 @@ class LessonController extends Controller
         toast('درس باموفقیت ایجاد شد.', 'success');
         return redirect()->route('admin.courses.details', $course->id);
     }
+
+    public function delete(Course $course, Lesson $lesson)
+    {
+        if ($lesson->media)
+            $lesson->media->delete();
+
+        $lesson->delete();
+
+        toast('درس باموفقیت حذف شد.', 'success');
+        return redirect()->route('admin.courses.details', $course->id);
+    }
 }

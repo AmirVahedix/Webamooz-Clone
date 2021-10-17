@@ -1,7 +1,9 @@
 <?php
 
+use AmirVahedix\Media\Models\Media;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 /*
@@ -27,6 +29,10 @@ Artisan::command('storage:clear', function() {
         if ($file == '.gitignore') continue;
         $private_storage->delete($file);
     }
+
+    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+    DB::table('media')->truncate();
+    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
     $this->comment('storage cleared successfully');
 })->purpose('Clear Uploaded files in storage');
