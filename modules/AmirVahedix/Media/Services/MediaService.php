@@ -11,16 +11,19 @@ use Illuminate\Http\UploadedFile;
 class MediaService
 {
     private static $dir;
+    private static $is_private;
 
     public static function privateUpload(UploadedFile $file)
     {
         self::$dir = "private";
+        self::$is_private = true;
         return self::upload($file);
     }
 
     public static function publicUpload(UploadedFile $file)
     {
         self::$dir = "public";
+        self::$is_private = false;
         return self::upload($file);
     }
 
@@ -59,7 +62,8 @@ class MediaService
                 )
             ),
             'type' => $key,
-            'filename' => $file->getClientOriginalName()
+            'filename' => $file->getClientOriginalName(),
+            'is_private' => self::$is_private
         ]);
     }
 

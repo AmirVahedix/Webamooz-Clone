@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Monolog\Formatter\ElasticaFormatter;
 
-class ImageFileService implements MediaServiceContract
+class ImageFileService extends DefaultFileService implements MediaServiceContract
 {
     protected static $sizes = ['300', '600'];
 
@@ -40,10 +40,4 @@ class ImageFileService implements MediaServiceContract
         return $resized_images;
     }
 
-    public static function delete(Media $media)
-    {
-        foreach (json_decode($media->files) as $file) {
-            Storage::delete('public\\'.$file);
-        }
-    }
 }

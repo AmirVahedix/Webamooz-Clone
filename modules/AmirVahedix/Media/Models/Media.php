@@ -12,7 +12,7 @@ class Media extends Model
     // region model config
     protected $table = 'media';
 
-    protected $fillable = ['user_id', 'files', 'type', 'filename'];
+    protected $fillable = ['user_id', 'files', 'type', 'filename', 'is_private'];
     // endregion model config
 
     // region overrides
