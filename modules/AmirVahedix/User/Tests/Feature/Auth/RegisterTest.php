@@ -29,7 +29,7 @@ class RegisterTest extends TestCase
     }
 
     public function test_user_must_verify_email () {
-        $user = User::factory()->create();
+        $user = User::factory()->unverified()->create();
         $this->post(route('register'), User::factory()->make()->toArray());
 
         $response = $this

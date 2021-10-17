@@ -14,13 +14,13 @@ class MediaService
 
     public static function privateUpload(UploadedFile $file)
     {
-        self::$dir = "private/";
+        self::$dir = "private";
         return self::upload($file);
     }
 
     public static function publicUpload(UploadedFile $file)
     {
-        self::$dir = "public/";
+        self::$dir = "public";
         return self::upload($file);
     }
 
@@ -30,7 +30,7 @@ class MediaService
 
         foreach (config('media.types') as $key => $type) {
             if (in_array($extension, $type['extensions'])) {
-                return self::CreateMedia($type['handler'], $file, $key);
+                return self::CreateMedia(resolve($type['handler']), $file, $key);
             }
         }
 
@@ -44,16 +44,6 @@ class MediaService
                 ImageFileService::delete($media);
                 break;
         }
-    }
-
-    private static function getExtension($file): string
-    {
-        return strtolower($file->getClientOriginalExtension());
-    }
-
-    private static function generateFilename()
-    {
-        return uniqid();
     }
 
     private static function CreateMedia(MediaServiceContract $handler, UploadedFile $file, string $key)
@@ -72,4 +62,15 @@ class MediaService
             'filename' => $file->getClientOriginalName()
         ]);
     }
+
+    private static function getExtension($file): string
+    {
+        return strtolower($file->getClientOriginalExtension());
+    }
+
+    private static function generateFilename()
+    {
+        return uniqid();
+    }
+
 }

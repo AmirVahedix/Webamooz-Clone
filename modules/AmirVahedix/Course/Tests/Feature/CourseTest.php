@@ -77,7 +77,6 @@ class CourseTest extends TestCase
     public function test_permitted_user_can_edit_course()
     {
         $user = $this->CreatePermittedUser();
-        $user->givePermissionTo(Permission::PERMISSION_TEACH);
         $course = Course::factory()->create();
 
         $this->actingAs($user)
@@ -292,8 +291,7 @@ class CourseTest extends TestCase
 
     private function CreatePermittedUser()
     {
-        $this->seed(AuthorizationTablesSeeder::class);
-        $user = User::factory()->verified()->create();
+        $user = User::factory()->create();
         $user->givePermissionTo(Permission::PERMISSION_MANAGE_COURSES);
         return $user;
     }

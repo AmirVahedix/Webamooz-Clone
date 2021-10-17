@@ -21,7 +21,7 @@ class CategoryTest extends TestCase
 
     public function test_non_verified_user_can_not_see_categories_page()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->unverified()->create();
         $response = $this->actingAs($user)
             ->get(route('admin.categories.index'));
 

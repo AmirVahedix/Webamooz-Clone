@@ -25,7 +25,7 @@ class ImageFileService implements MediaServiceContract
 
     private static function resize($image, $dir, $filename, $extension): array
     {
-        $image = Image::make(storage_path($image));
+        $image = Image::make(Storage::path($image));
         $resized_images = [];
         $resized_images['original'] = "$filename.$extension";
 
@@ -33,8 +33,9 @@ class ImageFileService implements MediaServiceContract
             $resized_images[$size] = "{$filename}_$size.$extension";
             $image->resize($size, null, function ($aspect) {
                 $aspect->aspectRatio();
-            })->save(storage_path("$dir/{$filename}_$size.$extension"));
+            })->save(Storage::path("$dir/{$filename}_$size.$extension"));
         }
+
 
         return $resized_images;
     }

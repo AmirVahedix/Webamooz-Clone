@@ -69,7 +69,7 @@ class CourseController extends Controller
 
     public function edit(Course $course)
     {
-        $this->authorize('edit_course', [Course::class, $course]);
+        $this->authorize('edit', [Course::class, $course]);
 
         $teachers = $this->userRepo->getTeachers();
         $categories = $this->categoryRepo->all();
@@ -78,7 +78,7 @@ class CourseController extends Controller
 
     public function update(Course $course, UpdateCourseRequest $request)
     {
-        $this->authorize('edit_course', Course::class);
+        $this->authorize('edit', Course::class);
 
         $this->courseRepo->update($course, $request);
 
@@ -88,7 +88,7 @@ class CourseController extends Controller
 
     public function delete(Course $course): RedirectResponse
     {
-        $this->authorize('delete_course', Course::class);
+        $this->authorize('delete', Course::class);
 
         if ($course->banner) {
             $course->banner->delete();
