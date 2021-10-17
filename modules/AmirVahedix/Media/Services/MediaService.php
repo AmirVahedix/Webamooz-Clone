@@ -30,8 +30,12 @@ class MediaService
             case 'mp4':
             case 'mpeg':
             case 'mkv':
-                VideoFileService::upload($file);
-                break;
+                return Media::create([
+                    'user_id' => auth()->id() ?? 1,
+                    'files' => json_encode(VideoFileService::upload($file)),
+                    'type' => 'video',
+                    'filename' => $file->getClientOriginalName()
+                ]);
         }
     }
 

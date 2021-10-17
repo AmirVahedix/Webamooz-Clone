@@ -11,16 +11,19 @@
 
 @section('content')
     <div class="main-content padding-0">
+        @if($errors->any())
+            {{ implode('', $errors->all('<div>:message</div>')) }}
+        @endif
         <p class="box__title">ایجاد جلسه جدید</p>
         <div class="row no-gutters bg-white">
             <div class="col-12">
-                <form action="" method="POST" class="padding-30">
+                <form action="{{ route('admin.lessons.store', $course->id) }}" method="POST" class="padding-30" enctype="multipart/form-data">
                     @csrf
 
                     <x-input name="title" class="text" placeholder="عنوان درس *" />
                     <x-input name="slug" class="text text-left " placeholder="نام انگلیسی درس (اختیاری)" />
                     <x-input type="number" name="duration" class="text text-left " placeholder="مدت زمان جلسه *" />
-                    <x-input type="number" name="priority" class="text text-left " placeholder="شماره جلسه (اختیاری)" />
+                    <x-input type="number" name="number" class="text text-left " placeholder="شماره جلسه (اختیاری)" />
 
                     @if(count($seasons))
                         <x-select name="season">

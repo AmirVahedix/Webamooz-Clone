@@ -18,15 +18,15 @@ class ImageFileService
     {
         $filename = uniqid();
         $extension = $file->getClientOriginalExtension();
-        $dir = 'app/public';
+        $dir = 'public\\';
 
-        $file->move(storage_path($dir), "$filename.$extension");
+        Storage::putFileAs($dir, $file, "$filename.$extension");
         $path = "$dir/$filename.$extension";
 
         return self::resize($path, $dir, $filename, $extension);
     }
 
-    private static function resize($image, $dir, $filename, $extension)
+    private static function resize($image, $dir, $filename, $extension): array
     {
         $image = Image::make(storage_path($image));
         $resized_images = [];

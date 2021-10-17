@@ -9,7 +9,6 @@ use Illuminate\Contracts\Validation\Rule;
 
 class IsTeacher implements Rule
 {
-
     public function passes($attribute, $value)
     {
         $user = resolve(UserRepo::class)->find($value);

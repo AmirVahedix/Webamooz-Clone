@@ -9,6 +9,11 @@ use AmirVahedix\Course\Models\Season;
 
 class SeasonRepo
 {
+    public function findByIdAndCourseId(Season $season, Course $course)
+    {
+        return Season::where('course_id', $course->id)->where('id', $season)->first();
+    }
+
     public function create($request, $course_id)
     {
         return Season::create([

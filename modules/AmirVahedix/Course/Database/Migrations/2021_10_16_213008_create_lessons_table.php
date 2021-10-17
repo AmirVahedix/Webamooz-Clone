@@ -23,7 +23,7 @@ class CreateLessonsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->integer('duration')->unsigned()->nullable();
-            $table->integer('priority')->unsigned()->nullable();
+            $table->integer('number')->unsigned()->nullable();
             $table->boolean('free')->default(false);
             $table->text('description')->nullable();
             $table->enum('confirmation_status', Lesson::confirmation_statuses)

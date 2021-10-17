@@ -30,7 +30,7 @@ class Lesson extends Model
         'title',
         'slug',
         'duration',
-        'priority',
+        'number',
         'free',
         'description',
         'confirmation_status',
