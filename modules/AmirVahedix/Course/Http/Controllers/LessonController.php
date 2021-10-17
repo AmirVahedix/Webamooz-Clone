@@ -41,6 +41,12 @@ class LessonController extends Controller
         return redirect()->route('admin.courses.details', $course->id);
     }
 
+    public function edit(Course $course, Lesson $lesson)
+    {
+        $seasons = $this->seasonRepo->getCourseSeasons($course);
+        return view('Course::lessons.edit', compact('lesson', 'course', 'seasons'));
+    }
+
     public function delete(Course $course, Lesson $lesson)
     {
         if ($lesson->media)
@@ -63,6 +69,22 @@ class LessonController extends Controller
         }
 
         toast('دروس باموفقیت حذف شدند.', 'success');
+        return redirect()->route('admin.courses.details', $course->id);
+    }
+
+    public function accept(Course $course, Lesson $lesson)
+    {
+        $this->lessonRepo->updateConfirmationStatus($lesson, Lesson::CONFIRMATION_ACCEPTED);
+
+        toast('جلسه باموفقیت تایید شدند.', 'success');
+        return redirect()->route('admin.courses.details', $course->id);
+    }
+
+    public function reject(Course $course, Lesson $lesson)
+    {
+        $this->lessonRepo->updateConfirmationStatus($lesson, Lesson::CONFIRMATION_REJECTED);
+
+        toast('جلسه باموفقیت رد شدند.', 'success');
         return redirect()->route('admin.courses.details', $course->id);
     }
 }

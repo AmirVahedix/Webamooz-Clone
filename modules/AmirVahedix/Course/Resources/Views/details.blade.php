@@ -22,7 +22,8 @@
                     <button class="btn confirm-btn">تایید جلسات</button>
                     <button class="btn reject-btn">رد جلسات</button>
                     <button class="btn delete-btn">حذف جلسات</button>
-                    <form action="{{ route('admin.lessons.delete.multiple', $course->id) }}" id="deleteMultipleLessonsForm" method="POST">
+                    <form action="{{ route('admin.lessons.delete.multiple', $course->id) }}"
+                          id="deleteMultipleLessonsForm" method="POST">
                         @csrf
                         @method('DELETE')
                         <input type="hidden" id="deleteMultipleLessonsInput" name="lessons" value="">
@@ -38,7 +39,7 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </th>
-                            <th>شناسه</th>
+                            <th>ردیف</th>
                             <th>عنوان جلسه</th>
                             <th>عنوان فصل</th>
                             <th>مدت زمان جلسه</th>
@@ -64,20 +65,29 @@
                                 <td>{{ __($lesson->confirmation_status) }}</td>
                                 <td>{{ $lesson->free ? 'همه' : 'شرکت کنندگان' }}</td>
                                 <td>
-                                    <a x-on:click="delete_modal=true" class="item-delete mlg-15 cursor-pointer" title="حذف"></a>
-                                    <a href="" class="item-reject mlg-15" title="رد"></a>
-                                    <a href="" class="item-lock mlg-15" title="قفل "></a>
-                                    <a href="" class="item-confirm mlg-15" title="تایید"></a>
-                                    <a href="" class="item-edit " title="ویرایش"></a>
+                                    <a x-on:click="delete_modal=true" class="item-delete mlg-15 cursor-pointer"
+                                       title="حذف"></a>
+                                    @unless($lesson->confirmation_status == \AmirVahedix\Course\Models\Lesson::CONFIRMATION_ACCEPTED)
+                                        <a href="{{ route('admin.lessons.accept', [$course->id, $lesson->id]) }}" class="item-confirm mlg-15" title="تایید"></a>
+                                    @endunless
+                                    @unless($lesson->confirmation_status == \AmirVahedix\Course\Models\Lesson::CONFIRMATION_REJECTED)
+                                        <a href="{{ route('admin.lessons.reject', [$course->id, $lesson->id]) }}" class="item-reject mlg-15" title="رد"></a>
+                                    @endunless
+                                    <a href="{{ route('admin.lessons.edit', [$course->id, $lesson->id]) }}" class="item-edit " title="ویرایش"></a>
                                 </td>
                                 <td>
-                                    <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="delete_modal" x-transition.opacity>
+                                    <div class="modal hidden" x-init="$el.classList.remove('hidden')"
+                                         x-show="delete_modal" x-transition.opacity>
                                         <div class="modal-content" x-on:click.outside="delete_modal=false">
                                             <h3>آیا از حذف این جلسه اطمینان دارید؟</h3>
                                             <p>با کلیک بر روی حذف، این جلسه و فایل های مربوط به آن حذف میشود.</p>
                                             <div class="modal-actions">
-                                                <button class="btn margin-left-10" x-on:click="delete_modal=false">انصراف</button>
-                                                <form action="{{ route('admin.lessons.destroy', [$lesson->course->id, $lesson->id]) }}" method="POST">
+                                                <button class="btn margin-left-10" x-on:click="delete_modal=false">
+                                                    انصراف
+                                                </button>
+                                                <form
+                                                    action="{{ route('admin.lessons.destroy', [$lesson->course->id, $lesson->id]) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-webamooz_net">حذف</button>

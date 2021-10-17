@@ -30,4 +30,11 @@ class LessonRepo
             'free' => $request->get('free'),
         ]);
     }
+
+    public function updateConfirmationStatus(Lesson $lesson, string $status)
+    {
+        return $lesson->update([
+            'confirmation_status' => $status
+        ]);
+    }
 }
