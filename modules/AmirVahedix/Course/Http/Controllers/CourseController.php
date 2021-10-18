@@ -10,6 +10,7 @@ use AmirVahedix\Course\Http\Requests\Course\CreateCourseRequest;
 use AmirVahedix\Course\Http\Requests\Course\UpdateCourseRequest;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Repositories\CourseRepo;
+use AmirVahedix\Course\Repositories\LessonRepo;
 use AmirVahedix\Media\Services\MediaService;
 use AmirVahedix\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
@@ -20,12 +21,14 @@ class CourseController extends Controller
     private $userRepo;
     private $categoryRepo;
     private $courseRepo;
+    private $lessonRepo;
 
-    public function __construct(UserRepo $userRepo, CategoryRepo $categoryRepo, CourseRepo $courseRepo)
+    public function __construct(LessonRepo $lessonRepo, UserRepo $userRepo, CategoryRepo $categoryRepo, CourseRepo $courseRepo)
     {
         $this->userRepo = $userRepo;
         $this->categoryRepo = $categoryRepo;
         $this->courseRepo = $courseRepo;
+        $this->lessonRepo = $lessonRepo;
     }
 
     public function index()
@@ -123,6 +126,7 @@ class CourseController extends Controller
     {
         $this->authorize('details', [Course::class, $course]);
 
-        return view('Course::details', compact('course'));
+        $lessons = $this->lessonRepo->paginate($course);
+        return view('Course::details', compact('course', 'lessons'));
     }
 }

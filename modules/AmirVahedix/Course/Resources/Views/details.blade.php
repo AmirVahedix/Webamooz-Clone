@@ -18,9 +18,25 @@
                         جدید</a>
                 </div>
                 <div class="d-flex item-center flex-wrap margin-bottom-15 operations__btns">
-                    <button class="btn all-confirm-btn">تایید همه جلسات</button>
-                    <button class="btn confirm-btn">تایید جلسات</button>
-                    <button class="btn reject-btn">رد جلسات</button>
+                    <form action="{{ route('admin.lessons.acceptAll', $course->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button class="btn all-confirm-btn">تایید همه جلسات</button>
+                    </form>
+                    <button id="accept-multiple" class="btn confirm-btn" style="margin-right: 8px;">تایید جلسات</button>
+                    <form action="{{ route('admin.lessons.accept.multiple', $course->id) }}"
+                          id="acceptMultipleLessonsForm" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <input type="hidden" id="acceptMultipleLessonsInput" name="lessons" value="">
+                    </form>
+                    <button id="reject-multiple" class="btn reject-btn">رد جلسات</button>
+                    <form action="{{ route('admin.lessons.reject.multiple', $course->id) }}"
+                          id="rejectMultipleLessonsForm" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <input type="hidden" id="rejectMultipleLessonsInput" name="lessons" value="">
+                    </form>
                     <button class="btn delete-btn">حذف جلسات</button>
                     <form action="{{ route('admin.lessons.delete.multiple', $course->id) }}"
                           id="deleteMultipleLessonsForm" method="POST">
@@ -50,7 +66,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($course->lessons as $lesson)
+                        @foreach($lessons as $lesson)
                             <tr role="row" class="" data-row-id="{{ $lesson->id }}" x-data="{delete_modal:false}">
                                 <td>
                                     <label class="ui-checkbox">

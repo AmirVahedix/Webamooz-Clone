@@ -37,4 +37,18 @@ class LessonRepo
             'confirmation_status' => $status
         ]);
     }
+
+    public function acceptAll(Course $course)
+    {
+        return $course->lessons()->update([
+            'confirmation_status' => Lesson::CONFIRMATION_ACCEPTED
+        ]);
+    }
+
+    public function paginate($course, $per_page = 25)
+    {
+        return Lesson::where('course_id', $course->id)
+            ->orderBy('number')
+            ->paginate($per_page);
+    }
 }

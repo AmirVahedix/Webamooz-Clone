@@ -157,6 +157,40 @@ $('.checkedAll').on('click', function (e) {
      }
  });
 
+jQuery('#accept-multiple').on('click', function (e) {
+    let selectedItems = [];
+    $(".sub-checkbox:checked").each(function () {
+        selectedItems.push($(this).attr('data-id'));
+    });
+    if (selectedItems.length <= 0) {
+        alert("یک سطر انتخاب کنید");
+        return false;
+    }
+    let check = confirm("آیا مطمئن هستید که می خواهید این جلسات را تایید کنید؟");
+    if (check === true) {
+        console.log(selectedItems.join(','))
+        $("#acceptMultipleLessonsInput").val(selectedItems.join(','));
+        $("#acceptMultipleLessonsForm").submit();
+    }
+});
+
+jQuery('#reject-multiple').on('click', function (e) {
+    let selectedItems = [];
+    $(".sub-checkbox:checked").each(function () {
+        selectedItems.push($(this).attr('data-id'));
+    });
+    if (selectedItems.length <= 0) {
+        alert("یک سطر انتخاب کنید");
+        return false;
+    }
+    let check = confirm("آیا مطمئن هستید که می خواهید این جلسات را رد کنید؟");
+    if (check === true) {
+        console.log(selectedItems.join(','))
+        $("#rejectMultipleLessonsInput").val(selectedItems.join(','));
+        $("#rejectMultipleLessonsForm").submit();
+    }
+});
+
  $('.course__detial .item-delete').on('click', function (e) {
      WRN_PROFILE_DELETE = "آیا مطمئن هستید که می خواهید این سطر را حذف کنید؟";
      var check = confirm(WRN_PROFILE_DELETE);

@@ -94,11 +94,45 @@ class LessonController extends Controller
         return redirect()->route('admin.courses.details', $course->id);
     }
 
+    public function acceptAll(Course $course)
+    {
+        $this->lessonRepo->acceptAll($course);
+
+        toast('همه جلسات تایید شدند.', 'success');
+        return redirect()->route('admin.courses.details', $course->id);
+    }
+
+    public function acceptMultiple(Course $course, Request $request)
+    {
+        $lessons = explode(',', $request->get('lessons'));
+        foreach ($lessons as $lesson) {
+            Lesson::findOrFail($lesson)->update([
+                'confirmation_status' => Lesson::CONFIRMATION_ACCEPTED
+            ]);
+        }
+
+        toast('جلسات انتخابی تایید شدند.', 'success');
+        return redirect()->route('admin.courses.details', $course->id);
+    }
+
     public function reject(Course $course, Lesson $lesson)
     {
         $this->lessonRepo->updateConfirmationStatus($lesson, Lesson::CONFIRMATION_REJECTED);
 
         toast('جلسه باموفقیت رد شدند.', 'success');
+        return redirect()->route('admin.courses.details', $course->id);
+    }
+
+    public function rejectMultiple(Course $course, Request $request)
+    {
+        $lessons = explode(',', $request->get('lessons'));
+        foreach ($lessons as $lesson) {
+            Lesson::findOrFail($lesson)->update([
+                'confirmation_status' => Lesson::CONFIRMATION_REJECTED
+            ]);
+        }
+
+        toast('جلسات انتخابی رد شدند.', 'success');
         return redirect()->route('admin.courses.details', $course->id);
     }
 }

@@ -24,5 +24,14 @@ Route::delete('courses/{course}/lesson/multiple/deleteMultiple', [LessonControll
 Route::get('courses/{course}/lesson/{lesson}/accept', [LessonController::class, 'accept'])
     ->name('admin.lessons.accept');
 
+Route::patch('courses/{course}/lesson/accept/all', [LessonController::class, 'acceptAll'])
+    ->name('admin.lessons.acceptAll');
+
+Route::patch('courses/{course}/lesson/accept/multiple', [LessonController::class, 'acceptMultiple'])
+    ->name('admin.lessons.accept.multiple');
+
 Route::get('courses/{course}/lesson/{lesson}/reject', [LessonController::class, 'reject'])
     ->name('admin.lessons.reject');
+
+Route::patch('courses/{course}/lesson/reject/multiple', [LessonController::class, 'rejectMultiple'])
+    ->name('admin.lessons.reject.multiple');
