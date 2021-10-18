@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0;">
     <title>@yield('title')</title>
     @include('Dashboard::layouts.head')
+    @livewireStyles
 </head>
 <body>
 @include('Dashboard::layouts.sidebar')
@@ -14,6 +15,7 @@
     @include('Dashboard::layouts.breadcrumb')
 
     @yield('content')
+    @livewireScripts
 </div>
 </body>
 @include('Dashboard::layouts.foot')

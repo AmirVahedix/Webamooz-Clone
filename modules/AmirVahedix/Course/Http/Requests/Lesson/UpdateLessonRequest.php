@@ -22,7 +22,7 @@ class UpdateLessonRequest extends FormRequest
             'number' => ['required', 'numeric'],
             'duration' => ['nullable', 'numeric'],
             'free' => ['required', 'in:0,1'],
-            'season_id' => ['nullable', 'exists:lessons,id', new IsValidSeason()],
+            'season_id' => ['nullable', 'exists:seasons,id', new IsValidSeason()],
             'file' => ['nullable', 'file']
         ];
     }

@@ -8,10 +8,13 @@ use AmirVahedix\Course\Database\Factories\CourseFactory;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
+    use HasFactory;
+
     // region constants
     const TYPE_FREE = 'free';
     const TYPE_PAID = 'paid';

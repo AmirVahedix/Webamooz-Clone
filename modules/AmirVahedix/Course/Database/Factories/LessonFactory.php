@@ -20,13 +20,14 @@ class LessonFactory extends Factory
 
     public function definition()
     {
+        $course = Course::factory()->create();
         return [
             'title' => $this->faker->paragraph(1),
             'slug' => $this->faker->slug,
             'media_id' => MediaService::publicUpload(UploadedFile::fake()->image('test.png'))->id,
             'user_id' => User::factory()->create(),
-            'course_id' => Course::first()->id,
-            'season_id' => Season::where('course_id', Course::first()->id)->first()->id,
+            'course_id' => $course->id,
+            'season_id' => Season::factory()->state(['course_id' => $course->id])->create()->id,
             'status' => $this->faker->randomElement(Lesson::statuses),
             'confirmation_status' => $this->faker->randomElement(Lesson::confirmation_statuses),
             'description' => $this->faker->text,

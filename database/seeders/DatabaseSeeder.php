@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
-        Lesson::factory()->count(5)->create();
         foreach (self::$seeders as $seeder) {
             $this->call($seeder);
         }
