@@ -18,25 +18,27 @@
                         جدید</a>
                 </div>
                 <div class="d-flex item-center flex-wrap margin-bottom-15 operations__btns">
-                    <form action="{{ route('admin.lessons.acceptAll', $course->id) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <button class="btn all-confirm-btn">تایید همه جلسات</button>
-                    </form>
-                    <button id="accept-multiple" class="btn confirm-btn" style="margin-right: 8px;">تایید جلسات</button>
-                    <form action="{{ route('admin.lessons.accept.multiple', $course->id) }}"
-                          id="acceptMultipleLessonsForm" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <input type="hidden" id="acceptMultipleLessonsInput" name="lessons" value="">
-                    </form>
-                    <button id="reject-multiple" class="btn reject-btn">رد جلسات</button>
-                    <form action="{{ route('admin.lessons.reject.multiple', $course->id) }}"
-                          id="rejectMultipleLessonsForm" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <input type="hidden" id="rejectMultipleLessonsInput" name="lessons" value="">
-                    </form>
+                    @can(\AmirVahedix\Authorization\Models\Permission::PERMISSION_MANAGE_COURSES)
+                        <form action="{{ route('admin.lessons.acceptAll', $course->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <button class="btn all-confirm-btn">تایید همه جلسات</button>
+                        </form>
+                        <button id="accept-multiple" class="btn confirm-btn" style="margin-right: 8px;">تایید جلسات</button>
+                        <form action="{{ route('admin.lessons.accept.multiple', $course->id) }}"
+                              id="acceptMultipleLessonsForm" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <input type="hidden" id="acceptMultipleLessonsInput" name="lessons" value="">
+                        </form>
+                        <button id="reject-multiple" class="btn reject-btn">رد جلسات</button>
+                        <form action="{{ route('admin.lessons.reject.multiple', $course->id) }}"
+                              id="rejectMultipleLessonsForm" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <input type="hidden" id="rejectMultipleLessonsInput" name="lessons" value="">
+                        </form>
+                    @endcan
                     <button class="btn delete-btn">حذف جلسات</button>
                     <form action="{{ route('admin.lessons.delete.multiple', $course->id) }}"
                           id="deleteMultipleLessonsForm" method="POST">
@@ -83,12 +85,14 @@
                                 <td>
                                     <a x-on:click="delete_modal=true" class="item-delete mlg-15 cursor-pointer"
                                        title="حذف"></a>
-                                    @unless($lesson->confirmation_status == \AmirVahedix\Course\Models\Lesson::CONFIRMATION_ACCEPTED)
-                                        <a href="{{ route('admin.lessons.accept', [$course->id, $lesson->id]) }}" class="item-confirm mlg-15" title="تایید"></a>
-                                    @endunless
-                                    @unless($lesson->confirmation_status == \AmirVahedix\Course\Models\Lesson::CONFIRMATION_REJECTED)
-                                        <a href="{{ route('admin.lessons.reject', [$course->id, $lesson->id]) }}" class="item-reject mlg-15" title="رد"></a>
-                                    @endunless
+                                    @can(\AmirVahedix\Authorization\Models\Permission::PERMISSION_MANAGE_COURSES)
+                                        @unless($lesson->confirmation_status == \AmirVahedix\Course\Models\Lesson::CONFIRMATION_ACCEPTED)
+                                            <a href="{{ route('admin.lessons.accept', [$course->id, $lesson->id]) }}" class="item-confirm mlg-15" title="تایید"></a>
+                                        @endunless
+                                        @unless($lesson->confirmation_status == \AmirVahedix\Course\Models\Lesson::CONFIRMATION_REJECTED)
+                                            <a href="{{ route('admin.lessons.reject', [$course->id, $lesson->id]) }}" class="item-reject mlg-15" title="رد"></a>
+                                        @endunless
+                                    @endcan
                                     <a href="{{ route('admin.lessons.edit', [$course->id, $lesson->id]) }}" class="item-edit " title="ویرایش"></a>
                                 </td>
                                 <td>

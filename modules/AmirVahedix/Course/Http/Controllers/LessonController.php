@@ -27,12 +27,16 @@ class LessonController extends Controller
 
     public function create(Course $course)
     {
+        $this->authorize('create', [Lesson::class, $course]);
+
         $seasons = $this->seasonRepo->getCourseSeasons($course);
         return view('Course::lessons.create', compact('seasons', 'course'));
     }
 
     public function store(StoreLessonRequest $request, Course $course)
     {
+        $this->authorize('create', [Lesson::class, $course]);
+
         $media = MediaService::privateUpload($request->file('file'));
         $request->request->add([ 'media_id' => $media->id ]);
 
@@ -44,12 +48,16 @@ class LessonController extends Controller
 
     public function edit(Course $course, Lesson $lesson)
     {
+        $this->authorize('edit', [Lesson::class, $lesson]);
+
         $seasons = $this->seasonRepo->getCourseSeasons($course);
         return view('Course::lessons.edit', compact('lesson', 'course', 'seasons'));
     }
 
     public function update(UpdateLessonRequest $request, Course $course, Lesson $lesson)
     {
+        $this->authorize('edit', [Lesson::class, $lesson]);
+
         if ($request->hasFile('file')){
             $lesson->media->delete();
             $media = MediaService::privateUpload($request->file('file'));
@@ -63,6 +71,8 @@ class LessonController extends Controller
 
     public function delete(Course $course, Lesson $lesson)
     {
+        $this->authorize('delete', [Lesson::class, $lesson]);
+
         if ($lesson->media)
             $lesson->media->delete();
 
@@ -74,6 +84,8 @@ class LessonController extends Controller
 
     public function multipleDelete(Course $course, Request $request)
     {
+        $this->authorize('delete', [Lesson::class, $lesson]);
+
         $lessons = explode(',', $request->get('lessons'));
         foreach ($lessons as $id) {
             $lesson = Lesson::findOrFail($id);
@@ -88,6 +100,8 @@ class LessonController extends Controller
 
     public function accept(Course $course, Lesson $lesson)
     {
+        $this->authorize('confirm', Lesson::class);
+
         $this->lessonRepo->updateConfirmationStatus($lesson, Lesson::CONFIRMATION_ACCEPTED);
 
         toast('جلسه باموفقیت تایید شدند.', 'success');
@@ -96,6 +110,8 @@ class LessonController extends Controller
 
     public function acceptAll(Course $course)
     {
+        $this->authorize('confirm', Lesson::class);
+
         $this->lessonRepo->acceptAll($course);
 
         toast('همه جلسات تایید شدند.', 'success');
@@ -104,6 +120,8 @@ class LessonController extends Controller
 
     public function acceptMultiple(Course $course, Request $request)
     {
+        $this->authorize('confirm', Lesson::class);
+
         $lessons = explode(',', $request->get('lessons'));
         foreach ($lessons as $lesson) {
             Lesson::findOrFail($lesson)->update([
@@ -117,6 +135,8 @@ class LessonController extends Controller
 
     public function reject(Course $course, Lesson $lesson)
     {
+        $this->authorize('confirm', Lesson::class);
+
         $this->lessonRepo->updateConfirmationStatus($lesson, Lesson::CONFIRMATION_REJECTED);
 
         toast('جلسه باموفقیت رد شدند.', 'success');
@@ -125,6 +145,8 @@ class LessonController extends Controller
 
     public function rejectMultiple(Course $course, Request $request)
     {
+        $this->authorize('confirm', Lesson::class);
+
         $lessons = explode(',', $request->get('lessons'));
         foreach ($lessons as $lesson) {
             Lesson::findOrFail($lesson)->update([

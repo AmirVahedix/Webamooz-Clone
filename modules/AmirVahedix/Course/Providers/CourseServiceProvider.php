@@ -6,8 +6,10 @@ namespace AmirVahedix\Course\Providers;
 
 use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\Course\Models\Course;
+use AmirVahedix\Course\Models\Lesson;
 use AmirVahedix\Course\Models\Season;
 use AmirVahedix\Course\Policies\CoursePolicy;
+use AmirVahedix\Course\Policies\LessonPolicy;
 use AmirVahedix\Course\Policies\SeasonPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +38,7 @@ class CourseServiceProvider extends ServiceProvider
 
         Gate::policy(Course::class, CoursePolicy::class);
         Gate::policy(Season::class, SeasonPolicy::class);
+        Gate::policy(Lesson::class, LessonPolicy::class);
 
         Gate::before(function($user) {
             return $user->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN) ? true : null;
