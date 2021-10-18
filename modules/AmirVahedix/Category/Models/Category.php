@@ -20,10 +20,16 @@ class Category extends Model
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
+
+    public function subCategories()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
     // endregion relations
 
     public static function factory(): CategoryFactory
     {
         return new CategoryFactory();
     }
+
 }

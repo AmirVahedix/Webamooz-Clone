@@ -17,4 +17,6 @@
 <link rel="stylesheet" href="{{ asset('css/font/font.css') }}">
 <link rel="stylesheet" href="{{ asset('css/responsive.css') }}" media="(max-width:991px)">
 
+<script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js"></script>
+
 @yield("styles")

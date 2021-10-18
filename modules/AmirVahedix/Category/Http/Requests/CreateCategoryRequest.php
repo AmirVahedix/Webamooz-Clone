@@ -16,7 +16,7 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'min:3', 'unique:categories,title'],
+            'title' => ['required'],
             'slug' => ['required', 'min:3', 'unique:categories,slug'],
             'parent_id' => ['nullable', 'exists:categories,id']
         ];

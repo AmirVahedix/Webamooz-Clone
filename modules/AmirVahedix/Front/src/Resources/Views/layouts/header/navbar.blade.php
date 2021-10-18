@@ -13,27 +13,25 @@
     </div>
     <div class="container">
         <ul class="nav">
-            <li class="main-menu has-sub"><a href="#">برنامه نویسی</a>
-                <div class="sub-menu">
-                    <div class="container">
-                        <div><a href="android.html">اندروید</a></div>
-                        <div><a href="web.html">وب</a></div>
-                        <div><a href="window.html">ویندوز</a></div>
-                    </div>
-                </div>
-                <div class="triangle"></div>
-            </li>
-            <li class="main-menu"><a href="#">گرافیک</a></li>
-            <li class="main-menu has-sub"><a href="#">چندرسانه ای</a>
-                <div class="sub-menu">
-                    <div class="container">
-                        <div><a href="#">فیلم و صدا</a></div>
-                        <div><a href="#">بازی سازی</a></div>
-                    </div>
-                </div>
-                <div class="triangle"></div>
-            </li>
-            <li class="main-menu"><a href="#">کسب و کار</a></li>
+            @foreach($categories as $category)
+                <li class="main-menu {{ count($category->subCategories) ? 'has-sub' : ''  }}">
+                    <a href="{{ route('admin.categories.edit', $category->id) }}">{{ $category->title }}</a>
+                    @if(count($category->subCategories))
+                        <div class="sub-menu">
+                            <div class="container">
+                                @foreach($category->subCategories as $sub_category)
+                                    <div>
+                                        <a href="{{ route('admin.categories.edit', $sub_category->id) }}">
+                                            {{ $sub_category->title }}
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="triangle"></div>
+                    @endif
+                </li>
+            @endforeach
             <li class="main-menu d-none"><a href="#">درباره ما</a></li>
             <li class="main-menu"><a href="contact-us.html">تماس ما</a></li>
             <li class="main-menu join-teachers-li"><a href="become-a-teacher.html">تدریس در وب آموز</a></li>

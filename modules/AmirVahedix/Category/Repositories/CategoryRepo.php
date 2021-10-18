@@ -27,4 +27,11 @@ class CategoryRepo
     {
         $category->delete();
     }
+
+    public function tree()
+    {
+        return Category::where('parent_id', null)
+            ->with('subCategories')
+            ->get();
+    }
 }
