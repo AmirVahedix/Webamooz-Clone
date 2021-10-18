@@ -4,6 +4,7 @@ namespace AmirVahedix\Front\Providers;
 
 use AmirVahedix\Category\Models\Category;
 use AmirVahedix\Category\Repositories\CategoryRepo;
+use AmirVahedix\Course\Repositories\CourseRepo;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +20,12 @@ class FrontServiceProvider extends ServiceProvider
             $categories = (new CategoryRepo())->tree();
             $view->with(compact('categories'));
         });
+
+        view()->composer("Front::layouts.courses.newest", function($view) {
+            $latestCourses = (new CourseRepo())->latest();
+            $view->with(compact('latestCourses'));
+        });
+
     }
 
     public function boot()

@@ -5,6 +5,7 @@ namespace AmirVahedix\Course\Models;
 
 
 use AmirVahedix\Course\Database\Factories\CourseFactory;
+use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -97,6 +98,15 @@ class Course extends Model
 
         $banners = (array) json_decode($this->banner->files);
         return '/storage/'. $banners['original'];
+    }
+
+    public function getFormattedDurationAttribute()
+    {
+        $duration = (new CourseRepo())->getDuration($this->id);
+        $H = round($duration / 60) < 10 ? "0".round($duration / 60) : round($duration / 60);
+        $M = ($duration % 60) < 10 ? "0".($duration % 60) : ($duration % 60);
+        $S = "00";
+        return "$H:$M:$S";
     }
     // endregion custom attributes
 }
