@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
+        "amirvahedix/front": "dev-main",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
@@ -43,6 +44,12 @@
             "AmirVahedix\\Media\\": "modules/AmirVahedix/Media"
         }
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "modules/AmirVahedix/Front"
+        }
+    ],
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"

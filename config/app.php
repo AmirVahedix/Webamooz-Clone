@@ -4,6 +4,7 @@ use AmirVahedix\Authorization\Providers\AuthorizationServiceProvider;
 use AmirVahedix\Category\Providers\CategoryServiceProvider;
 use AmirVahedix\Course\Providers\CourseServiceProvider;
 use AmirVahedix\Dashboard\Providers\DashboardServiceProvider;
+//use AmirVahedix\Front\Providers\FrontServiceProvider;
 use AmirVahedix\Media\Providers\MediaServiceProvider;
 use AmirVahedix\User\Providers\UserServiceProvider;
 
@@ -174,6 +175,7 @@ return [
         AuthorizationServiceProvider::class,
         CourseServiceProvider::class,
         MediaServiceProvider::class,
+//        FrontServiceProvider::class,
 
         /*
          * Package Service Providers...
