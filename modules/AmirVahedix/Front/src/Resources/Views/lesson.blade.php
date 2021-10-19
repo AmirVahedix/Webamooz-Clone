@@ -178,11 +178,13 @@
                             </li>
 
                         </ul>
-
-
                     </div>
                 </div>
             </div>
         </div>
     </main>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/modal.js') }}"></script>
 @endsection

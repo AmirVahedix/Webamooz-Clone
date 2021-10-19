@@ -3,7 +3,7 @@
         <div class="product-info-box">
             @if(auth()->check() && $course->teacher->id == auth()->id())
                 <p class="mycourse">شما مدرس این دوره هستید</p>
-            @elseif(auth()->check() && auth()->user()->hasAccessToCourse($course->id))
+            @elseif(auth()->check() && auth()->user()->hasAccessToCourse($course))
                 <p class="mycourse">شما دانشجوی این دوره هستید</p>
             @else
                 <div class="discountBadge">

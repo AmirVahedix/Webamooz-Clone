@@ -4,7 +4,8 @@
         @foreach($lessons as $lessonItem)
             <div class="episodes-list-item
                     @if(isset($lesson)) {{ $lessonItem->number == request()->route()->parameter('number') ? 'selected' : '' }} @endif
-                    {{ $lessonItem->free ? '' : 'lock' }}
+                    @if(auth()->check() && !auth()->user()->hasAccessToCourse($course)) {{ $lessonItem->free ? '' : 'lock' }} @endif
+                    @if(!auth()->check()) {{ $lessonItem->free ? '' : 'lock' }} @endif
                 ">
                 <div class="section-right">
                     <span class="episodes-list-number">{{ $lessonItem->number }}</span>

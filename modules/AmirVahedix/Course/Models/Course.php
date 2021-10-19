@@ -82,6 +82,16 @@ class Course extends Model
     {
         return $this->hasMany(Lesson::class);
     }
+
+    public function students()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'course_students',
+            'course_id',
+            'user_id'
+        );
+    }
     // endregion relations
 
     // region custom attributes

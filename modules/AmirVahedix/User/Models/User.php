@@ -2,6 +2,7 @@
 
 namespace AmirVahedix\User\Models;
 
+use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Models\Season;
 use AmirVahedix\Media\Models\Media;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -94,6 +96,16 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
     {
         return $this->hasMany(Season::class);
     }
+
+    public function purchases()
+    {
+        return $this->belongsToMany(
+            Course::class,
+            'course_students',
+            'user_id',
+            'course_id'
+        );
+    }
     // endregion relations
 
     // region custom attributes
@@ -106,8 +118,14 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
     }
     // endregion custom attributes
 
-    public function hasAccessToCourse($course_id)
+    // region custom methods
+    public function hasAccessToCourse(Course $course)
     {
+        if ($this->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN)) return true;
+        if ($this->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)) return true;
+        if ($this->id == $course->teacher_id) return true;
+        if ($course->students->contains($this->id)) return true;
         return false;
     }
+    // endregion custom methods
 }
