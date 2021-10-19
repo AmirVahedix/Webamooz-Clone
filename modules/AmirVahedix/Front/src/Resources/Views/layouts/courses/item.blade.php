@@ -1,5 +1,5 @@
 <div class="col">
-    <a href="react.html">
+    <a href="{{ route('courses.single', $course->slug) }}">
         <div class="course-status">
             {{ __($course->status) }}
         </div>

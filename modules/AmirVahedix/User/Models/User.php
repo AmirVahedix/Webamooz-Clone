@@ -105,4 +105,9 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
         return "/storage/$avatars[600]";
     }
     // endregion custom attributes
+
+    public function hasAccessToCourse($course_id)
+    {
+        return false;
+    }
 }

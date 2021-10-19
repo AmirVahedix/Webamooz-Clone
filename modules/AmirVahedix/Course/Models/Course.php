@@ -4,6 +4,7 @@
 namespace AmirVahedix\Course\Models;
 
 
+use AmirVahedix\Category\Models\Category;
 use AmirVahedix\Course\Database\Factories\CourseFactory;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Media\Models\Media;
@@ -67,9 +68,9 @@ class Course extends Model
         return $this->belongsTo(User::class, 'teacher_id');
     }
 
-    public function categroy()
+    public function category()
     {
-        return $this->belongsTo(User::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function seasons()
@@ -107,6 +108,11 @@ class Course extends Model
         $M = ($duration % 60) < 10 ? "0".($duration % 60) : ($duration % 60);
         $S = "00";
         return "$H:$M:$S";
+    }
+
+    public function getLessonsCountAttribute()
+    {
+        return (new CourseRepo())->getLessonsCount($this->id);
     }
     // endregion custom attributes
 }
