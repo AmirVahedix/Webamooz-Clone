@@ -31,10 +31,10 @@
                 <div class="content-left">
                     <div class="preview">
                         <video width="100%" controls>
-                            <source src="intro.mp4" type="video/mp4">
+                            <source src="{{ $lesson->downloadLink() }}" type="video/mp4">
                         </video>
                     </div>
-                    <a href="#" class="episode-download">دانلود قسمت {{ $lesson->number }}</a>
+                    <a href="{{ $lesson->downloadLink() }}" class="episode-download">دانلود قسمت {{ $lesson->number }}</a>
                     <div class="course-description">
                         <div class="course-description-title">توضیحات جلسه</div>
                         <div class="mt-2">

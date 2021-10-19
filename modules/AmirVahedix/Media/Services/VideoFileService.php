@@ -15,4 +15,9 @@ class VideoFileService extends DefaultFileService implements MediaServiceContrac
         Storage::putFileAs($dir, $file, "$filename.$extension");
         return ["video" => "$filename.$extension"];
     }
+
+    public static function getFile($media)
+    {
+        return json_decode($media->files, true)['video'];
+    }
 }

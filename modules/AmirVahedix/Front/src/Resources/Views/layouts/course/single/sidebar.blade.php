@@ -1,25 +1,24 @@
 <div class="sidebar-right">
     <div class="sidebar-sticky">
         <div class="product-info-box">
-            <div class="discountBadge d-none">
-                <p>45%</p>
-                تخفیف
-            </div>
-            <div class="sell_course d-none">
-                <strong>قیمت :</strong>
-                <del class="discount-Price">900,000</del>
-                <p class="price">
-                        <span class="woocommerce-Price-amount amount">495,000
-                            <span class="woocommerce-Price-currencySymbol">تومان</span>
-                        </span>
-                </p>
-            </div>
-
             @if(auth()->check() && $course->teacher->id == auth()->id())
                 <p class="mycourse">شما مدرس این دوره هستید</p>
             @elseif(auth()->check() && auth()->user()->hasAccessToCourse($course->id))
                 <p class="mycourse">شما دانشجوی این دوره هستید</p>
             @else
+                <div class="discountBadge">
+                    <p>45%</p>
+                    تخفیف
+                </div>
+                <div class="sell_course">
+                    <strong>قیمت :</strong>
+                    <del class="discount-Price">{{ number_format($course->price) }}</del>
+                    <p class="price">
+                        <span class="woocommerce-Price-amount amount">250,000
+                            <span class="woocommerce-Price-currencySymbol">تومان</span>
+                        </span>
+                    </p>
+                </div>
                 <button class="btn buy">خرید دوره</button>
             @endif
 

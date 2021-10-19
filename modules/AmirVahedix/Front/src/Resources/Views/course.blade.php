@@ -29,12 +29,6 @@
             <div class="main-row container">
                 @include("Front::layouts.course.single.sidebar")
                 <div class="content-left">
-{{--                    <div class="preview">--}}
-{{--                        <video width="100%" controls>--}}
-{{--                            <source src="intro.mp4" type="video/mp4">--}}
-{{--                        </video>--}}
-{{--                    </div>--}}
-{{--                    <a href="#" class="episode-download">دانلود این قسمت (قسمت 1)</a>--}}
                     <div class="course-description" style="margin-top: 0 !important;">
                         <div class="course-description-title">توضیحات دوره</div>
                         <div>
@@ -192,4 +186,8 @@
             </div>
         </div>
     </main>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/modal.js') }}"></script>
 @endsection

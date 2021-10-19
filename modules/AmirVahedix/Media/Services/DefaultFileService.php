@@ -7,7 +7,7 @@ namespace AmirVahedix\Media\Services;
 use AmirVahedix\Media\Models\Media;
 use Illuminate\Support\Facades\Storage;
 
-class DefaultFileService
+abstract class DefaultFileService
 {
     public static function delete(Media $media)
     {
@@ -16,5 +16,25 @@ class DefaultFileService
         foreach (json_decode($media->files) as $file) {
             Storage::delete("$dir\\$file");
         }
+    }
+
+    abstract static function getFile($media);
+
+    public static function stream(Media $media)
+    {
+        $disk = $media->is_private ? "private" : "public";
+        $file = static::getFile($media);
+        $stream = Storage::disk($disk)->readStream($file);
+
+        return response()->stream(
+            function () use ($stream) {
+                fpassthru($stream);
+            },
+            200,
+            [
+                "Content-Type" => Storage::disk($disk)->mimeType($file),
+                "Content-disposition" => "attachment; filename='$file'"
+            ]
+        );
     }
 }

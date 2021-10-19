@@ -16,4 +16,9 @@ class ZipFileService extends DefaultFileService implements MediaServiceContract
         Storage::putFileAs($dir, $file, "$filename.$extension");
         return ["zip" => "$filename.$extension"];
     }
+
+    public static function getFile($media)
+    {
+        return json_decode($media->files, true)['zip'];
+    }
 }

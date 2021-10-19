@@ -6,8 +6,10 @@ namespace AmirVahedix\Course\Models;
 
 use AmirVahedix\Course\Database\Factories\LessonFactory;
 use AmirVahedix\Media\Models\Media;
+use AmirVahedix\Media\Services\MediaService;
 use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
 
 class Lesson extends Model
 {
@@ -68,7 +70,7 @@ class Lesson extends Model
     }
     // endregion relations
 
-    // region custom methods
+    // region custom attributes
     public function getFormattedDurationAttribute()
     {
         $H = ($this->duration / 60) < 10
@@ -82,6 +84,17 @@ class Lesson extends Model
         if ($H == "00") return "$M:$S";
 
         return "$H:$M:$S";
+    }
+    // endregion  custom attributes
+
+    // region custom methods
+    public function downloadLink()
+    {
+        return URL::temporarySignedRoute(
+            'media.download',
+            now()->addDay(),
+            [ 'media' => $this->media_id ]
+        );
     }
     // endregion custom methods
 }

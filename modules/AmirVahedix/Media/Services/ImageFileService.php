@@ -40,4 +40,8 @@ class ImageFileService extends DefaultFileService implements MediaServiceContrac
         return $resized_images;
     }
 
+    public static function getFile($media)
+    {
+        return json_decode($media->files, true)['original'];
+    }
 }

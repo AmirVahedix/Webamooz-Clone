@@ -36,8 +36,16 @@ class MediaService
                 return self::CreateMedia(resolve($type['handler']), $file, $key);
             }
         }
+    }
 
-        return null;
+
+    public static function stream(Media $media)
+    {
+        foreach (config('media.types') as $key => $type) {
+            if ($media->type == $key) {
+                return $type['handler']::stream($media);
+            }
+        }
     }
 
     public static function delete(Media $media)
@@ -76,5 +84,4 @@ class MediaService
     {
         return uniqid();
     }
-
 }
