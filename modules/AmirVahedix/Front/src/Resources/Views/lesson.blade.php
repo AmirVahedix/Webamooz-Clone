@@ -29,11 +29,13 @@
             <div class="main-row container">
                 @include("Front::layouts.course.single.sidebar")
                 <div class="content-left">
-                    <div class="preview">
-                        <video width="100%" controls>
-                            <source src="{{ $lesson->downloadLink() }}" type="video/mp4">
-                        </video>
-                    </div>
+                    @if($lesson->media && $lesson->media->type == "video")
+                        <div class="preview">
+                            <video width="100%" controls>
+                                <source src="{{ $lesson->downloadLink() }}" type="video/mp4">
+                            </video>
+                        </div>
+                    @endif
                     <a href="{{ $lesson->downloadLink() }}" class="episode-download">دانلود قسمت {{ $lesson->number }}</a>
                     <div class="course-description">
                         <div class="course-description-title">توضیحات جلسه</div>

@@ -59,7 +59,7 @@ class LessonController extends Controller
         $this->authorize('edit', [Lesson::class, $lesson]);
 
         if ($request->hasFile('file')){
-            $lesson->media->delete();
+            if ($lesson->media) $lesson->media->delete();
             $media = MediaService::privateUpload($request->file('file'));
             $request->request->add(["media_id" => $media->id]);
         }

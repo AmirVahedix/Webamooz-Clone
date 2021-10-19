@@ -47,7 +47,7 @@
                         </div>
                     </div>
 
-                    <span>{{ $lesson->media->filename }}</span>
+                    <span>{{ $lesson->media ? $lesson->media->filename : '' }}</span>
                     <x-file name="file" label="آپلود درس *" />
 
                     <x-textarea name="description" value="{{ $lesson->description }}" label="توضیحات درس" class="text h"></x-textarea>
