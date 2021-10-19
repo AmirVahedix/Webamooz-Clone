@@ -21,7 +21,7 @@ class FrontServiceProvider extends ServiceProvider
             $view->with(compact('categories'));
         });
 
-        view()->composer("Front::layouts.courses.newest", function($view) {
+        view()->composer("Front::layouts.course.newest", function($view) {
             $latestCourses = (new CourseRepo())->latest();
             $view->with(compact('latestCourses'));
         });

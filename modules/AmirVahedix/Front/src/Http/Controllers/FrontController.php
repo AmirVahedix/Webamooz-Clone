@@ -28,12 +28,23 @@ class FrontController extends Controller
         $course = Course::where('slug', $slug)->first();
         $lessons = $this->lessonRepo->getAcceptedLessons($course);
 
-        return view('Front::single-course', compact('course', 'lessons'));
+        return view('Front::course', compact('course', 'lessons'));
     }
 
     public function shortCourseLink($course_id)
     {
         $course = Course::findOrFail($course_id);
         return redirect()->route('courses.single', $course->slug);
+    }
+
+    public function showLesson($course_slug, $lesson_number)
+    {
+        $course = Course::where('slug', $course_slug)->first();
+        $lesson = Lesson::where('course_id', $course->id)
+            ->where('number', $lesson_number)
+            ->first();
+        $lessons = $this->lessonRepo->getAcceptedLessons($course);
+
+        return view("Front::lesson", compact('course', 'lesson', 'lessons'));
     }
 }
