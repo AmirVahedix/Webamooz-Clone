@@ -7,6 +7,7 @@ namespace AmirVahedix\Front\Http\Controllers;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Models\Lesson;
 use AmirVahedix\Course\Repositories\LessonRepo;
+use AmirVahedix\User\Models\User;
 use App\Http\Controllers\Controller;
 
 class FrontController extends Controller
@@ -46,5 +47,11 @@ class FrontController extends Controller
         $lessons = $this->lessonRepo->getAcceptedLessons($course);
 
         return view("Front::lesson", compact('course', 'lesson', 'lessons'));
+    }
+
+    public function tutor($username)
+    {
+        $user = User::where('username', $username)->first();
+        return view('Front::tutor', compact('user'));
     }
 }

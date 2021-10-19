@@ -13,3 +13,6 @@ Route::get('/c/{id}', [FrontController::class, 'shortCourseLink'])
 
 Route::get('/courses/{slug}/lessons/{number}', [FrontController::class, 'showLesson'])
     ->name('lessons.single');
+
+Route::get('/tutor/{username}', [FrontController::class, 'tutor'])
+    ->name('tutor.show');

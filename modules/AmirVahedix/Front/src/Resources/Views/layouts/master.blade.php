@@ -6,9 +6,7 @@
 </head>
 <body>
 @include("Front::layouts.header.header")
-<article class="container article">
-    @yield('content')
-</article>
+@yield('content')
 @include("Front::layouts.footer.footer")
 
 @include("Front::layouts.foot")

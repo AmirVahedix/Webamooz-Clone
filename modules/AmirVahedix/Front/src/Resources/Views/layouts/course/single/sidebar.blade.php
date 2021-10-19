@@ -82,14 +82,14 @@
         </div>
         <div class="course-teacher-details">
             <div class="top-part">
-                <a href="https://webamooz.net/tutor/mohammadnikoo/">
+                <a href="{{ route('tutor.show', $course->teacher->username) }}">
                     <img alt="{{ $course->teacher->name }}" class="img-fluid lazyloaded"
                          src="{{ $course->teacher->user_avatar ?? asset('panel/img/profile.jpg') }}" loading="lazy">
                     <noscript>
                         <img class="img-fluid" src="{{ $course->teacher->user_avatar ?? asset('panel/img/profile.jpg') }}" alt="{{ $course->teacher->name }}"></noscript>
                 </a>
                 <div class="name">
-                    <a href="https://webamooz.net/tutor/mohammadnikoo/" class="btn-link">
+                    <a href="{{ route('tutor.show', $course->teacher->username) }}" class="btn-link">
                         <h6>{{ $course->teacher->name }}</h6>
                     </a>
                     <span class="job-title">{{ $course->teacher->headline }}</span>

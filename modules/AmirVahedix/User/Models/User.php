@@ -89,7 +89,7 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
 
     public function courses()
     {
-        return $this->hasMany(Course::class);
+        return $this->hasMany(Course::class, 'teacher_id');
     }
 
     public function seasons()
@@ -115,6 +115,16 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
 
         $avatars = (array) json_decode($this->avatar->files);
         return "/storage/$avatars[600]";
+    }
+
+    public function getStudentsCountAttribute()
+    {
+        $students_count = 0;
+        $courses = Course::where('teacher_id', $this->id)->get();
+        foreach ($courses as $course) {
+            $students_count += $course->students->count();
+        }
+        return $students_count;
     }
     // endregion custom attributes
 
