@@ -46,6 +46,23 @@ class LessonPolicy
             && $lesson->course->teacher->id == $user->id;
     }
 
+    public function deleteMultiple(User $user, Course $course, $lessons)
+    {
+        if ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES))
+            return true;
+
+        if ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES)) {
+            if ($course->teacher->id == $user->id) {
+                $status = true;
+                foreach ($lessons as $lesson_id) {
+                    $status = Lesson::findOrFail($lesson_id)->get()->course->id == $course->id;
+                }
+
+                return $status;
+            }
+        }
+    }
+
     public function confirm(User $user)
     {
         return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES);

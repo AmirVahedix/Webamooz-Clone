@@ -51,4 +51,11 @@ class LessonRepo
             ->orderBy('number')
             ->paginate($per_page);
     }
+
+    public function getAcceptedLessons($course)
+    {
+        return Lesson::where('course_id', $course->id)
+            ->where('confirmation_status', Lesson::CONFIRMATION_ACCEPTED)
+            ->get();
+    }
 }

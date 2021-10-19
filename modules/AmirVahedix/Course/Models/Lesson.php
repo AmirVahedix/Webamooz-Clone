@@ -67,5 +67,22 @@ class Lesson extends Model
         return $this->belongsTo(Media::class);
     }
     // endregion relations
+
+    // region custom methods
+    public function getFormattedDurationAttribute()
+    {
+        $H = ($this->duration / 60) < 10
+            ? "0" . round($this->duration / 60)
+            : round($this->duration / 60);
+        $M = ($this->duration % 60) < 10
+            ? "0" . ($this->duration % 60)
+            : $this->duration % 60;
+        $S = "00";
+
+        if ($H == "00") return "$M:$S";
+
+        return "$H:$M:$S";
+    }
+    // endregion custom methods
 }
 

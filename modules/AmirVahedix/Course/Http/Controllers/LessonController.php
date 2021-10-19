@@ -84,9 +84,10 @@ class LessonController extends Controller
 
     public function multipleDelete(Course $course, Request $request)
     {
-        $this->authorize('delete', [Lesson::class, $lesson]);
-
         $lessons = explode(',', $request->get('lessons'));
+
+        $this->authorize('deleteMultiple', [Lesson::class, $course, $lessons]);
+
         foreach ($lessons as $id) {
             $lesson = Lesson::findOrFail($id);
             if ($lesson->media)
