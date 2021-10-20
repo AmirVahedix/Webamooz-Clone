@@ -43,6 +43,8 @@ class CourseServiceProvider extends ServiceProvider
         Gate::before(function($user) {
             return $user->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN) ? true : null;
         });
+
+        $this->app->register(EventServiceProvider::class);
     }
 
     public function boot()

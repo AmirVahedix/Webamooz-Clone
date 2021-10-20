@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpParamsInspection */
 
 
 namespace AmirVahedix\Course\Http\Controllers;
@@ -12,7 +12,9 @@ use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Course\Repositories\LessonRepo;
 use AmirVahedix\Media\Services\MediaService;
+use AmirVahedix\Payment\Events\SuccessfulPaymentEvent;
 use AmirVahedix\Payment\Gateways\Gateway;
+use AmirVahedix\Payment\Models\Payment;
 use AmirVahedix\Payment\Repositories\PaymentRepo;
 use AmirVahedix\Payment\Services\PaymentService;
 use AmirVahedix\User\Repositories\UserRepo;
@@ -140,6 +142,12 @@ class CourseController extends Controller
         if (!$this->userCanPurchaseCourse($course)) return back();
 
         $amount = $course->getFinalPrice();
+        if ($amount <= 0) {
+            $this->courseRepo->addStudentToCourse($course, auth()->user());
+            alert("تراکنش موفق", "پرداخت موفقیت آمیز بود.", "success")->showConfirmButton('حله', '#46B2F0');
+            return redirect($course->path());
+        }
+
         $payment = PaymentService::generate($amount, $course, auth()->user());
 
         return resolve(Gateway::class)->redirect($payment->invoice_id);
