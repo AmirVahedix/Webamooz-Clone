@@ -125,4 +125,11 @@ class Course extends Model
         return (new CourseRepo())->getLessonsCount($this->id);
     }
     // endregion custom attributes
+
+    // region custom methods
+    public function getFinalPrice()
+    {
+        return $this->price;
+    }
+    // endregion custom methods
 }

@@ -4,6 +4,7 @@
 namespace AmirVahedix\Payment\Services;
 
 
+use AmirVahedix\Payment\Gateways\Gateway;
 use AmirVahedix\Payment\Models\Payment;
 use AmirVahedix\Payment\Repositories\PaymentRepo;
 
@@ -13,8 +14,9 @@ class PaymentService
     {
         if ($amount <= 0 || is_null($paymentable) || is_null($user)) return false;
 
-        $gateway = "";
+        $gateway = new Gateway();
         $invoice_id = 0;
+
         if (!is_null($paymentable->percent)) {
             $seller_percent = $paymentable->percent;
             $seller_share = $amount * ($paymentable->percent / 100);

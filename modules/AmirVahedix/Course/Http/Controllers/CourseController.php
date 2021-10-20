@@ -138,7 +138,7 @@ class CourseController extends Controller
 
         if (!$this->userCanPurchaseCourse($course)) return back();
 
-        $amount = 0;
+        $amount = $course->getFinalPrice();
         $payment = PaymentService::generate($amount, $course, auth()->user());
     }
 
