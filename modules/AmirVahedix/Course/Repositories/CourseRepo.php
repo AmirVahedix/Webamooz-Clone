@@ -8,6 +8,7 @@ use AmirVahedix\Course\Http\Requests\Course\UpdateCourseRequest;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Models\Lesson;
 use AmirVahedix\Media\Services\MediaService;
+use AmirVahedix\User\Models\User;
 
 class CourseRepo
 {
@@ -26,7 +27,6 @@ class CourseRepo
         return Course::where('confirmation_status', Course::CONFIRMATION_ACCEPTED)
             ->latest()->take(8)->get();
     }
-
 
     public function create($request)
     {
@@ -65,5 +65,17 @@ class CourseRepo
         return Lesson::where('course_id', $course_id)
             ->where('confirmation_status', Lesson::CONFIRMATION_ACCEPTED)
             ->count();
+    }
+
+    public function addStudentToCourse(Course $course, User $user)
+    {
+        if (!$this->isUserAttendedInCourse($course, $user)) {
+            $course->students()->attach($user->id);
+        }
+    }
+
+    public function isUserAttendedInCourse(Course $course, User $user)
+    {
+        return $course->students()->where('id', $user->id)->count();
     }
 }

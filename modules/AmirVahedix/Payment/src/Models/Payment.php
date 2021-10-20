@@ -2,6 +2,7 @@
 
 namespace AmirVahedix\Payment\Models;
 
+use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -35,5 +36,10 @@ class Payment extends Model
     public function paymentable()
     {
         return $this->morphTo();
+    }
+
+    public function buyer()
+    {
+        return $this->belongsTo(User::class, 'buyer_id');
     }
 }
