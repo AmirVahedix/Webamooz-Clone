@@ -8,7 +8,9 @@ use AmirVahedix\Payment\Models\Payment;
 
 interface GatewayContract
 {
-    public function request(Payment $payment);
+    public function request($amount, $description);
 
     public function verify(Payment $payment);
+
+    public function redirect();
 }

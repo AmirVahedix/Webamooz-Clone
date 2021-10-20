@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('test', function() {
-    $gateway = resolve(Gateway::class);
-
-    $payment = new Payment();
-    $gateway->request($payment);
-
-    dd($gateway);
+//    $gateway = resolve(Gateway::class);
+//
+//    $payment = new Payment();
+//    $gateway->request($payment);
+//
+//    dd($gateway);
 });

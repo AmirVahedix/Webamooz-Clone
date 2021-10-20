@@ -12,6 +12,7 @@ use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Course\Repositories\LessonRepo;
 use AmirVahedix\Media\Services\MediaService;
+use AmirVahedix\Payment\Gateways\Gateway;
 use AmirVahedix\Payment\Repositories\PaymentRepo;
 use AmirVahedix\Payment\Services\PaymentService;
 use AmirVahedix\User\Repositories\UserRepo;
@@ -140,6 +141,8 @@ class CourseController extends Controller
 
         $amount = $course->getFinalPrice();
         $payment = PaymentService::generate($amount, $course, auth()->user());
+
+        return resolve(Gateway::class)->redirect($payment->invoice_id);
     }
 
     private function courseCanBePurchased(Course $course): bool

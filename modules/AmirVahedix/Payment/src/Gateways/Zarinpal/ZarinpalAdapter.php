@@ -7,32 +7,40 @@ use AmirVahedix\Payment\Models\Payment;
 
 class ZarinpalAdapter implements GatewayContract
 {
-    public function request(Payment $payment)
+    private $url;
+    private $client;
+
+    public function request($amount, $description)
     {
-        $zarinpal = new Zarinpal();
-        $callback = "";
-        $result = $zarinpal->request(
-            "*****************",
-            $payment->amount,
-            $payment->paymentable->title,
-            "",
-            "",
-            $callback,
+        $this->client = new Zarinpal();
+        $callback = "http://webamooz.test/test-verify";
+        $result = $this->client->request(
+            "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", $amount, $description, "", "", $callback, true
         );
 
-
         if (isset($result["Status"]) && $result["Status"] == 100) {
+            $this->url = $result['StartPay'];
             return $result["Authority"];
-//            $zarinpal->redirect($result["StartPay"]);
         } else {
-            echo "خطا در ایجاد تراکنش";
-            echo "<br />کد خطا : ". $result["Status"];
-            echo "<br />تفسیر و علت خطا : ". $result["Message"];
+            return [
+                "status" => $result["Status"],
+                "message" => $result["Message"]
+            ];
         }
     }
 
     public function verify(Payment $payment)
     {
         // TODO: Implement verify() method.
+    }
+
+    public function redirect()
+    {
+        $this->client->redirect($this->url);
+    }
+
+    public function getName()
+    {
+        return 'zarinpal';
     }
 }

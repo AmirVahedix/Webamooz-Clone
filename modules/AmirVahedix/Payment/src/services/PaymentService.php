@@ -14,8 +14,13 @@ class PaymentService
     {
         if ($amount <= 0 || is_null($paymentable) || is_null($user)) return false;
 
-        $gateway = new Gateway();
-        $invoice_id = 0;
+        $gateway = resolve(Gateway::class);
+        $invoice_id = $gateway->request($amount, $paymentable->title);
+
+        if (is_array($invoice_id)) {
+            // todo
+            dd($invoice_id);
+        }
 
         if (!is_null($paymentable->percent)) {
             $seller_percent = $paymentable->percent;
@@ -33,7 +38,7 @@ class PaymentService
             "paymentable_type" => get_class($paymentable),
             "amount" => $amount,
             "invoice_id" => $invoice_id,
-            "gateway" => $gateway,
+            "gateway" => $gateway->getName(),
             "seller_percent" => $seller_percent,
             "seller_share" => $seller_share,
             "site_share" => $site_share,
