@@ -489,6 +489,34 @@ a, span {
     padding-right: unset !important;
 }
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: rgba(0,0,0,0);
+    color: #6c757d;
+}
+.table-bordered {
+    border: 1px solid #f0f0f5;
+}
+.table-striped tbody tr:nth-of-type(2n+1) {
+    background-color: #f9f9f9;
+}
+.table th {
+    text-align: initial;
+}
+.table-bordered th, .table-bordered td {
+    border: 1px solid #f0f0f5;
+}
+.table-bordered th, .table-bordered td {
+    border: 1px solid #f0f0f5;
+}
+.table th, .table td {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #f0f0f5;
+}
+
 .main-menu .sub-menu a:hover {
     color: #46b2f0;
     transition: color 200ms ease;
@@ -3690,3 +3718,9 @@ textarea {
  } .mrt-170{
      margin-top:170px;
  }
+.text-red {
+    color: #FF2626 !important;
+}
+.text-primary {
+    color: #46B2F0 !important;
+}

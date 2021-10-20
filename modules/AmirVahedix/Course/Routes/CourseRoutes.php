@@ -17,3 +17,6 @@ Route::get('/courses/{course}/accept', [CourseController::class, 'accept'])->nam
 Route::get('/courses/{course}/reject', [CourseController::class, 'reject'])->name('admin.courses.reject');
 
 Route::get('/courses/{course}/details', [CourseController::class, 'details'])->name('admin.courses.details');
+
+Route::post('/courses/{course}/buy', [CourseController::class, 'buy'])
+    ->name('courses.buy');

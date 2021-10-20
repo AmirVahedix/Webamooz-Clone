@@ -2,14 +2,18 @@
 
 @section('title', $lesson->title)
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+@endsection
+
 @section('content')
     <main id="single" class="mrt-150">
         <div class="content">
             <div class="container">
                 <article class="article">
-                    <div class="ads mb-10">
-                        <a href="" rel="nofollow noopener"><img src="{{ asset("img/ads/1440px/test.jpg") }}" alt=""></a>
-                    </div>
+{{--                    <div class="ads mb-10">--}}
+{{--                        <a href="" rel="nofollow noopener"><img src="{{ asset("img/ads/1440px/test.jpg") }}" alt=""></a>--}}
+{{--                    </div>--}}
                     <div class="h-t">
                         <h1 class="title">{{ $course->title }}</h1>
                         <div class="breadcrumb">

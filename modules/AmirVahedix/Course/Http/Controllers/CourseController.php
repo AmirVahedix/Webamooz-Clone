@@ -129,4 +129,9 @@ class CourseController extends Controller
         $lessons = $this->lessonRepo->paginate($course);
         return view('Course::details', compact('course', 'lessons'));
     }
+
+    public function buy(Course $course)
+    {
+        dd($course);
+    }
 }
