@@ -12,6 +12,7 @@ use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Course\Repositories\LessonRepo;
 use AmirVahedix\Media\Services\MediaService;
+use AmirVahedix\Payments\Repositores\PaymentRepo;
 use AmirVahedix\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -132,6 +133,44 @@ class CourseController extends Controller
 
     public function buy(Course $course)
     {
-        dd($course);
+        if (!$this->courseCanBePurchased($course)) return back();
+
+        if (!$this->userCanPurchaseCourse($course)) return back();
+
+        PaymentRepo::store($course, auth()->user());
+
+    }
+
+    private function courseCanBePurchased(Course $course): bool
+    {
+        if ($course->type === Course::TYPE_FREE) {
+            alert("عملیات ناموفق", "دوره‌های رایگاه قابل خریداری نیستند!", "error")->showConfirmButton('حله', '#46B2F0');
+            return false;
+        }
+        if ($course->status === Course::STATUS_LOCKED) {
+            alert("عملیات ناموفق", "دوره موردنظر قفل شده و فعلا قابل خریداری نیست.", "error")->showConfirmButton('حله', '#46B2F0');
+            return false;
+        }
+        if ($course->confirmation_status !== Course::CONFIRMATION_ACCEPTED) {
+            alert("عملیات ناموفق", "دوره موردنظر هنوز تایید نشده و قابل خریداری نیست!", "error")->showConfirmButton('حله', '#46B2F0');
+            return false;
+        }
+
+        return true;
+    }
+
+    private function userCanPurchaseCourse(Course $course): bool
+    {
+        if ($course->teacher_id == auth()->id()){
+            alert("عملیات ناموفق", "شما مدرس این دوره هستید.", "error")->showConfirmButton('حله', '#46B2F0');
+            return false;
+        }
+
+        if (auth()->user()->hasAccessToCourse($course)) {
+            alert("عملیات ناموفق", "شما به این دوره دسترسی دارید.", "error")->showConfirmButton('حله', '#46B2F0');
+            return false;
+        }
+
+        return true;
     }
 }
