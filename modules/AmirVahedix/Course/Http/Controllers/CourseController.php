@@ -12,7 +12,8 @@ use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Course\Repositories\LessonRepo;
 use AmirVahedix\Media\Services\MediaService;
-use AmirVahedix\Payments\Repositores\PaymentRepo;
+use AmirVahedix\Payment\Repositories\PaymentRepo;
+use AmirVahedix\Payment\Services\PaymentService;
 use AmirVahedix\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -137,8 +138,8 @@ class CourseController extends Controller
 
         if (!$this->userCanPurchaseCourse($course)) return back();
 
-        PaymentRepo::store($course, auth()->user());
-
+        $amount = 0;
+        $payment = PaymentService::generate($amount, $course, auth()->user());
     }
 
     private function courseCanBePurchased(Course $course): bool

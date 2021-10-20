@@ -11,6 +11,7 @@
         "php": "^7.3|^8.0",
         "ext-json": "*",
         "amirvahedix/front": "dev-main",
+        "amirvahedix/payment": "dev-main",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
@@ -48,6 +49,10 @@
         {
             "type": "path",
             "url": "modules/AmirVahedix/Front"
+        },
+        {
+            "type": "path",
+            "url": "modules/AmirVahedix/Payment"
         }
     ],
     "autoload-dev": {

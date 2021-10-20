@@ -1,0 +1,15 @@
+{
+    "name": "amirvahedix/payment",
+    "autoload": {
+        "psr-4": {
+            "AmirVahedix\\Payment\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "\\AmirVahedix\\Payment\\Providers\\PaymentServiceProvider"
+            ]
+        }
+    }
+}

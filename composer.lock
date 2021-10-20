@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c785583f70c01a26e365de638d623a28",
+    "content-hash": "efb30746190eb11196d8123904510b1d",
     "packages": [
         {
             "name": "amirvahedix/front",
@@ -25,6 +25,31 @@
             "autoload": {
                 "psr-4": {
                     "AmirVahedix\\Front\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amirvahedix/payment",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "modules/AmirVahedix/Payment",
+                "reference": "154751fc74cf9e8e32be1efeb7c5cb54ddef5bec"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\AmirVahedix\\Payment\\Providers\\PaymentServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AmirVahedix\\Payment\\": "src"
                 }
             },
             "transport-options": {
@@ -8489,7 +8514,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "amirvahedix/front": 20
+        "amirvahedix/front": 20,
+        "amirvahedix/payment": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
