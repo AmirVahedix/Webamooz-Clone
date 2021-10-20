@@ -23,7 +23,7 @@ class PaymentController extends Controller
 
         if (!$payment || is_array($result)) {
             $paymentRepo->updateStatus($payment, Payment::STATUS_FAILED);
-            alert("تراکنش ناموفق", $result['message'] , "error")->showConfirmButton('حله', '#46B2F0');
+            alert("تراکنش ناموفق", "متاسفانه پرداخت با خطا مواجه شد." , "error")->showConfirmButton('حله', '#46B2F0');
             return redirect($payment->paymentable->path());
         }
 

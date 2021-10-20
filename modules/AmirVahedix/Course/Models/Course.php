@@ -93,11 +93,6 @@ class Course extends Model
             'user_id'
         );
     }
-
-    public function payments()
-    {
-        return $this->morphMany(Payment::class, 'paymentable');
-    }
     // endregion relations
 
     // region custom attributes
