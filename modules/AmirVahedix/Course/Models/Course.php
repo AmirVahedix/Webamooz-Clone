@@ -8,6 +8,7 @@ use AmirVahedix\Category\Models\Category;
 use AmirVahedix\Course\Database\Factories\CourseFactory;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Media\Models\Media;
+use AmirVahedix\Payment\Models\Payment;
 use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -92,6 +93,11 @@ class Course extends Model
             'user_id'
         );
     }
+
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'paymentable');
+    }
     // endregion relations
 
     // region custom attributes
@@ -130,6 +136,11 @@ class Course extends Model
     public function getFinalPrice()
     {
         return $this->price;
+    }
+
+    public function path()
+    {
+        return route('courses.single', $this->slug);
     }
     // endregion custom methods
 }

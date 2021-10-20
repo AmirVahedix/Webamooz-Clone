@@ -31,4 +31,9 @@ class Payment extends Model
         'site_share',
     ];
     // endregion model config
+
+    public function paymentable()
+    {
+        return $this->morphTo();
+    }
 }

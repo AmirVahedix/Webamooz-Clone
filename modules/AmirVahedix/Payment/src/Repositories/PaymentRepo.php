@@ -7,6 +7,11 @@ use AmirVahedix\Payment\Models\Payment;
 
 class PaymentRepo
 {
+    public function findByInvoice($invoice_id)
+    {
+        return Payment::where('invoice_id', $invoice_id)->first();
+    }
+
     public function store($data)
     {
         return Payment::create([
@@ -19,6 +24,13 @@ class PaymentRepo
             "seller_percent" => $data['seller_percent'],
             "seller_share" => $data['seller_share'],
             "site_share" => $data['site_share'],
+        ]);
+    }
+
+    public function updateStatus($payment, $status)
+    {
+        return $payment->update([
+            'status' => $status
         ]);
     }
 }

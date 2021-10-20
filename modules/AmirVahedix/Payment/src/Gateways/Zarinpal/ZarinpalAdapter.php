@@ -4,6 +4,8 @@ namespace AmirVahedix\Payment\Gateways\Zarinpal;
 
 use AmirVahedix\Payment\Contracts\GatewayContract;
 use AmirVahedix\Payment\Models\Payment;
+use AmirVahedix\Payment\Repositories\PaymentRepo;
+use Illuminate\Http\Request;
 
 class ZarinpalAdapter implements GatewayContract
 {
@@ -13,7 +15,8 @@ class ZarinpalAdapter implements GatewayContract
     public function request($amount, $description)
     {
         $this->client = new Zarinpal();
-        $callback = "http://webamooz.test/test-verify";
+        $callback = route('payments.callback');
+
         $result = $this->client->request(
             "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", $amount, $description, "", "", $callback, true
         );
@@ -31,7 +34,19 @@ class ZarinpalAdapter implements GatewayContract
 
     public function verify(Payment $payment)
     {
-        // TODO: Implement verify() method.
+        $this->client = new Zarinpal();
+        $result = $this->client->verify(
+            "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", $payment->amount, true
+        );
+
+        if (isset($result["Status"]) && $result["Status"] == 100) {
+            return $result["RefID"];
+        } else {
+            return [
+                "status" => $result["Status"],
+                "message" => $result["Message"]
+            ];
+        }
     }
 
     public function redirect()

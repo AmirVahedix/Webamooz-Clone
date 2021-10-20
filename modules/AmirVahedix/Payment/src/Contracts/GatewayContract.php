@@ -5,6 +5,7 @@ namespace AmirVahedix\Payment\Contracts;
 
 
 use AmirVahedix\Payment\Models\Payment;
+use Illuminate\Http\Request;
 
 interface GatewayContract
 {
