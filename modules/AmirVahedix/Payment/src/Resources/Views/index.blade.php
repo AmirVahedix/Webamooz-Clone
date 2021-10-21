@@ -31,9 +31,8 @@
         </div>
         <div class="row no-gutters border-radius-3 font-size-13">
             <div class="col-12 bg-white padding-30 margin-bottom-20">
-                محل نمودار درامد سی روز گذاشته
+                <div id="payment_chart"></div>
             </div>
-
         </div>
         <div class="d-flex flex-space-between item-center flex-wrap padding-30 border-radius-3 bg-white">
             <h2 class="margin-bottom-15">همه تراکنش ها</h2>
@@ -93,4 +92,91 @@
         </div>
         {{ $payments->links() }}
     </div>
+@endsection
+
+@section("scripts")
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script>
+        Highcharts.chart('payment_chart', {
+            title: {
+                text: 'نمودار فروش 30 روز گذشته'
+            },
+            xAxis: {
+                categories: [@foreach($last30Days as $day) "{{ $day->format('Y-m-d') }}", @endforeach]
+            },
+            yAxis: {
+                title: {
+                    text: "مبلغ"
+                },
+                labels: {
+                    formatter: function() {
+                        return this.value + "تومان"
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    return "فروش: " + this.y
+                }
+            },
+            labels: {
+                items: [{
+                    html: 'درصد مدرس و سایت',
+                    style: {
+                        left: '50px',
+                        top: '18px',
+                        color: ( // theme
+                            Highcharts.defaultOptions.title.style &&
+                            Highcharts.defaultOptions.title.style.color
+                        ) || 'black'
+                    }
+                }]
+            },
+            series: [{
+                type: 'column',
+                name: 'تراکنش موفق',
+                data: [@foreach($last30Days as $day) {{ $paymentRepo->getDaySuccessPaymentsTotal($day) }}, @endforeach]
+            }, {
+                type: 'column',
+                name: 'درصد سایت',
+                data: [@foreach($last30Days as $day) {{ $paymentRepo->getDaySiteShare($day) }}, @endforeach]
+            }, {
+                type: 'column',
+                name: 'درصد مدرس',
+                data: [@foreach($last30Days as $day) {{ $paymentRepo->getDaySellerShare($day) }}, @endforeach]
+            }, {
+                type: 'spline',
+                name: 'فروش',
+                data: [@foreach($last30Days as $day) {{ $paymentRepo->getDaySuccessPaymentsTotal($day) }}, @endforeach],
+                marker: {
+                    lineWidth: 2,
+                    lineColor: Highcharts.getOptions().colors[3],
+                    fillColor: 'white'
+                }
+            }, {
+                type: 'pie',
+                name: 'Total consumption',
+                data: [{
+                    name: 'درامد مدرس',
+                    y: {{ $last30DaysTotal - $last30DaysSiteBenefit }},
+                    color: Highcharts.getOptions().colors[0]
+                }, {
+                    name: 'درامد سایت',
+                    y: {{ $last30DaysSiteBenefit }},
+                    color: Highcharts.getOptions().colors[1]
+                }],
+                center: [100, 80],
+                size: 100,
+                showInLegend: false,
+                dataLabels: {
+                    enabled: false
+                }
+            }]
+        });
+    </script>
 @endsection

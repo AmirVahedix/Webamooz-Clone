@@ -9,6 +9,7 @@ use AmirVahedix\Payment\Gateways\Gateway;
 use AmirVahedix\Payment\Models\Payment;
 use AmirVahedix\Payment\Repositories\PaymentRepo;
 use App\Http\Controllers\Controller;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -25,14 +26,23 @@ class PaymentController extends Controller
         $this->authorize("manage", Payment::class);
 
         $payments = $this->paymentRepo->paginate();
+
         $last30DaysTotal = $this->paymentRepo->getLastNDaysTotal(30);
         $last30DaysSiteBenefit = $this->paymentRepo->getLastNDaysSiteBenefit(30);
         $allSiteBenefit = $this->paymentRepo->getAllBenefit();
         $allSiteTotal = $this->paymentRepo->getAllTotal();
 
-        return view(
-            'Payment::index',
-            compact('payments', 'last30DaysTotal', 'last30DaysSiteBenefit', 'allSiteBenefit', 'allSiteTotal'));
+        $last30Days = CarbonPeriod::create(now()->addDays(-30), now());
+
+        return view('Payment::index', [
+            'payments' => $payments,
+            'last30DaysTotal' => $last30DaysTotal,
+            'last30DaysSiteBenefit' => $last30DaysSiteBenefit,
+            'allSiteBenefit' => $allSiteBenefit,
+            'allSiteTotal' => $allSiteTotal,
+            'last30Days' => $last30Days,
+            'paymentRepo' => $this->paymentRepo
+        ]);
     }
 
     public function callback(Request $request)
@@ -44,7 +54,7 @@ class PaymentController extends Controller
 
         if (!$payment || is_array($result)) {
             $this->paymentRepo->updateStatus($payment, Payment::STATUS_FAILED);
-            alert("تراکنش ناموفق", "متاسفانه پرداخت با خطا مواجه شد." , "error")->showConfirmButton('حله', '#46B2F0');
+            alert("تراکنش ناموفق", "متاسفانه پرداخت با خطا مواجه شد.", "error")->showConfirmButton('حله', '#46B2F0');
             return redirect($payment->paymentable->path());
         }
 

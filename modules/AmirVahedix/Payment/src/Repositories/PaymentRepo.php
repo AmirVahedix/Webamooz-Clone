@@ -73,4 +73,41 @@ class PaymentRepo
         return $payments
             ->where('status', Payment::STATUS_SUCCESS);
     }
+
+    public function getDayPayments($day, $status)
+    {
+        return Payment::query()
+            ->whereDate('created_at', $day)
+            ->where('status', $status);
+    }
+
+    public function getDaySuccessPayments($day)
+    {
+        return $this->getDayPayments($day, Payment::STATUS_SUCCESS);
+    }
+
+    public function getDayFailPayments($day)
+    {
+        return $this->getDayPayments($day, Payment::STATUS_FAILED);
+    }
+
+    public function getDaySuccessPaymentsTotal($day)
+    {
+        return $this->getDaySuccessPayments($day)->sum('amount');
+    }
+
+    public function getDayFailedPaymentsTotal($day)
+    {
+        return $this->getDayFailPayments($day)->sum('amount');
+    }
+
+    public function getDaySiteShare($day)
+    {
+        return $this->getDaySuccessPayments($day)->sum('site_share');
+    }
+
+    public function getDaySellerShare($day)
+    {
+        return $this->getDaySuccessPayments($day)->sum('seller_share');
+    }
 }
