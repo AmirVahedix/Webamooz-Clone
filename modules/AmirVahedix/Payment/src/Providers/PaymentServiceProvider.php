@@ -2,6 +2,7 @@
 
 namespace AmirVahedix\Payment\Providers;
 
+use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Payment\Gateways\Gateway;
 use AmirVahedix\Payment\Gateways\Zarinpal\ZarinpalAdapter;
@@ -16,16 +17,28 @@ class PaymentServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->group(__DIR__.'/../Routes/PaymentRoutes.php');
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
+        $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Payment');
+        $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
     }
 
     public function boot()
     {
+        // Add Gateway model to work with adapters
         $this->app->singleton(Gateway::class, function($app) {
             return new ZarinpalAdapter();
         });
 
+        // Add course as a morphed model
         Course::resolveRelationUsing("payments", function($model) {
             return $model->morphMany(Payment::class, "paymentable");
         });
+
+        // Add icon in sidebar
+        config()->set('sidebar.items.payments', [
+            'icon' => 'i-transactions',
+            'title' => 'تراکنش ها',
+            'url' => 'admin.payments.index',
+            'permission' => [Permission::PERMISSION_MANAGE_PAYMENTS]
+        ]);
     }
 }

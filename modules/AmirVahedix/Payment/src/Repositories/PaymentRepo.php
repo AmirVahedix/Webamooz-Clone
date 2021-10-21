@@ -33,4 +33,9 @@ class PaymentRepo
             'status' => $status
         ]);
     }
+
+    public function paginate($per_page = 25)
+    {
+        return Payment::latest()->take($per_page)->get();
+    }
 }

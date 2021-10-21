@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     // region constants
-    const STATUS_PENDING = "pending";
+    const STATUS_WAITING = "waiting";
     const STATUS_CANCELED = "canceled";
     const STATUS_SUCCESS = "success";
     const STATUS_FAILED = "failed";
 
-    const statuses = [self::STATUS_PENDING, self::STATUS_CANCELED, self::STATUS_SUCCESS, self::STATUS_FAILED];
+    const statuses = [self::STATUS_WAITING, self::STATUS_CANCELED, self::STATUS_SUCCESS, self::STATUS_FAILED];
     // endregion constants
 
     // region model config

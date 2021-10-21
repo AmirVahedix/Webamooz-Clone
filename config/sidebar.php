@@ -5,6 +5,7 @@ return [
         'dashboard' => [],
         'courses' => [],
         'categories' => [],
+        'payments' => [],
         'authorization' => [],
         'users' => [],
         'profile' => [],

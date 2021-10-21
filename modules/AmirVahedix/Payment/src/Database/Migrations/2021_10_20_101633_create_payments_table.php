@@ -22,7 +22,7 @@ class CreatePaymentsTable extends Migration
             $table->string('amount');
             $table->string('invoice_id');
             $table->string('gateway');
-            $table->enum('status', Payment::statuses)->default(Payment::STATUS_PENDING);
+            $table->enum('status', Payment::statuses)->default(Payment::STATUS_WAITING);
             $table->tinyInteger("seller_percent")->unsigned();
             $table->string("seller_share");
             $table->string("site_share");
