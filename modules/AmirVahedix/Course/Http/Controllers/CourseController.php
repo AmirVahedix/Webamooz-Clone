@@ -178,7 +178,7 @@ class CourseController extends Controller
             return false;
         }
 
-        if (auth()->user()->hasAccessToCourse($course)) {
+        if ($course->hasStudent(auth()->id())) {
             alert("عملیات ناموفق", "شما به این دوره دسترسی دارید.", "error")->showConfirmButton('حله', '#46B2F0');
             return false;
         }

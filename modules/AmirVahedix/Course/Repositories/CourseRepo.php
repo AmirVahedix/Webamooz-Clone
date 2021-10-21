@@ -78,4 +78,9 @@ class CourseRepo
     {
         return $course->students()->where('id', $user->id)->count();
     }
+
+    public function hasStudent(Course $course, $user_id)
+    {
+        return  $course->students->contains($user_id);
+    }
 }

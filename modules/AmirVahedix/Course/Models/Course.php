@@ -137,5 +137,10 @@ class Course extends Model
     {
         return route('courses.single', $this->slug);
     }
+
+    public function hasStudent($user_id)
+    {
+        return resolve(CourseRepo::class)->hasStudent($this, $user_id);
+    }
     // endregion custom methods
 }

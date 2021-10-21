@@ -119,23 +119,14 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
 
     public function getStudentsCountAttribute()
     {
-        $students_count = 0;
-        $courses = Course::where('teacher_id', $this->id)->get();
-        foreach ($courses as $course) {
-            $students_count += $course->students->count();
-        }
-        return $students_count;
+        return DB::table('courses')
+            ->select('course_id')->where('teacher_id', $this->id)
+            ->join('course_students', 'courses.id', '=', 'course_students.course_id')
+            ->count();
     }
     // endregion custom attributes
 
     // region custom methods
-    public function hasAccessToCourse(Course $course)
-    {
-        if ($this->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN)) return true;
-        if ($this->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)) return true;
-        if ($this->id == $course->teacher_id) return true;
-        if ($course->students->contains($this->id)) return true;
-        return false;
-    }
+
     // endregion custom methods
 }

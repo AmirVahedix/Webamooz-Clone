@@ -90,11 +90,13 @@ class Lesson extends Model
     // region custom methods
     public function downloadLink()
     {
-        return URL::temporarySignedRoute(
-            'media.download',
-            now()->addDay(),
-            [ 'media' => $this->media_id ]
-        );
+        if ($this->media_id) {
+            return URL::temporarySignedRoute(
+                'media.download',
+                now()->addDay(),
+                [ 'media' => $this->media_id ]
+            );
+        }
     }
     // endregion custom methods
 }

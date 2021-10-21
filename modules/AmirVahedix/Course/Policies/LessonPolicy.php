@@ -67,4 +67,13 @@ class LessonPolicy
     {
         return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES);
     }
+
+    public function download(User $user, Lesson $lesson)
+    {
+        if ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)) return true;
+        if ($user->id == $lesson->course->teacher_id) return true;
+        if ($lesson->course->hasStudent($user)) return true;
+        if ($lesson->free) return true;
+        return false;
+    }
 }

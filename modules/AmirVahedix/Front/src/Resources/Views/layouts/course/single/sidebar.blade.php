@@ -4,7 +4,7 @@
             @auth
                 @if($course->teacher->id == auth()->id())
                     <p class="mycourse">شما مدرس این دوره هستید</p>
-                @elseif(auth()->user()->hasAccessToCourse($course))
+                @elseif(auth()->user()->can('download', $course))
                     <p class="mycourse">شما دانشجوی این دوره هستید</p>
                 @else
                     <div class="discountBadge">
@@ -104,7 +104,7 @@
         </div>
         <div class="course-teacher-details">
             <div class="top-part">
-                <a href="{{ route('tutor.show', $course->teacher->username) }}">
+                <a href="{{ route('tutor.show', $course->teacher->username ?: $course->teacher->email ?: $course->teacher->mobile) }}">
                     <img alt="{{ $course->teacher->name }}" class="img-fluid lazyloaded"
                          src="{{ $course->teacher->user_avatar ?? asset('panel/img/profile.jpg') }}" loading="lazy">
                     <noscript>
@@ -113,7 +113,7 @@
                              alt="{{ $course->teacher->name }}"></noscript>
                 </a>
                 <div class="name">
-                    <a href="{{ route('tutor.show', $course->teacher->username) }}" class="btn-link">
+                    <a href="{{ route('tutor.show', $course->teacher->username ?: $course->teacher->email ?: $course->teacher->mobile) }}" class="btn-link">
                         <h6>{{ $course->teacher->name }}</h6>
                     </a>
                     <span class="job-title">{{ $course->teacher->headline }}</span>

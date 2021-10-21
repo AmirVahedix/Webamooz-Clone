@@ -34,7 +34,7 @@ abstract class DefaultFileService
             200,
             [
                 "Content-Type" => Storage::disk($disk)->mimeType($file),
-                "Content-disposition" => "attachment; filename=$file`"
+                "Content-disposition" => "attachment; filename=$file"
             ]
         );
     }

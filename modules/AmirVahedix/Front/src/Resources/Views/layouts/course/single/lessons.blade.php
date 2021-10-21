@@ -4,8 +4,7 @@
         @foreach($lessons as $lessonItem)
             <div class="episodes-list-item
                     @if(isset($lesson)) {{ $lessonItem->number == request()->route()->parameter('number') ? 'selected' : '' }} @endif
-                    @if(auth()->check() && !auth()->user()->hasAccessToCourse($course)) {{ $lessonItem->free ? '' : 'lock' }} @endif
-                    @if(!auth()->check()) {{ $lessonItem->free ? '' : 'lock' }} @endif
+                    @cannot('download', $lessonItem) {{ !$lessonItem->free ? 'lock' : '' }} @endcannot
                 ">
                 <div class="section-right">
                     <span class="episodes-list-number">{{ $lessonItem->number }}</span>
@@ -18,7 +17,9 @@
                         <div class="episodes-list-details">
                             <span class="detail-type">{{ $lessonItem->free ? 'رایگان' : '' }}</span>
                             <span class="detail-time">{{ $lessonItem->formatted_duration }}</span>
-                            <a class="detail-download">
+                            <a class="detail-download"
+                               @if((auth()->check() && auth()->user()->can('download', $lessonItem)) || $lessonItem->free) href="{{ $lessonItem->downloadLink() }}" @endif
+                            >
                                 <i class="icon-download"></i>
                             </a>
                         </div>
