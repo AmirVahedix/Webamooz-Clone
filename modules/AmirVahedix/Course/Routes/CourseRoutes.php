@@ -20,3 +20,6 @@ Route::get('/courses/{course}/details', [CourseController::class, 'details'])->n
 
 Route::post('/courses/{course}/buy', [CourseController::class, 'buy'])
     ->name('courses.buy');
+
+Route::get('/courses/{course}/download/all', [CourseController::class, 'downloadAll'])
+    ->name('courses.download.all');

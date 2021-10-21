@@ -1,5 +1,13 @@
 <div class="episodes-list">
-    <div class="episodes-list--title">فهرست جلسات</div>
+    <div>
+        <div class="episodes-list--title">
+            فهرست جلسات
+            @can('download', $course)
+                <a href="{{ route('courses.download.all', $course->id) }}">دریافت همه لینک‌های دانلود</a>
+            @endcan
+        </div>
+
+    </div>
     <div class="episodes-list-section">
         @foreach($lessons as $lessonItem)
             <div class="episodes-list-item

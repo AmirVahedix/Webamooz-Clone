@@ -153,6 +153,12 @@ class CourseController extends Controller
         return resolve(Gateway::class)->redirect($payment->invoice_id);
     }
 
+    public function downloadAll(Course $course)
+    {
+        $this->authorize('download', [Course::class, $course]);
+        return implode("<br>", $course->downloadAll());
+    }
+
     private function courseCanBePurchased(Course $course): bool
     {
         if ($course->type === Course::TYPE_FREE) {
