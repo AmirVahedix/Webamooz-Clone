@@ -25,7 +25,14 @@ class PaymentController extends Controller
         $this->authorize("manage", Payment::class);
 
         $payments = $this->paymentRepo->paginate();
-        return view('Payment::index', compact('payments'));
+        $last30DaysTotal = $this->paymentRepo->getLastNDaysTotal(30);
+        $last30DaysSiteBenefit = $this->paymentRepo->getLastNDaysSiteBenefit(30);
+        $allSiteBenefit = $this->paymentRepo->getAllBenefit();
+        $allSiteTotal = $this->paymentRepo->getAllTotal();
+
+        return view(
+            'Payment::index',
+            compact('payments', 'last30DaysTotal', 'last30DaysSiteBenefit', 'allSiteBenefit', 'allSiteTotal'));
     }
 
     public function callback(Request $request)

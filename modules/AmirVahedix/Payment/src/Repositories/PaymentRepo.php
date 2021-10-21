@@ -36,6 +36,41 @@ class PaymentRepo
 
     public function paginate($per_page = 25)
     {
-        return Payment::latest()->take($per_page)->get();
+        return Payment::latest()->paginate($per_page);
+    }
+
+    public function getLastNDaysTotal($days)
+    {
+        return $this->getLastNDaysPayments($days)
+            ->sum('amount');
+    }
+
+    public function getLastNDaysSiteBenefit($days)
+    {
+        return $this->getLastNDaysPayments($days)
+            ->sum('site_share');
+    }
+
+    public function getAllTotal()
+    {
+        return $this->getLastNDaysPayments()
+            ->sum('amount');
+    }
+
+    public function getAllBenefit()
+    {
+        return $this->getLastNDaysPayments()
+            ->sum('site_share');
+    }
+
+    private function getLastNDaysPayments($days = null)
+    {
+        $payments = Payment::query();
+
+        if (!is_null($days))
+            $payments = $payments->where('created_at', '>=', now()->addDays(-$days));
+
+        return $payments
+            ->where('status', Payment::STATUS_SUCCESS);
     }
 }
