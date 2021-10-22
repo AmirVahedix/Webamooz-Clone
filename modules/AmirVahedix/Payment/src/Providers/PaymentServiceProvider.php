@@ -14,7 +14,7 @@ class PaymentServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        Route::middleware('web')
+        Route::middleware(['web', 'auth'])
             ->group(__DIR__.'/../Routes/PaymentRoutes.php');
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Payment');
@@ -39,6 +39,13 @@ class PaymentServiceProvider extends ServiceProvider
             'title' => 'تراکنش ها',
             'url' => 'admin.payments.index',
             'permission' => [Permission::PERMISSION_MANAGE_PAYMENTS]
+        ]);
+
+        config()->set('sidebar.items.my-purchases', [
+            'icon' => 'i-my__purchases',
+            'title' => 'خریدهای من',
+            'url' => 'purchases.index',
+            'permission' => []
         ]);
     }
 }

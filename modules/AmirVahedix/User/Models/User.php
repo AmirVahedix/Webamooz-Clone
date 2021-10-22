@@ -6,6 +6,7 @@ use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Models\Season;
 use AmirVahedix\Media\Models\Media;
+use AmirVahedix\Payment\Models\Payment;
 use AmirVahedix\User\Database\factories\UserFactory;
 use AmirVahedix\User\Notifications\ResetPasswordNotification;
 use AmirVahedix\User\Notifications\VerifyEmailNotification;
@@ -105,6 +106,11 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
             'user_id',
             'course_id'
         );
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'buyer_id', 'id');
     }
     // endregion relations
 

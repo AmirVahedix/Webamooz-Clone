@@ -6,6 +6,7 @@ return [
         'courses' => [],
         'categories' => [],
         'payments' => [],
+        'my-purchases' => [],
         'authorization' => [],
         'users' => [],
         'profile' => [],
