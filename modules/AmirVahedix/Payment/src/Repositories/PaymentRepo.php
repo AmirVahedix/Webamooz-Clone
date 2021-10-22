@@ -10,9 +10,55 @@ use Illuminate\Support\Facades\DB;
 
 class PaymentRepo
 {
+    private $query;
+
+    public function __construct()
+    {
+        $this->query = Payment::query();
+    }
+
     public function findByInvoice($invoice_id)
     {
         return Payment::where('invoice_id', $invoice_id)->first();
+    }
+
+    public function searchEmail($email)
+    {
+        if ($email) {
+            $this->query
+                ->join('users', 'payments.buyer_id', 'users.id')
+                ->select(['payments.*', 'users.email'])
+                ->where('users.email', "LIKE", "%$email%");
+        }
+        return $this;
+    }
+
+    public function searchMobile($mobile)
+    {
+        if ($mobile) {
+            $this->query
+                ->join('users', 'payments.buyer_id', 'users.id')
+                ->select(['payments.*', 'users.mobile'])
+                ->where('users.mobile', "LIKE", "%$mobile%");
+        }
+        return $this;
+    }
+
+    public function searchAmount($amount)
+    {
+        if ($amount) $this->query->where('amount', $amount);
+        return $this;
+    }
+
+    public function searchInvoice($invoice)
+    {
+        if ($invoice) $this->query->where('invoice_id', "LIKE", "%$invoice%");
+        return $this;
+    }
+
+    public function paginate($per_page = 25)
+    {
+        return $this->query->latest()->paginate($per_page);
     }
 
     public function store($data)
@@ -35,11 +81,6 @@ class PaymentRepo
         return $payment->update([
             'status' => $status
         ]);
-    }
-
-    public function paginate($per_page = 25)
-    {
-        return Payment::latest()->paginate($per_page);
     }
 
     public function getLastNDaysTotal($days)
@@ -87,26 +128,6 @@ class PaymentRepo
     public function getDaySuccessPayments($day)
     {
         return $this->getDayPayments($day, Payment::STATUS_SUCCESS);
-    }
-
-    public function getDayFailPayments($day)
-    {
-        return $this->getDayPayments($day, Payment::STATUS_FAILED);
-    }
-
-    public function getDaySuccessPaymentsTotal($day)
-    {
-        return $this->getDaySuccessPayments($day)->sum('amount');
-    }
-
-    public function getDayFailedPaymentsTotal($day)
-    {
-        return $this->getDayFailPayments($day)->sum('amount');
-    }
-
-    public function getDaySiteShare($day)
-    {
-        return $this->getDaySuccessPayments($day)->sum('site_share');
     }
 
     public function getDaySellerShare($day)

@@ -37,17 +37,17 @@
         <div class="d-flex flex-space-between item-center flex-wrap padding-30 border-radius-3 bg-white">
             <h2 class="margin-bottom-15">همه تراکنش ها</h2>
             <div class="t-header-search">
-                <form action="" onclick="event.preventDefault();">
+                <form action="">
                     <div class="t-header-searchbox font-size-13">
                         <input type="text" class="text search-input__box font-size-13" placeholder="جستجوی تراکنش">
                         <div class="t-header-search-content ">
-                            <input type="text" class="text" placeholder="شماره کارت / بخشی از شماره کارت">
-                            <input type="text" class="text" placeholder="ایمیل">
-                            <input type="text" class="text" placeholder="مبلغ به تومان">
-                            <input type="text" class="text" placeholder="شماره">
-                            <input type="text" class="text" placeholder="از تاریخ : 1399/10/11">
-                            <input type="text" class="text margin-bottom-20" placeholder="تا تاریخ : 1399/10/12">
-                            <btutton class="btn btn-webamooz_net">جستجو</btutton>
+                            <input type="text" name="email" value="{{ request('email') }}" class="text" placeholder="ایمیل">
+                            <input type="text" name="mobile" value="{{ request('mobile') }}" class="text" placeholder="شماره تلفن">
+                            <input type="text" name="amount" value="{{ request('amount') }}" class="text" placeholder="مبلغ به تومان">
+                            <input type="text" name="invoice_id" value="{{ request('invoice_id') }}" class="text" placeholder="شناسه تراکنش">
+                            <input type="text" name="start_date" value="{{ request('start_date') }}" class="text" placeholder="از تاریخ : 1399/10/11">
+                            <input type="text" name="end_date" value="{{ request('end_date') }}" class="text margin-bottom-20" placeholder="تا تاریخ : 1399/10/12">
+                            <button type="submit" class="btn btn-webamooz_net mt-2">جستجو</button>
                         </div>
                     </div>
                 </form>
@@ -57,9 +57,11 @@
             <table width="100%" class="table">
                 <thead role="rowgroup">
                 <tr role="row" class="title-row">
-                    <th>شناسه پرداخت</th>
+                    <th>شناسه تراکنش</th>
                     <th>نام و نام خانوادگی</th>
-                    <th>ایمیل / شماره موبایل</th>
+                    <th>ایمیل</th>
+                    <th>شماره موبایل</th>
+                    <th>شماره موبایل</th>
                     <th>مبلغ (تومان)</th>
                     <th>درامد مدرس</th>
                     <th>درامد سایت</th>
@@ -74,7 +76,8 @@
                     <tr role="row">
                         <td>{{ $payment->invoice_id }}</td>
                         <td>{{ $payment->buyer->name ?? '' }}</td>
-                        <td>{{ $payment->buyer->email ?: $payment->buyer->mobile }}</td>
+                        <td>{{ $payment->buyer->email }}</td>
+                        <td>{{ $payment->buyer->mobile }}</td>
                         <td>{{ number_format($payment->amount) }} تومان</td>
                         <td>{{ number_format($payment->seller_share) }} تومان</td>
                         <td>{{ number_format($payment->site_share) }} تومان</td>

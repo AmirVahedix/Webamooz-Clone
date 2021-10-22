@@ -21,11 +21,16 @@ class PaymentController extends Controller
         $this->paymentRepo = $paymentRepo;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize("manage", Payment::class);
 
-        $payments = $this->paymentRepo->paginate();
+        $payments = $this->paymentRepo
+            ->searchEmail($request->get('email'))
+            ->searchMobile($request->get('mobile'))
+            ->searchAmount($request->get('amount'))
+            ->searchInvoice($request->get('invoice_id'))
+            ->paginate();
 
         $last30DaysTotal = $this->paymentRepo->getLastNDaysTotal(30);
         $last30DaysSiteBenefit = $this->paymentRepo->getLastNDaysSiteBenefit(30);
@@ -38,7 +43,6 @@ class PaymentController extends Controller
         }
         $summary =  $this->paymentRepo->getDailySummary($dates);
 
-//        dd($dates);
 
         return view('Payment::index', compact(
             'payments',
