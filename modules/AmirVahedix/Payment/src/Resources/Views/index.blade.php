@@ -102,25 +102,26 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <script>
+        {{--console.log(@foreach($dates as $day => $value) "{{ $day }}", @endforeach)--}}
         Highcharts.chart('payment_chart', {
             title: {
                 text: 'نمودار فروش 30 روز گذشته'
             },
             xAxis: {
-                categories: [@foreach($last30Days as $day) "{{ $day->format('Y-m-d') }}", @endforeach]
+                categories: [@foreach($dates as $day => $value) "{{ jdate($day)->format('Y-m-d') }}", @endforeach]
             },
             yAxis: {
                 title: {
                     text: "مبلغ"
                 },
                 labels: {
-                    formatter: function() {
+                    formatter: function () {
                         return this.value + "تومان"
                     }
                 }
             },
             tooltip: {
-                formatter: function() {
+                formatter: function () {
                     return "فروش: " + this.y
                 }
             },
@@ -140,19 +141,19 @@
             series: [{
                 type: 'column',
                 name: 'تراکنش موفق',
-                data: [@foreach($last30Days as $day) {{ $paymentRepo->getDaySuccessPaymentsTotal($day) }}, @endforeach]
+                data: [@foreach($dates as $date => $value) @if($day = $summary->where('date', $date)->first()) {{ $day->totalAmount }}, @else 0, @endif @endforeach]
             }, {
                 type: 'column',
                 name: 'درصد سایت',
-                data: [@foreach($last30Days as $day) {{ $paymentRepo->getDaySiteShare($day) }}, @endforeach]
+                data: [@foreach($dates as $date => $value) @if($day = $summary->where('date', $date)->first()) {{ $day->totalSiteShare }}, @else 0, @endif @endforeach]
             }, {
                 type: 'column',
                 name: 'درصد مدرس',
-                data: [@foreach($last30Days as $day) {{ $paymentRepo->getDaySellerShare($day) }}, @endforeach]
+                data: [@foreach($dates as $date => $value) @if($day = $summary->where('date', $date)->first()) {{ $day->totalSellerShare }}, @else 0, @endif @endforeach]
             }, {
                 type: 'spline',
                 name: 'فروش',
-                data: [@foreach($last30Days as $day) {{ $paymentRepo->getDaySuccessPaymentsTotal($day) }}, @endforeach],
+                data: [@foreach($dates as $date => $value) @if($day = $summary->where('date', $date)->first()) {{ $day->totalAmount }}, @else 0, @endif @endforeach],
                 marker: {
                     lineWidth: 2,
                     lineColor: Highcharts.getOptions().colors[3],

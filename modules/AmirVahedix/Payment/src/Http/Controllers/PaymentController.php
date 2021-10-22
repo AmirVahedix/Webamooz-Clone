@@ -32,17 +32,23 @@ class PaymentController extends Controller
         $allSiteBenefit = $this->paymentRepo->getAllBenefit();
         $allSiteTotal = $this->paymentRepo->getAllTotal();
 
-        $last30Days = CarbonPeriod::create(now()->addDays(-30), now());
+        $dates = collect();
+        foreach (range(-30, 0) as $i) {
+            $dates->put(now()->addDays($i)->format('Y-m-d'), 0);
+        }
+        $summary =  $this->paymentRepo->getDailySummary($dates);
 
-        return view('Payment::index', [
-            'payments' => $payments,
-            'last30DaysTotal' => $last30DaysTotal,
-            'last30DaysSiteBenefit' => $last30DaysSiteBenefit,
-            'allSiteBenefit' => $allSiteBenefit,
-            'allSiteTotal' => $allSiteTotal,
-            'last30Days' => $last30Days,
-            'paymentRepo' => $this->paymentRepo
-        ]);
+//        dd($dates);
+
+        return view('Payment::index', compact(
+            'payments',
+            'last30DaysTotal',
+            'last30DaysSiteBenefit',
+            'allSiteBenefit',
+            'allSiteTotal',
+            'dates',
+            'summary',
+        ));
     }
 
     public function callback(Request $request)
