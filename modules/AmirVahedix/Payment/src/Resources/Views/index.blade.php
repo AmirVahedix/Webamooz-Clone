@@ -144,35 +144,38 @@
             series: [{
                 type: 'column',
                 name: 'تراکنش موفق',
-                data: [@foreach($dates as $date => $value) @if($day = $summary->where('date', $date)->first()) {{ $day->totalAmount }}, @else 0, @endif @endforeach]
+                data: [@foreach($dates as $date => $value) @if($day = $summary->where('date', $date)->first()) {{ $day->totalAmount }}, @else 0, @endif @endforeach],
             }, {
                 type: 'column',
                 name: 'درصد سایت',
-                data: [@foreach($dates as $date => $value) @if($day = $summary->where('date', $date)->first()) {{ $day->totalSiteShare }}, @else 0, @endif @endforeach]
+                data: [@foreach($dates as $date => $value) @if($day = $summary->where('date', $date)->first()) {{ $day->totalSiteShare }}, @else 0, @endif @endforeach],
+                color: 'green'
             }, {
                 type: 'column',
                 name: 'درصد مدرس',
-                data: [@foreach($dates as $date => $value) @if($day = $summary->where('date', $date)->first()) {{ $day->totalSellerShare }}, @else 0, @endif @endforeach]
+                data: [@foreach($dates as $date => $value) @if($day = $summary->where('date', $date)->first()) {{ $day->totalSellerShare }}, @else 0, @endif @endforeach],
+                color: 'pink'
             }, {
                 type: 'spline',
                 name: 'فروش',
                 data: [@foreach($dates as $date => $value) @if($day = $summary->where('date', $date)->first()) {{ $day->totalAmount }}, @else 0, @endif @endforeach],
                 marker: {
                     lineWidth: 2,
-                    lineColor: Highcharts.getOptions().colors[3],
+                    lineColor: 'green',
                     fillColor: 'white'
-                }
+                },
+                color: 'green'
             }, {
                 type: 'pie',
                 name: 'Total consumption',
                 data: [{
                     name: 'درامد مدرس',
                     y: {{ $last30DaysTotal - $last30DaysSiteBenefit }},
-                    color: Highcharts.getOptions().colors[0]
+                    color: 'pink'
                 }, {
                     name: 'درامد سایت',
                     y: {{ $last30DaysSiteBenefit }},
-                    color: Highcharts.getOptions().colors[1]
+                    color: 'green'
                 }],
                 center: [100, 80],
                 size: 100,

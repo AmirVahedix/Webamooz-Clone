@@ -58,7 +58,7 @@ class PaymentRepo
         return $this;
     }
 
-    public function searchAfterDate($start_date)
+    public function searchAfterDate($start_date): PaymentRepo
     {
         if ($start_date) {
             $date = Jalalian::fromFormat("Y/m/d", $start_date)->toCarbon();
