@@ -11,6 +11,7 @@ use AmirVahedix\Payment\Repositories\PaymentRepo;
 use App\Http\Controllers\Controller;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Morilog\Jalali\Jalalian;
 
 class PaymentController extends Controller
 {
@@ -30,6 +31,8 @@ class PaymentController extends Controller
             ->searchMobile($request->get('mobile'))
             ->searchAmount($request->get('amount'))
             ->searchInvoice($request->get('invoice_id'))
+            ->searchAfterDate($request->get('start_date'))
+            ->searchBeforeDate($request->get('end_date'))
             ->paginate();
 
         $last30DaysTotal = $this->paymentRepo->getLastNDaysTotal(30);

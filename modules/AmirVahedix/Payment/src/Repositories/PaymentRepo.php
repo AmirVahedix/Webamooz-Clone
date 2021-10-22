@@ -5,8 +5,10 @@ namespace AmirVahedix\Payment\Repositories;
 
 use AmirVahedix\Payment\Models\Payment;
 use Carbon\Carbon;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Morilog\Jalali\Jalalian;
 
 class PaymentRepo
 {
@@ -22,7 +24,7 @@ class PaymentRepo
         return Payment::where('invoice_id', $invoice_id)->first();
     }
 
-    public function searchEmail($email)
+    public function searchEmail($email): PaymentRepo
     {
         if ($email) {
             $this->query
@@ -33,7 +35,7 @@ class PaymentRepo
         return $this;
     }
 
-    public function searchMobile($mobile)
+    public function searchMobile($mobile): PaymentRepo
     {
         if ($mobile) {
             $this->query
@@ -44,19 +46,37 @@ class PaymentRepo
         return $this;
     }
 
-    public function searchAmount($amount)
+    public function searchAmount($amount): PaymentRepo
     {
         if ($amount) $this->query->where('amount', $amount);
         return $this;
     }
 
-    public function searchInvoice($invoice)
+    public function searchInvoice($invoice): PaymentRepo
     {
         if ($invoice) $this->query->where('invoice_id', "LIKE", "%$invoice%");
         return $this;
     }
 
-    public function paginate($per_page = 25)
+    public function searchAfterDate($start_date)
+    {
+        if ($start_date) {
+            $date = Jalalian::fromFormat("Y/m/d", $start_date)->toCarbon();
+            $this->query->whereDate("created_at", ">=", $date);
+        }
+        return $this;
+    }
+
+    public function searchBeforeDate($end_date): PaymentRepo
+    {
+        if ($end_date) {
+            $date = Jalalian::fromFormat("Y/m/d", $end_date)->toCarbon();
+            $this->query->where("created_at", "<=", $date);
+        }
+        return $this;
+    }
+
+    public function paginate($per_page = 25): LengthAwarePaginator
     {
         return $this->query->latest()->paginate($per_page);
     }
