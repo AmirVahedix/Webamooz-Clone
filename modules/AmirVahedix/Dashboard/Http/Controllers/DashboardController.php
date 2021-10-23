@@ -17,6 +17,19 @@ class DashboardController extends Controller
         $teacherTodaySuccessPayments = $paymentRepo->getTeacherTodayPurchases(auth()->user());
         $teacherTodayTotalAmount = $paymentRepo->getTeacherTodayPurchaseAmount(auth()->user());
 
+        $payments = $paymentRepo->getTeacherTotalSell(auth()->user())->take(10)->get();
+
+        $last30DaysTotal = $paymentRepo->getLastNDaysTotal(30);
+        $last30DaysSiteBenefit = $paymentRepo->getLastNDaysSiteBenefit(30);
+        $allSiteBenefit = $paymentRepo->getAllBenefit();
+        $allSiteTotal = $paymentRepo->getAllTotal();
+
+        $dates = collect();
+        foreach (range(-30, 0) as $i) {
+            $dates->put(now()->addDays($i)->format('Y-m-d'), 0);
+        }
+        $summary =  $paymentRepo->getDailySummary($dates, auth()->id());
+
         return view(
             'Dashboard::index',
             compact(
@@ -25,7 +38,14 @@ class DashboardController extends Controller
                 'teacherTodayBenefit',
                 'teacherLast30DayBenefit',
                 'teacherTodaySuccessPayments',
-                'teacherTodayTotalAmount'
+                'teacherTodayTotalAmount',
+                'last30DaysTotal',
+                'last30DaysSiteBenefit',
+                'allSiteBenefit',
+                'allSiteTotal',
+                'summary',
+                'payments',
+                'dates'
             )
         );
     }

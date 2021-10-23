@@ -157,10 +157,22 @@ class PaymentRepo
         return $this->getDaySuccessPayments($day)->sum('seller_share');
     }
 
-    public function getDailySummary(Collection $dates)
+    public function getDailySummary(Collection $dates, $user_id = null)
     {
-        return Payment::query()->where('created_at', '>=', $dates->keys()->first())
-            ->groupBy('date')
+        $query = Payment::query()
+            ->where('created_at', '>=', $dates->keys()->first());
+
+        if ($user_id) {
+            $query->whereHasMorph(
+                'paymentable',
+                [Course::class],
+                function (Builder $query) use ($user_id) {
+                    $query->where('teacher_id', $user_id);
+                }
+            );
+        }
+
+        return $query->groupBy('date')
             ->orderBy('date')
             ->get([
                 DB::raw("DATE(created_at) as date"),
@@ -170,13 +182,13 @@ class PaymentRepo
             ]);
     }
 
-    private function getTeacherTotalSell($user)
+    public function getTeacherTotalSell($user)
     {
         return Payment::query()
             ->whereHasMorph(
                 'paymentable',
                 [Course::class],
-                function (Builder $query) use($user){
+                function (Builder $query) use ($user) {
                     $query->where('teacher_id', $user->id);
                 }
             )
