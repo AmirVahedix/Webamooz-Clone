@@ -11,13 +11,17 @@ class CreateSettlementsTable extends Migration
     {
         Schema::create('settlements', function (Blueprint $table) {
             $table->id();
-            $table->string('transaction_id');
+            $table->foreignId('user_id')->nullable();
+            $table->string('transaction_id')->nullable();
             $table->json('from')->nullable();
             $table->json('to')->nullable();
             $table->string('amount');
             $table->enum('status', Settlement::statuses)->default(Settlement::STATUS_WAITING);
             $table->timestamp('settled_at')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('set null')->onUpdate('cascade');
         });
     }
 

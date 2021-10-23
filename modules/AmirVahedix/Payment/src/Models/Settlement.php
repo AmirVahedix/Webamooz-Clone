@@ -22,12 +22,18 @@ class Settlement extends Model
     protected $table = 'settlements';
 
     protected $fillable = [
+        'user_id',
         'transaction_id',
         'from',
         'to',
         'amount',
         'settled_at',
         'status',
+    ];
+
+    protected $casts = [
+        "to" => "json",
+        "from" => "json"
     ];
     // endregion model config
 }
