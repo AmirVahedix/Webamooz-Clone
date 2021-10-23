@@ -10,7 +10,7 @@ class PurchaseController extends Controller
 {
     public function index()
     {
-        $payments = auth()->user()->payments;
+        $payments = auth()->user()->payments()->paginate(25);
         return view('Payment::purchases', compact('payments'));
     }
 }

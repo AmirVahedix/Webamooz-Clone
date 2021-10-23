@@ -26,11 +26,19 @@
                         <td>{{ $payment->paymentable->title }}</td>
                         <td>{{ jdate($payment->created_at)->format('Y/m/d') }}</td>
                         <td>{{ number_format($payment->amount) }} تومان</td>
-                        <td class="successful">{{ __($payment->status) }}</td>
+                        <td>
+                            @if($payment->status === \AmirVahedix\Payment\Models\Payment::STATUS_SUCCESS)
+                                <span class="text-success">{{ __($payment->status) }}</span>
+                            @else
+                                <span class="text-error">{{ __($payment->status) }}</span>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
+            {{ $payments->links() }}
+
         </div>
         <div class="pagination">
         </div>

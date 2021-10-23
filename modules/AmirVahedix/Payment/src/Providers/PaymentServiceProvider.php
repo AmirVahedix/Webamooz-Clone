@@ -45,7 +45,6 @@ class PaymentServiceProvider extends ServiceProvider
             'icon' => 'i-my__purchases',
             'title' => 'خریدهای من',
             'url' => 'purchases.index',
-            'permission' => []
         ]);
     }
 }
