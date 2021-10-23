@@ -3,6 +3,7 @@
 namespace AmirVahedix\Payment\Http\Controllers;
 
 use AmirVahedix\Payment\Http\Requests\StoreSettlementRequest;
+use AmirVahedix\Payment\Models\Settlement;
 use AmirVahedix\Payment\Repositories\SettlementRepo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,9 +17,11 @@ class SettlementController extends Controller
         $this->settlementRepo = $settlementRepo;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $settlements = $this->settlementRepo->paginate(auth()->id());
+        $settlements = $this->settlementRepo
+            ->paginate(auth()->id(), $request->get('status') ?? '');
+
         return view("Payment::settlements.index", compact('settlements'));
     }
 
@@ -31,7 +34,7 @@ class SettlementController extends Controller
     {
         $this->settlementRepo->store($request);
 
-        toast('موفقیت آمیز', 'درخواست تسویه باموفقیت ثبت شد.');
+        toast('درخواست تسویه باموفقیت ثبت شد.', 'success');
         return redirect()->route('dashboard.settlements.index');
     }
 }

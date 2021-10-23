@@ -58,5 +58,12 @@ class PaymentServiceProvider extends ServiceProvider
             'url' => 'dashboard.settlements.create',
             'permission' => [Permission::PERMISSION_TEACH]
         ]);
+
+        config()->set('sidebar.items.checkouts', [
+            'icon' => 'i-checkouts',
+            'title' => 'تسویه حساب‌ها',
+            'url' => 'dashboard.settlements.index',
+            'permission' => [Permission::PERMISSION_TEACH]
+        ]);
     }
 }
