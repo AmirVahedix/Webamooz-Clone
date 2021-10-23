@@ -14,6 +14,7 @@ class PaymentServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->register(EventServiceProvider::class);
         Route::middleware(['web', 'auth'])
             ->group(__DIR__.'/../Routes/PaymentRoutes.php');
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
