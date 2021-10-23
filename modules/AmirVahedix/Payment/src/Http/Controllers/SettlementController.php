@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class SettlementController extends Controller
 {
-    //
+    public function create()
+    {
+        return view("Payment::settlements.create");
+    }
 }

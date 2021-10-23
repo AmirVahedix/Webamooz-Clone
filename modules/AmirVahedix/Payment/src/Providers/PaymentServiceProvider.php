@@ -15,8 +15,12 @@ class PaymentServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(EventServiceProvider::class);
+
         Route::middleware(['web', 'auth'])
             ->group(__DIR__.'/../Routes/PaymentRoutes.php');
+        Route::middleware(['web', 'auth'])
+            ->group(__DIR__.'/../Routes/SettlementRoutes.php');
+
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Payment');
         $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
@@ -46,6 +50,13 @@ class PaymentServiceProvider extends ServiceProvider
             'icon' => 'i-my__purchases',
             'title' => 'خریدهای من',
             'url' => 'purchases.index',
+        ]);
+
+        config()->set('sidebar.items.settlement-request', [
+            'icon' => 'i-checkout__request',
+            'title' => 'درخواست تسویه',
+            'url' => 'dashboard.settlements.create',
+            'permission' => [Permission::PERMISSION_TEACH]
         ]);
     }
 }

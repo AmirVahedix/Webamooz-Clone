@@ -7,6 +7,7 @@ return [
         'categories' => [],
         'payments' => [],
         'my-purchases' => [],
+        'settlement-request' => [],
         'authorization' => [],
         'users' => [],
         'profile' => [],
