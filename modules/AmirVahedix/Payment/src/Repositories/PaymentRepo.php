@@ -3,9 +3,11 @@
 namespace AmirVahedix\Payment\Repositories;
 
 
+use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Payment\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Morilog\Jalali\Jalalian;
@@ -166,5 +168,57 @@ class PaymentRepo
                 DB::raw("SUM(seller_share) as totalSellerShare"),
                 DB::raw("SUM(site_share) as totalSiteShare"),
             ]);
+    }
+
+    private function getTeacherTotalSell($user)
+    {
+        return Payment::query()
+            ->whereHasMorph(
+                'paymentable',
+                [Course::class],
+                function (Builder $query) use($user){
+                    $query->where('teacher_id', $user->id);
+                }
+            )
+            ->where('status', Payment::STATUS_SUCCESS);
+    }
+
+    public function getTeacherTotalSellAmount($user)
+    {
+        return $this->getTeacherTotalSell($user)->sum('amount');
+    }
+
+    public function getTeacherTotalSellBenefit($user)
+    {
+        return $this->getTeacherTotalSell($user)->sum('seller_share');
+    }
+
+    public function getTeacherBenefit($user, $date)
+    {
+        return $this->getTeacherTotalSell($user)
+            ->whereDate('created_at', $date)
+            ->sum('seller_share');
+    }
+
+    public function getTeacherLast30DayBenefit($user)
+    {
+        return $this->getTeacherTotalSell($user)
+            ->whereDate('created_at', '>=', now()->addDays(-30))
+            ->whereDate('created_at', '<=', now())
+            ->sum('seller_share');
+    }
+
+    public function getTeacherTodayPurchases($user)
+    {
+        return $this->getTeacherTotalSell($user)
+            ->whereDate('created_at', now())
+            ->count();
+    }
+
+    public function getTeacherTodayPurchaseAmount($user)
+    {
+        return $this->getTeacherTotalSell($user)
+            ->whereDate('created_at', now())
+            ->sum('amount');
     }
 }
