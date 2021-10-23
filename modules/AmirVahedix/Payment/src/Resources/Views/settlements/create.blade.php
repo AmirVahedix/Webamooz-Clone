@@ -4,7 +4,7 @@
 
 @section('breadcrumbs')
     <li><a href="{{ route('dashboard.index') }}">پیشخوان</a></li>
-    <li><a href="">تسویه حساب‌ها</a></li>
+    <li><a href="{{ route('dashboard.settlements.index') }}">تسویه حساب‌ها</a></li>
     <li><a href="">درخواست تسویه</a></li>
 @endsection
 

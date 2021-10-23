@@ -5,7 +5,6 @@
 @section('breadcrumbs')
     <li><a href="{{ route('dashboard.index') }}">پیشخوان</a></li>
     <li><a href="">تسویه حساب‌ها</a></li>
-    <li><a href="">درخواست تسویه</a></li>
 @endsection
 
 @section("content")
@@ -13,8 +12,11 @@
         <div class="tab__box">
             <div class="tab__items">
                 <a class="tab__item {{ request()->get('status') ? '' : 'is-active' }}" href="?"> همه تسویه ها</a>
-                <a class="tab__item {{ request()->get('status') ? 'is-active' : '' }}" href="?status={{ \AmirVahedix\Payment\Models\Settlement::STATUS_SETTLED }}">تسویه های واریز شده</a>
-                <a class="tab__item " href="{{ route('dashboard.settlements.create') }}">درخواست تسویه جدید</a>
+                <a class="tab__item {{ request()->get('status') ? 'is-active' : '' }}"
+                   href="?status={{ \AmirVahedix\Payment\Models\Settlement::STATUS_SETTLED }}">تسویه های واریز شده</a>
+                @can(\AmirVahedix\Authorization\Models\Permission::PERMISSION_TEACH)
+                    <a class="tab__item " href="{{ route('dashboard.settlements.create') }}">درخواست تسویه جدید</a>
+                @endcan
             </div>
         </div>
         <div class="bg-white padding-20">
@@ -55,7 +57,7 @@
                 @foreach($settlements as $settlement)
                     <tr role="row">
                         <td>{{ $settlement->transaction_id }}</td>
-                        <td>{{ $settlement->from ? $settlement->from['name'] : '-' }}</td>
+                        <td>{{ $settlement->from ? $settlement->from['name'] : 'وب آموز' }}</td>
                         <td>{{ $settlement->to['name'] }}</td>
                         <td>{{ $settlement->to['cart'] }}</td>
                         <td>{{ jdate($settlement->created_at)->ago() }}</td>
@@ -69,10 +71,14 @@
                             @endif
                         </td>
                         <td>
-                            <a href="" class="item-delete mlg-15" title="حذف"></a>
-                            <a href="show-comment.html" class="item-reject mlg-15" title="رد"></a>
-                            <a href="show-comment.html" class="item-confirm mlg-15" title="تایید"></a>
-                            <a href="edit-comment.html" class="item-edit " title="ویرایش"></a>
+                            @can(\AmirVahedix\Authorization\Models\Permission::PERMISSION_MANAGE_PAYMENTS)
+                                <a href="{{ route('dashboard.settlements.reject', $settlement) }}" class="item-reject mlg-15" title="رد"></a>
+                                <a href="{{ route('dashboard.settlements.accept', $settlement) }}" class="item-confirm mlg-15" title="تایید"></a>
+                            @else
+                                @if($settlement->status == \AmirVahedix\Payment\Models\Settlement::STATUS_WAITING)
+                                    <a href="{{ route('dashboard.settlements.cancel', $settlement) }}" class="item-reject mlg-15" title="لغو"></a>
+                                @endif
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

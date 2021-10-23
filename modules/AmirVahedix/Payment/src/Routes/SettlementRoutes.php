@@ -12,4 +12,13 @@ Route::prefix('dashboard/settlements')->group(function() {
 
     Route::post('/', [SettlementController::class, 'store'])
         ->name('dashboard.settlements.store');
+
+    Route::get('/{settlement}/accept', [SettlementController::class, 'accept'])
+        ->name('dashboard.settlements.accept');
+
+    Route::get('/{settlement}/reject', [SettlementController::class, 'reject'])
+        ->name('dashboard.settlements.reject');
+
+    Route::get('/{settlement}/cancel', [SettlementController::class, 'cancel'])
+        ->name('dashboard.settlements.cancel');
 });

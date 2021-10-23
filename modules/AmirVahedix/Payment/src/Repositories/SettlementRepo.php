@@ -8,9 +8,11 @@ use AmirVahedix\Payment\Models\Settlement;
 
 class SettlementRepo
 {
-    public function paginate($user_id, $status, $per_page = 25)
+    public function paginate($user_id = null, $status = null, $per_page = 25)
     {
-        $query = Settlement::query()->where('user_id', $user_id);
+        $query = Settlement::query();
+
+        if ($user_id) $query = $query->where('user_id', $user_id);
         if ($status) $query = $query->where('status', $status);
 
         return $query->paginate($per_page);
@@ -26,5 +28,10 @@ class SettlementRepo
             ],
             'amount' => $request->get('amount'),
         ]);
+    }
+
+    public function updateStatus(Settlement $settlement, string $status): bool
+    {
+        return $settlement->update([ 'status' => $status ]);
     }
 }
