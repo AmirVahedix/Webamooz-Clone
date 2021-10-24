@@ -3,7 +3,6 @@
 
 namespace AmirVahedix\Payment\Policies;
 
-
 use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\User\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;

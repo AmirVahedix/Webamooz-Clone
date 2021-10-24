@@ -7,6 +7,11 @@ use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Payment\Gateways\Gateway;
 use AmirVahedix\Payment\Gateways\Zarinpal\ZarinpalAdapter;
 use AmirVahedix\Payment\Models\Payment;
+use AmirVahedix\Payment\Models\Settlement;
+use AmirVahedix\Payment\Policies\PaymentPolicy;
+use AmirVahedix\Payment\Policies\SettlementPolicy;
+use AmirVahedix\User\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,6 +29,13 @@ class PaymentServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Payment');
         $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
+
+        Gate::policy(Payment::class, PaymentPolicy::class);
+        Gate::policy(Settlement::class, SettlementPolicy::class);
+
+        Gate::before(function($user) {
+            return $user->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN) ? true : null;
+        });
     }
 
     public function boot()
