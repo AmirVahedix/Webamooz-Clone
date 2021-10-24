@@ -46,6 +46,8 @@
                     <th>شناسه تسویه</th>
                     <th>مبدا</th>
                     <th>مقصد</th>
+                    <th>نام کاربر</th>
+                    <th>شماره تلفن / ایمیل کاربر</th>
                     <th>شماره کارت</th>
                     <th>تاریخ درخواست واریز</th>
                     <th>تاریخ واریز شده</th>
@@ -61,6 +63,12 @@
                         <td>{{ $settlement->transaction_id }}</td>
                         <td>{{ $settlement->from ? $settlement->from['name'] : 'وب آموز' }}</td>
                         <td>{{ $settlement->to['name'] }}</td>
+                        <td>
+                            <a href="{{ route('users.info', $settlement->user) }}">
+                                {{ $settlement->user->name }}
+                            </a>
+                        </td>
+                        <td>{{ $settlement->user->phone ?: $settlement->user->email }}</td>
                         <td>{{ $settlement->to['cart'] }}</td>
                         <td>{{ jdate($settlement->created_at)->ago() }}</td>
                         <td>{{ $settlement->settled_at ? jdate($settlement->settled_at) : 'در انتظار'  }}</td>

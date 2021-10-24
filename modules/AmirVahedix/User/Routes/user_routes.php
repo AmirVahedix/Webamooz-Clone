@@ -55,4 +55,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
 // User Profile Routes
 Route::post('users/{user}/avatar', [ProfileController::class, 'updateAvatar'])->name('users.avatar.update');
 Route::get('users/profile', [ProfileController::class, 'show'])->name('users.profile.show');
-Route::patch('users/profile', [ProfileController::class, 'update'])->name('users.profile.update');
+Route::patch('users/{user}/update', [ProfileController::class, 'update'])->name('users.profile.update');
+
+Route::get('users/{user}/info', [ProfileController::class, 'info'])->name('users.info');

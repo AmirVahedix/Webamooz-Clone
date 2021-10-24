@@ -7,6 +7,7 @@ use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Models\Season;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\Payment\Models\Payment;
+use AmirVahedix\Payment\Models\Settlement;
 use AmirVahedix\User\Database\factories\UserFactory;
 use AmirVahedix\User\Notifications\ResetPasswordNotification;
 use AmirVahedix\User\Notifications\VerifyEmailNotification;
@@ -97,6 +98,11 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
     public function seasons()
     {
         return $this->hasMany(Season::class);
+    }
+
+    public function settlements()
+    {
+        return $this->hasMany(Settlement::class);
     }
 
     public function purchases()

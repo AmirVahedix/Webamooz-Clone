@@ -36,6 +36,8 @@ class Settlement extends Model
         "to" => "json",
         "from" => "json"
     ];
+
+    public $timestamps = 'settled_at';
     // endregion model config
 
     // region relations

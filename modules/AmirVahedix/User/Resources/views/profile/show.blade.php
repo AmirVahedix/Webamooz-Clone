@@ -14,26 +14,26 @@
         <div class="row no-gutters bg-white">
             <div class="col-12">
 
-                <form action="{{ route('users.profile.update') }}" method="POST" enctype="multipart/form-data"
+                <form action="{{ route('users.profile.update', $user->id) }}" method="POST" enctype="multipart/form-data"
                       class="padding-30">
                     @csrf
                     @method('PATCH')
 
-                    <x-input name="name" value="{{ auth()->user()->name }}" class="text" placeholder="نام کاربر"/>
-                    <x-input name="email" value="{{ auth()->user()->email }}" class="text" placeholder="ایمیل" ltr readonly/>
-                    <x-input name="phone" value="{{ auth()->user()->phone }}" class="text" placeholder="شماره تلفن" ltr
+                    <x-input name="name" value="{{ $user->name }}" class="text" placeholder="نام کاربر"/>
+                    <x-input name="email" value="{{ $user->email }}" class="text" placeholder="ایمیل" ltr readonly/>
+                    <x-input name="phone" value="{{ $user->phone }}" class="text" placeholder="شماره تلفن" ltr
                              readonly/>
-                    <x-input name="username" value="{{ auth()->user()->username }}" class="text" placeholder="نام کاربری" ltr/>
-                    <span>https://webamooz.net/toturs/{{ auth()->user()->username ?? 'username' }}</span>
-                    <x-input name="headline" value="{{ auth()->user()->headline }}" class="text" placeholder="عنوان"/>
-                    <x-textarea label="درباره من" name="bio" value="{{ auth()->user()->bio }}" class="text" placeholder="درباره"/>
-                    <x-input name="website" value="{{ auth()->user()->website }}" class="text" placeholder="وبسایت"/>
-                    <x-input name="linkedin" value="{{ auth()->user()->linkedin }}" class="text" placeholder="لینکداین"/>
-                    <x-input name="facebook" value="{{ auth()->user()->facebook }}" class="text" placeholder="فیسبوک"/>
-                    <x-input name="twitter" value="{{ auth()->user()->twitter }}" class="text" placeholder="توییتر"/>
-                    <x-input name="instagram" value="{{ auth()->user()->instagram }}" class="text" placeholder="اینستاگرام"/>
-                    <x-input name="youtube" value="{{ auth()->user()->youtube }}" class="text" placeholder="یوتیوب"/>
-                    <x-input name="telegram" value="{{ auth()->user()->telegram }}" class="text" placeholder="تلگرام"/>
+                    <x-input name="username" value="{{ $user->username }}" class="text" placeholder="نام کاربری" ltr/>
+                    <span>https://webamooz.net/toturs/{{ $user->username ?? 'username' }}</span>
+                    <x-input name="headline" value="{{ $user->headline }}" class="text" placeholder="عنوان"/>
+                    <x-textarea label="درباره من" name="bio" value="{{ $user->bio }}" class="text" placeholder="درباره"/>
+                    <x-input name="website" value="{{ $user->website }}" class="text" placeholder="وبسایت"/>
+                    <x-input name="linkedin" value="{{ $user->linkedin }}" class="text" placeholder="لینکداین"/>
+                    <x-input name="facebook" value="{{ $user->facebook }}" class="text" placeholder="فیسبوک"/>
+                    <x-input name="twitter" value="{{ $user->twitter }}" class="text" placeholder="توییتر"/>
+                    <x-input name="instagram" value="{{ $user->instagram }}" class="text" placeholder="اینستاگرام"/>
+                    <x-input name="youtube" value="{{ $user->youtube }}" class="text" placeholder="یوتیوب"/>
+                    <x-input name="telegram" value="{{ $user->telegram }}" class="text" placeholder="تلگرام"/>
 
                     <span>تغییر رمز عبور</span>
                     <x-input type="password" name="password" class="text" placeholder="رمزعبور جدید"/>

@@ -62,8 +62,10 @@ class SettlementController extends Controller
         $this->settlementRepo->updateStatus($settlement, Settlement::STATUS_SETTLED);
 
         $settlement->user->update([
-            'balance' => $settlement->user->balance - $settlement->amount
+            'balance' => $settlement->user->balance - $settlement->amount,
         ]);
+
+        $settlement->update([ 'settled_at' => now() ]);
 
         toast('درخواست تسویه باموفقیت تایید شد.', 'success');
         return redirect()->route('dashboard.settlements.index');
@@ -72,6 +74,8 @@ class SettlementController extends Controller
     public function reject(Settlement $settlement)
     {
         $this->settlementRepo->updateStatus($settlement, Settlement::STATUS_REJECTED);
+
+        $settlement->update([ 'settled_at' => null ]);
 
         toast('درخواست تسویه باموفقیت رد شد.', 'success');
         return redirect()->route('dashboard.settlements.index');

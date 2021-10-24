@@ -6,6 +6,7 @@ namespace AmirVahedix\User\Http\Controllers;
 
 use AmirVahedix\Media\Services\MediaService;
 use AmirVahedix\User\Http\Requests\UpdateAvatarRequest;
+use AmirVahedix\User\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,12 +14,23 @@ class ProfileController extends Controller
 {
     public function show()
     {
-        return view('User::profile.show');
+        return view('User::profile.show', [
+            "user" => auth()->user()
+        ]);
     }
 
-    public function update(Request $request)
+    public function info($user_id)
     {
-        auth()->user()->update($request->all());
+        $user = User::query()->where('id', $user_id)
+            ->with(['purchases', 'courses'])
+            ->first();
+
+        return view("User::admin.user-info", compact('user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $user->update($request->all());
 
         toast('تغییرات باموفقیت انجام شد.', 'success');
         return redirect(route('users.profile.show'));
