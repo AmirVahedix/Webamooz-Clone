@@ -18,7 +18,7 @@ class StoreSettlementRequest extends FormRequest
         return [
             'name' => 'required',
             'cart' => ['required', 'numeric', 'digits:16'],
-            'amount' => ['required', 'numeric', "max:".auth()->user()->balance]
+            'amount' => ['required', 'numeric', "min:10000", "max:".auth()->user()->balance]
         ];
     }
 

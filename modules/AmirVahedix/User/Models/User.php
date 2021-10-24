@@ -140,6 +140,11 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
     // endregion custom attributes
 
     // region custom methods
-
+    public function checkHasWaitingSettlement()
+    {
+        return $this->settlements()
+            ->where('status', Settlement::STATUS_WAITING)
+            ->count();
+    }
     // endregion custom methods
 }

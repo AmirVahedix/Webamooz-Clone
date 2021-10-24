@@ -43,6 +43,11 @@ class SettlementController extends Controller
 
     public function store(StoreSettlementRequest $request): RedirectResponse
     {
+        if (auth()->user()->checkHasWaitingSettlement()) {
+            toast('درخواست قبلی شما در انتظار بررسی میباشد.', 'error');
+            return back();
+        }
+
         $this->settlementRepo->store($request);
 
         toast('درخواست تسویه باموفقیت ثبت شد.', 'success');

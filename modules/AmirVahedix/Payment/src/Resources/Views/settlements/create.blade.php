@@ -10,7 +10,12 @@
 
 @section("content")
     <div class="main-content">
-        <form action="{{ route('dashboard.settlements.store') }}" method="POST" class="padding-30 bg-white font-size-14">
+        @if(auth()->user()->checkHasWaitingSettlement())
+            <div class="bg-white padding-30">
+                درخواست تسویه شما در حال بررسی میباشد. پیش از تایید یا رد شدن درخواست قبلی نمیتوانید درخواست جدیدی ثبت کنید.
+            </div>
+        @endif
+        <form action="{{ route('dashboard.settlements.store') }}" method="POST" class="padding-30 bg-white font-size-14 mt-2">
             @csrf
 
             <x-input name="cart" placeholder="شماره کارت" class="text" />
@@ -25,7 +30,7 @@
                 <div class="w-50 padding-20">حداکثر زمان واریز :‌</div>
                 <div class="w-50 bg-fafafa padding-20">۳ روز</div>
             </div>
-            <button class="btn btn-webamooz_net">درخواست تسویه</button>
+            <button class="btn btn-webamooz_net" {{ auth()->user()->checkHasWaitingSettlement() ? 'disabled' : '' }}>درخواست تسویه</button>
         </form>
     </div>
 @endsection
