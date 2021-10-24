@@ -61,6 +61,10 @@ class SettlementController extends Controller
     {
         $this->settlementRepo->updateStatus($settlement, Settlement::STATUS_SETTLED);
 
+        $settlement->user->update([
+            'balance' => $settlement->user->balance - $settlement->amount
+        ]);
+
         toast('درخواست تسویه باموفقیت تایید شد.', 'success');
         return redirect()->route('dashboard.settlements.index');
     }

@@ -15,7 +15,7 @@ class SettlementRepo
         if ($user_id) $query = $query->where('user_id', $user_id);
         if ($status) $query = $query->where('status', $status);
 
-        return $query->paginate($per_page);
+        return $query->orderBy('created_at', 'desc')->paginate($per_page);
     }
 
     public function store($request)

@@ -2,6 +2,7 @@
 
 namespace AmirVahedix\Payment\Models;
 
+use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,4 +37,11 @@ class Settlement extends Model
         "from" => "json"
     ];
     // endregion model config
+
+    // region relations
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    // endregion relations
 }
