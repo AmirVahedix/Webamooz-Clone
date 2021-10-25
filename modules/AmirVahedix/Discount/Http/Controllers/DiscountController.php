@@ -6,6 +6,7 @@ namespace AmirVahedix\Discount\Http\Controllers;
 
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Discount\Http\Requests\StoreDiscountRequest;
+use AmirVahedix\Discount\Http\Requests\UpdateDiscountRequest;
 use AmirVahedix\Discount\Models\Discount;
 use AmirVahedix\Discount\Repositories\DiscountRepo;
 use App\Http\Controllers\Controller;
@@ -41,6 +42,14 @@ class DiscountController extends Controller
     {
         $courses = $this->courseRepo->index();
         return view('Discount::edit', compact('discount', 'courses'));
+    }
+
+    public function update(UpdateDiscountRequest $request, Discount $discount)
+    {
+        $this->discountRepo->update($discount, $request);
+
+        toast('تخفیف باموفقیت ویرایش شد.', 'success');
+        return redirect()->route('admin.discounts.index');
     }
 
     public function delete(Discount $discount): RedirectResponse

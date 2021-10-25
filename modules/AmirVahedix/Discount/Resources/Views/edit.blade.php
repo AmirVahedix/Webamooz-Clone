@@ -19,6 +19,7 @@
             <p class="box__title">ویرایش کد تخفیف</p>
             <form action="{{ route('admin.discounts.update', $discount->id) }}" method="POST" class="padding-30">
                 @csrf
+                @method('PATCH')
 
                 <x-input name="code" value="{{ $discount->code }}" type="text" placeholder="کد تخفیف" class="text"/>
                 <x-input name="percent" value="{{ $discount->percent }}" type="number" placeholder="درصد تخفیف" class="text"/>
@@ -56,7 +57,7 @@
                 <x-input name="link" value="{{ $discount->link }}" type="text" placeholder="لینک اطلاعات بیشتر" class="text"/>
                 <x-input name="description" value="{{ $discount->description }}" type="text" placeholder="توضیحات" class="text margin-bottom-15"/>
 
-                <button class="btn btn-webamooz_net mt-2">اضافه کردن</button>
+                <button class="btn btn-webamooz_net mt-2">ثبت تغییرات</button>
             </form>
         </div>
     </div>
