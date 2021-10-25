@@ -25,6 +25,8 @@ class DiscountController extends Controller
 
     public function index()
     {
+        $this->authorize('manage', Discount::class);
+
         $courses = $this->courseRepo->index();
         $discounts = $this->discountRepo->paginate();
         return view('Discount::index', compact('courses', 'discounts'));
@@ -32,6 +34,8 @@ class DiscountController extends Controller
 
     public function store(StoreDiscountRequest $request): RedirectResponse
     {
+        $this->authorize('manage', Discount::class);
+
         $this->discountRepo->store($request);
 
         toast('تخفیف باموفقیت ایجاد شد.', 'success');
@@ -40,12 +44,16 @@ class DiscountController extends Controller
 
     public function edit(Discount $discount)
     {
+        $this->authorize('manage', Discount::class);
+
         $courses = $this->courseRepo->index();
         return view('Discount::edit', compact('discount', 'courses'));
     }
 
     public function update(UpdateDiscountRequest $request, Discount $discount)
     {
+        $this->authorize('manage', Discount::class);
+
         $this->discountRepo->update($discount, $request);
 
         toast('تخفیف باموفقیت ویرایش شد.', 'success');
@@ -54,6 +62,8 @@ class DiscountController extends Controller
 
     public function delete(Discount $discount): RedirectResponse
     {
+        $this->authorize('manage', Discount::class);
+
         $discount->courses()->detach();
         $discount->delete();
 
