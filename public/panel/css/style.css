@@ -1936,3 +1936,17 @@ span.tagRemove:hover {
 .align-items-center {
     align-items: center;
 }
+
+span.selection {
+    display: block !important;
+}
+
+.select2-container{
+    width: 100% !important;
+    height: 45px;
+
+}
+.select2-selection {
+    height: 40px;
+    display: flex !important;
+}
