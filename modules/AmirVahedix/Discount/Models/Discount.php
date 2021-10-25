@@ -22,6 +22,7 @@ class Discount extends Model
 
     protected $fillable = [
         'user_id',
+        'code',
         'percent',
         'limit',
         'expires_at',

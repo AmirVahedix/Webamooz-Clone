@@ -22,28 +22,33 @@
                         <table class="table">
                             <thead role="rowgroup">
                             <tr role="row" class="title-row">
-                                <th>شناسه</th>
+                                <th>کد</th>
                                 <th>درصد</th>
+                                <th>محدودیت تعداد</th>
                                 <th>محدودیت زمانی</th>
                                 <th>توضیحات</th>
-                                <th>استفاده شده</th>
+                                <th>تعداد استفاده</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr role="row" class="">
-                                <td><a href="">1</a></td>
-                                <td><a href="">50%</a></td>
-                                <td>2 ساعت دیگر</td>
-                                <td>مناسبت عید نوروز</td>
-                                <td>0 نفر</td>
-                                <td>
-                                    <a href="" class="item-delete mlg-15"></a>
-                                    <a href="edit-discount.html" class="item-edit " title="ویرایش"></a>
-                                </td>
-                            </tr>
-
+                            @foreach($discounts as $discount)
+                                <tr role="row" class="">
+                                    <td>{{ $discount->code }}</td>
+                                    <td>{{ $discount->percent }}</td>
+                                    <td>{{ $discount->limit }}</td>
+                                    <td>{{ jdate($discount->expires_at)->ago() }}</td>
+                                    <td>{{ $discount->description }}</td>
+                                    <td>{{ $discount->uses }} نفر</td>
+                                    <td>
+                                        <a href="" class="item-delete mlg-15"></a>
+                                        <a href="edit-discount.html" class="item-edit " title="ویرایش"></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
+
+                            {{ $discounts->links() }}
                         </table>
                     </div>
                 </div>

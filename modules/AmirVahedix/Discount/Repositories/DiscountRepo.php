@@ -5,15 +5,20 @@ namespace AmirVahedix\Discount\Repositories;
 
 
 use AmirVahedix\Discount\Models\Discount;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 
 class DiscountRepo
 {
+    public function paginate(): LengthAwarePaginator
+    {
+        return Discount::query()->latest()->paginate(25);
+    }
+
     public function store(Request $request)
     {
-        $expires_at = Jalalian::fromFormat("Y/m/d H:i", $request->get('expires_at'))
-            ->toCarbon();
+        $expires_at = Jalalian::fromFormat("Y/m/d H:i", $request->get('expires_at'))->toCarbon();
         return Discount::query()->create([
             'user_id' => auth()->id(),
             'code' => $request->get('code'),

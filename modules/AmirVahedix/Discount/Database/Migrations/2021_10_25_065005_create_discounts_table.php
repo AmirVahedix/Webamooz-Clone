@@ -16,7 +16,7 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->nullable();
+            $table->string('code')->unique()->nullable();
             $table->foreignId('user_id');
             $table->tinyInteger('percent');
 //            $table->enum('type', Discount::types)->default(Discount::TYPE_ALL);

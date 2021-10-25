@@ -23,7 +23,8 @@ class DiscountController extends Controller
     public function index()
     {
         $courses = $this->courseRepo->index();
-        return view('Discount::index', compact('courses'));
+        $discounts = $this->discountRepo->paginate();
+        return view('Discount::index', compact('courses', 'discounts'));
     }
 
     public function store(StoreDiscountRequest $request)
