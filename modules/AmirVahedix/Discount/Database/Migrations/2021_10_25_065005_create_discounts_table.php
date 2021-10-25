@@ -19,7 +19,7 @@ class CreateDiscountsTable extends Migration
             $table->string('code')->unique()->nullable();
             $table->foreignId('user_id');
             $table->tinyInteger('percent');
-//            $table->enum('type', Discount::types)->default(Discount::TYPE_ALL);
+            $table->enum('type', Discount::types)->default(Discount::TYPE_ALL);
             $table->bigInteger('limit')->nullable()->unsigned();
             $table->timestamp('expires_at')->nullable();
             $table->string('link')->nullable();
@@ -31,7 +31,7 @@ class CreateDiscountsTable extends Migration
         Schema::create('discountables', function(Blueprint $table) {
             $table->foreignId('discount_id');
             $table->foreignId('discountable_id');
-            $table->foreignId('discountable_type');
+            $table->string('discountable_type');
 
             $table->primary([
                 'discount_id',

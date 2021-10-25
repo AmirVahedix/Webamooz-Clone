@@ -18,15 +18,23 @@ class DiscountRepo
 
     public function store(Request $request)
     {
-        $expires_at = Jalalian::fromFormat("Y/m/d H:i", $request->get('expires_at'))->toCarbon();
-        return Discount::query()->create([
+        $expires_at = $request->get('expires_at')
+            ? Jalalian::fromFormat("Y/m/d H:i", $request->get('expires_at'))->toCarbon()
+            : null;
+
+        $discount = Discount::query()->create([
             'user_id' => auth()->id(),
             'code' => $request->get('code'),
             'percent' => $request->get('percent'),
             'limit' => $request->get('limit'),
             'expires_at' => $expires_at,
+            'type' => $request->get('type'),
             'link' => $request->get('link'),
             'description' => $request->get('description'),
         ]);
+
+        if ($request->get('courses')) {
+            $discount->courses()->sync($request->get('courses'));
+        }
     }
 }

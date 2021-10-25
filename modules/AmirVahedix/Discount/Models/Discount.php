@@ -29,6 +29,7 @@ class Discount extends Model
         'link',
         'description',
         'uses',
+        'type'
     ];
 
     protected $casts = [

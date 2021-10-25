@@ -35,9 +35,12 @@
                             @foreach($discounts as $discount)
                                 <tr role="row" class="">
                                     <td>{{ $discount->code }}</td>
-                                    <td>{{ $discount->percent }}</td>
+                                    <td>
+                                        <span>{{ $discount->percent }}%</span>
+                                        <span>{{ __($discount->type) }}</span>
+                                    </td>
                                     <td>{{ $discount->limit }}</td>
-                                    <td>{{ jdate($discount->expires_at)->ago() }}</td>
+                                    <td>{{ $discount->expires_at ? jdate($discount->expires_at)->ago() : 'ندارد'}}</td>
                                     <td>{{ $discount->description }}</td>
                                     <td>{{ $discount->uses }} نفر</td>
                                     <td>
