@@ -42,7 +42,8 @@
             "AmirVahedix\\Category\\": "modules/AmirVahedix/Category",
             "AmirVahedix\\Authorization\\": "modules/AmirVahedix/Authorization",
             "AmirVahedix\\Course\\": "modules/AmirVahedix/Course",
-            "AmirVahedix\\Media\\": "modules/AmirVahedix/Media"
+            "AmirVahedix\\Media\\": "modules/AmirVahedix/Media",
+            "AmirVahedix\\Discount\\": "modules/AmirVahedix/Discount"
         }
     },
     "repositories": [

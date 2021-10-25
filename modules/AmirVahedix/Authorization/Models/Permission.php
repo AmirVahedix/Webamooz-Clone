@@ -14,6 +14,7 @@ class Permission extends \Spatie\Permission\Models\Permission
     const PERMISSION_SUPER_ADMIN = 'super_admin';
     const PERMISSION_MANAGE_USERS = 'manage_users';
     const PERMISSION_MANAGE_PAYMENTS = 'manage_payments';
+    const PERMISSION_MANAGE_DISCOUNTS = 'manage_discounts';
 
     const permissions = [
         self::PERMISSION_MANAGE_AUTHORIZATION,
@@ -23,6 +24,7 @@ class Permission extends \Spatie\Permission\Models\Permission
         self::PERMISSION_MANAGE_OWN_COURSES,
         self::PERMISSION_SUPER_ADMIN,
         self::PERMISSION_MANAGE_USERS,
-        self::PERMISSION_MANAGE_PAYMENTS
+        self::PERMISSION_MANAGE_PAYMENTS,
+        self::PERMISSION_MANAGE_DISCOUNTS,
     ];
 }

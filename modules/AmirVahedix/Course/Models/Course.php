@@ -8,6 +8,7 @@ use AmirVahedix\Category\Models\Category;
 use AmirVahedix\Course\Database\Factories\CourseFactory;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Course\Repositories\LessonRepo;
+use AmirVahedix\Discount\Models\Discount;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\Payment\Models\Payment;
 use AmirVahedix\User\Models\User;
@@ -94,6 +95,11 @@ class Course extends Model
             'user_id'
         );
     }
+
+    public function discounts()
+    {
+        return $this->morphToMany(Discount::class, 'discountable');
+    }
     // endregion relations
 
     // region custom attributes
@@ -143,7 +149,6 @@ class Course extends Model
     {
         return resolve(CourseRepo::class)->hasStudent($this, $user_id);
     }
-    // endregion custom methods
 
     public function downloadAll(): array
     {
@@ -153,4 +158,5 @@ class Course extends Model
         }
         return $links;
     }
+    // endregion custom methods
 }
