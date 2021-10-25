@@ -33,7 +33,7 @@
                             </thead>
                             <tbody>
                             @foreach($discounts as $discount)
-                                <tr role="row" class="">
+                                <tr role="row" class="" x-data="{delete_modal: false}">
                                     <td>{{ $discount->code }}</td>
                                     <td>
                                         <span>{{ $discount->percent }}%</span>
@@ -44,8 +44,27 @@
                                     <td>{{ $discount->description }}</td>
                                     <td>{{ $discount->uses }} نفر</td>
                                     <td>
-                                        <a href="" class="item-delete mlg-15"></a>
+                                        <a href="#" x-on:click="delete_modal=true" class="item-delete mlg-15" title="حذف"></a>
                                         <a href="edit-discount.html" class="item-edit " title="ویرایش"></a>
+                                    </td>
+                                    <td class="padding-0">
+                                        <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="delete_modal"
+                                             x-transition.opacity>
+                                            <div class="modal-content" x-on:click.outside="delete_modal=false">
+                                                <h3>آیا از حذف این کد تایید اطمینان دارید؟</h3>
+                                                <p>با حذف این کد تایید دیگر کاربران امکان استفاده از آن را نخواهند داشت.</p>
+                                                <div class="modal-actions">
+                                                    <button class="btn margin-left-10" x-on:click="delete_modal=false">انصراف
+                                                    </button>
+                                                    <form action="{{ route('admin.discounts.destroy', $discount) }}"
+                                                          method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-webamooz_net">حذف کد تایید</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

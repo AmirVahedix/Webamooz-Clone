@@ -8,3 +8,6 @@ Route::get('/', [DiscountController::class, 'index'])
 
 Route::post('/', [DiscountController::class, 'store'])
     ->name('admin.discounts.store');
+
+Route::delete('/{discount}/delete', [DiscountController::class, 'delete'])
+    ->name('admin.discounts.destroy');
