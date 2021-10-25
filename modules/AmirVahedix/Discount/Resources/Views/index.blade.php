@@ -45,7 +45,7 @@
                                     <td>{{ $discount->uses }} نفر</td>
                                     <td>
                                         <a href="#" x-on:click="delete_modal=true" class="item-delete mlg-15" title="حذف"></a>
-                                        <a href="edit-discount.html" class="item-edit " title="ویرایش"></a>
+                                        <a href="{{ route('admin.discounts.edit', $discount->id) }}" class="item-edit " title="ویرایش"></a>
                                     </td>
                                     <td class="padding-0">
                                         <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="delete_modal"

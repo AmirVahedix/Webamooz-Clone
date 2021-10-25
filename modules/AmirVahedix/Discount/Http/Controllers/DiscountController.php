@@ -37,7 +37,13 @@ class DiscountController extends Controller
         return back();
     }
 
-    public function delete(Discount $discount)
+    public function edit(Discount $discount)
+    {
+        $courses = $this->courseRepo->index();
+        return view('Discount::edit', compact('discount', 'courses'));
+    }
+
+    public function delete(Discount $discount): RedirectResponse
     {
         $discount->courses()->detach();
         $discount->delete();
