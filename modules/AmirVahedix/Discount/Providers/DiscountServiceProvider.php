@@ -12,6 +12,7 @@ class DiscountServiceProvider extends ServiceProvider
     public function register()
     {
         Route::middleware(['web', 'auth'])
+            ->prefix('dashboard/discounts')
             ->group(__DIR__.'/../Routes/DiscountRoutes.php');
 
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');

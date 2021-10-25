@@ -1,5 +1,6 @@
 <?php
 
+use AmirVahedix\Discount\Models\Discount;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,7 @@ class CreateDiscountsTable extends Migration
             $table->string('code')->nullable();
             $table->foreignId('user_id');
             $table->tinyInteger('percent');
+//            $table->enum('type', Discount::types)->default(Discount::TYPE_ALL);
             $table->bigInteger('limit')->nullable()->unsigned();
             $table->timestamp('expires_at')->nullable();
             $table->string('link')->nullable();
