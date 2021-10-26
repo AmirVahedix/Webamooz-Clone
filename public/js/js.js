@@ -131,18 +131,18 @@ function progressbar(slideId) {
     pt = setInterval(frame, 30);
 
     function frame() {
-        if (width >= 100) {
-            clearInterval(pt);
-            items[slideId].style.width = '0%';
-            slideIndex++;
-            slideIndex = slideShow(slideIndex);
-        } else {
-            width++;
-            items[slideId].style.width = width + '%';
+        if (items[slideId]) {
+            if (width >= 100) {
+                clearInterval(pt);
+                items[slideId].style.width = '0%';
+                slideIndex++;
+                slideIndex = slideShow(slideIndex);
+            } else {
+                width++;
+                items[slideId].style.width = width + '%';
+            }
         }
     }
-
-
 }
 
 $(document).on('click touchstart', function (e) {
@@ -227,3 +227,27 @@ $('.study-mode').click(function () {
     $('.sidebar-right').toggleClass('d-none');
     $('.content-left').toggleClass('on');
 })
+
+Number.prototype.format = function(n, x) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
+};
+
+function checkDiscountCode(url) {
+    // console.log('ok');
+    const code = $("#discount_code").val();
+
+    if (code) {
+        $.get(url.replace("code", code))
+            .done(function (data) {
+                console.log(data);
+                $("#discountPercent").text(data['discount_percent']);
+                $("#discountAmount").text(data['discount_amount'].format());
+                $("#payableAmount").text(data['amount_after_discount'].format());
+                $("#discount_response").text("تخفیف باموفقیت اعمال شد.");
+            })
+            .fail(function (data) {
+                $("#discount_response").text("کد تخفیف نامعتبر است.");
+            });
+    }
+}

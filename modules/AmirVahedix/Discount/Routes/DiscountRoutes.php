@@ -17,3 +17,6 @@ Route::patch('/{discount}/update', [DiscountController::class, 'update'])
 
 Route::delete('/{discount}/delete', [DiscountController::class, 'delete'])
     ->name('admin.discounts.destroy');
+
+Route::get('/{code}/{course}/check', [DiscountController::class, 'check'])
+    ->name('discounts.check');

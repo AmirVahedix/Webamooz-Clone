@@ -17,7 +17,7 @@
                         </p>
                     </div>
                     <div class="t-header-search-result-left">
-                        <img src="img/banner/laravel-payment-processing.jpg" alt="">
+                        <img src="{{ asset('img/banner/laravel-payment-processing.jpg') }}" alt="">
                     </div>
                 </a>
                 <a href="">
@@ -28,7 +28,7 @@
                         </p>
                     </div>
                     <div class="t-header-search-result-left">
-                        <img src="img/banner/laravel-payment-processing.jpg" alt="">
+                        <img src="{{ asset('img/banner/laravel-payment-processing.jpg') }}" alt="">
                     </div>
                 </a>
                 <a href="">
@@ -39,7 +39,7 @@
                         </p>
                     </div>
                     <div class="t-header-search-result-left">
-                        <img src="img/banner/laravel-payment-processing.jpg" alt="">
+                        <img src="{{ asset('img/banner/laravel-payment-processing.jpg') }}" alt="">
                     </div>
                 </a>
                 <a href="">
@@ -50,7 +50,7 @@
                         </p>
                     </div>
                     <div class="t-header-search-result-left">
-                        <img src="img/banner/laravel-payment-processing.jpg" alt="">
+                        <img src="{{ asset('img/banner/laravel-payment-processing.jpg') }}" alt="">
                     </div>
                 </a>
                 <a href="">
@@ -61,7 +61,7 @@
                         </p>
                     </div>
                     <div class="t-header-search-result-left">
-                        <img src="img/banner/laravel-payment-processing.jpg" alt="">
+                        <img src="{{ asset('img/banner/laravel-payment-processing.jpg') }}" alt="">
                     </div>
                 </a>
                 <a href="">
@@ -72,7 +72,7 @@
                         </p>
                     </div>
                     <div class="t-header-search-result-left">
-                        <img src="img/banner/laravel-payment-processing.jpg" alt="">
+                        <img src="{{ asset('img/banner/laravel-payment-processing.jpg') }}" alt="">
                     </div>
                 </a>
                 <a href="">
@@ -83,7 +83,7 @@
                         </p>
                     </div>
                     <div class="t-header-search-result-left">
-                        <img src="img/banner/laravel-payment-processing.jpg" alt="">
+                        <img src="{{ asset('img/banner/laravel-payment-processing.jpg') }}" alt="">
                     </div>
                 </a>
                 <a href="">
@@ -94,7 +94,7 @@
                         </p>
                     </div>
                     <div class="t-header-search-result-left">
-                        <img src="img/banner/laravel-payment-processing.jpg" alt="">
+                        <img src="{{ asset('img/banner/laravel-payment-processing.jpg') }}" alt="">
                     </div>
                 </a>
             </div>

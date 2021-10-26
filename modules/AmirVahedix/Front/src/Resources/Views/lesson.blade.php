@@ -111,7 +111,7 @@
                             <li class="is-answer">
                                 <div class="comment-header">
                                     <div class="comment-header-avatar">
-                                        <img src="img/laravel-pic.png">
+                                        <img src="{{ asset('img/laravel-pic.png') }}">
                                     </div>
                                     <div class="comment-header-detail">
                                         <div class="comment-header-name">مدیر سایت : محمد نیکو</div>
@@ -128,7 +128,7 @@
                             <li class="is-comment">
                                 <div class="comment-header">
                                     <div class="comment-header-avatar">
-                                        <img src="img/profile.jpg">
+                                        <img src="{{ asset('img/profile.jpg') }}">
                                     </div>
                                     <div class="comment-header-detail">
                                         <div class="comment-header-name">کاربر : گوگل</div>
@@ -166,7 +166,7 @@
                             <li class="is-answer">
                                 <div class="comment-header">
                                     <div class="comment-header-avatar">
-                                        <img src="img/laravel-pic.png">
+                                        <img src="{{ asset('img/laravel-pic.png') }}">
                                     </div>
                                     <div class="comment-header-detail">
                                         <div class="comment-header-name">مدیر سایت : محمد نیکو</div>

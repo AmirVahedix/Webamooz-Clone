@@ -117,6 +117,7 @@
                              src="{{ $course->teacher->user_avatar ?? asset('panel/img/profile.jpg') }}"
                              alt="{{ $course->teacher->name }}"></noscript>
                 </a>
+
                 <div class="name">
                     <a href="{{ route('tutor.show', $course->teacher->username ?: $course->teacher->email ?: $course->teacher->mobile) }}"
                        class="btn-link">
@@ -136,6 +137,7 @@
         @include("Front::layouts.sidebar.ads")
     </div>
 
+    {{-- Buy Modal --}}
     <div id="ModalBuy" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -145,14 +147,20 @@
             <div class="modal-body">
                 <form method="post" action="{{ route('courses.buy', $course->id) }}">
                     @csrf
+
                     <div>
-                        <p>کد تخفیف</p>
-                        <input type="text" name="code" id="code" class="txt" placeholder="کد تخفیف را وارد کنید">
-                        <p id="response"></p>
+                        <div>
+                            <p>کد تخفیف</p>
+                            <input type="text" name="code" id="discount_code" class="txt" placeholder="کد تخفیف را وارد کنید">
+                            <p id="discount_response"></p>
+                        </div>
+
+                        <button type="button" class="btn i-t"
+                                onclick="checkDiscountCode('{{ route('discounts.check', ['code', $course->id]) }}')">
+                            اعمال
+                        </button>
                     </div>
-                    <button type="button" class="btn i-t ">اعمال
-                        <img src="/img/loading.gif" alt="" id="loading" class="loading d-none">
-                    </button>
+
 
                     <table class="table text-center table-bordered table-striped">
                         <tbody>
@@ -163,21 +171,20 @@
                         <tr>
                             <th>درصد تخفیف</th>
                             <td>
-                                <span id="discountPercent" data-value="">0</span>%
+                                <span id="discountPercent">0</span>%
                             </td>
                         </tr>
                         <tr>
                             <th> مبلغ تخفیف</th>
-
                             <td class="text-red">
-                                <span id="discountAmount" data-value="">0</span>
+                                <span id="discountAmount">0</span>
                                 تومان
                             </td>
                         </tr>
                         <tr>
                             <th> قابل پرداخت</th>
                             <td class="text-primary">
-                                <span id="payableAmount" data-value="">{{ number_format($course->price) }}</span>
+                                <span id="payableAmount">{{ number_format($course->price) }}</span>
                                 تومان
                             </td>
                         </tr>

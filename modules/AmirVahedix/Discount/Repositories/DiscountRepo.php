@@ -63,35 +63,48 @@ class DiscountRepo
         }
     }
 
-    public function getBiggestGlobalDiscount()
-    {
-        $discount = Discount::query()
+    private function getDiscountQuery($type, $discounts) {
+        $discount = $discounts
+            ->whereNull('code')
             ->where('expires_at', '>', now())
-            ->where('type', Discount::TYPE_ALL)
+            ->where('type', $type)
             ->where(function ($query) {
                 $query->whereNull('limit')->orWhere('limit', '>', 0);
             })
             ->orderBy('percent', 'desc')
             ->first();
 
-        return $discount
-            ? $discount->where('users', '<', $discount->limit)->first()
-            : '';
+        if ($discount) {
+            if ($discount->limit) {
+                return $discount->where('uses', '<', $discount->limit )->first();
+            } else {
+                return $discount;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public function getBiggestGlobalDiscount()
+    {
+        return $this->getDiscountQuery(Discount::TYPE_ALL, Discount::query());
+
     }
 
     public function getBiggestSpecialDiscount(Course $course)
     {
-        $discount = $course
-            ->discounts()
-            ->where('expires_at', '>', now())
-            ->where(function ($query) {
-                $query->whereNull('limit')->orWhere('limit', '>', 0);
-            })
-            ->orderBy('percent', 'desc')
-            ->first();
+        return $this->getDiscountQuery(Discount::TYPE_SPECIAL, $course->discounts());
+    }
 
-        return $discount
-            ? $discount->where('uses', '<', $discount->limit)->first()
-            : '';
+    public function codeIsValid($code, $course)
+    {
+        return Discount::query()
+            ->where('code', $code)
+            ->where(function ($query) use ($course) {
+                return $query->whereHas('courses', function ($query) use ($course) {
+                    $query->where('discountable_id', $course->id);
+                })->orWhereDoesntHave("courses");
+            })
+            ->first();
     }
 }
