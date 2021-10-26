@@ -51,8 +51,8 @@
                                         <div class="modal hidden" x-init="$el.classList.remove('hidden')" x-show="delete_modal"
                                              x-transition.opacity>
                                             <div class="modal-content" x-on:click.outside="delete_modal=false">
-                                                <h3>آیا از حذف این کد تایید اطمینان دارید؟</h3>
-                                                <p>با حذف این کد تایید دیگر کاربران امکان استفاده از آن را نخواهند داشت.</p>
+                                                <h3>آیا از حذف این کد تخفیف اطمینان دارید؟</h3>
+                                                <p>با حذف این کد تخفیف دیگر کاربران امکان استفاده از آن را نخواهند داشت.</p>
                                                 <div class="modal-actions">
                                                     <button class="btn margin-left-10" x-on:click="delete_modal=false">انصراف
                                                     </button>
@@ -60,7 +60,7 @@
                                                           method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-webamooz_net">حذف کد تایید</button>
+                                                        <button type="submit" class="btn btn-webamooz_net">حذف کد تخفیف</button>
                                                     </form>
                                                 </div>
                                             </div>

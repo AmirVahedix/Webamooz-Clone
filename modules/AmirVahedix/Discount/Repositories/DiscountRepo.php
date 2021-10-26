@@ -4,6 +4,7 @@
 namespace AmirVahedix\Discount\Repositories;
 
 
+use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Discount\Models\Discount;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
@@ -60,5 +61,37 @@ class DiscountRepo
         } else {
             $discount->courses()->detach();
         }
+    }
+
+    public function getBiggestGlobalDiscount()
+    {
+        $discount = Discount::query()
+            ->where('expires_at', '>', now())
+            ->where('type', Discount::TYPE_ALL)
+            ->where(function ($query) {
+                $query->whereNull('limit')->orWhere('limit', '>', 0);
+            })
+            ->orderBy('percent', 'desc')
+            ->first();
+
+        return $discount
+            ? $discount->where('users', '<', $discount->limit)->first()
+            : '';
+    }
+
+    public function getBiggestSpecialDiscount(Course $course)
+    {
+        $discount = $course
+            ->discounts()
+            ->where('expires_at', '>', now())
+            ->where(function ($query) {
+                $query->whereNull('limit')->orWhere('limit', '>', 0);
+            })
+            ->orderBy('percent', 'desc')
+            ->first();
+
+        return $discount
+            ? $discount->where('uses', '<', $discount->limit)->first()
+            : '';
     }
 }

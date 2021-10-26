@@ -9,6 +9,7 @@ use AmirVahedix\Course\Database\Factories\CourseFactory;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Course\Repositories\LessonRepo;
 use AmirVahedix\Discount\Models\Discount;
+use AmirVahedix\Discount\Repositories\DiscountRepo;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\Payment\Models\Payment;
 use AmirVahedix\User\Models\User;
@@ -135,11 +136,6 @@ class Course extends Model
     // endregion custom attributes
 
     // region custom methods
-    public function getFinalPrice()
-    {
-        return $this->price;
-    }
-
     public function path()
     {
         return route('courses.single', $this->slug);
@@ -157,6 +153,35 @@ class Course extends Model
             $links[] = $lesson->downloadLink();
         }
         return $links;
+    }
+
+    public function getDiscountPercent()
+    {
+        $percent = 0;
+
+        $discountRepo = new DiscountRepo();
+
+        $specialDiscount = $discountRepo->getBiggestSpecialDiscount($this);
+        $globalDiscount = $discountRepo->getBiggestGlobalDiscount();
+
+        if ($specialDiscount) $percent = $specialDiscount->percent;
+
+        if ($globalDiscount && $globalDiscount->percent > $percent) {
+            $percent = $globalDiscount->percent;
+        }
+
+        return $percent;
+    }
+
+    public function getDiscountAmount()
+    {
+        $percent = $this->getDiscountPercent();
+        return ($percent/100) * $this->price;
+    }
+
+    public function getFinalPrice()
+    {
+        return $this->price - $this->getDiscountAmount();
     }
     // endregion custom methods
 }

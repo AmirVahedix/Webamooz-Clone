@@ -3,10 +3,12 @@
         <div class="course-status">
             {{ __($course->status) }}
         </div>
-        <div class="discountBadge">
-            <p>45%</p>
-            تخفیف
-        </div>
+        @if($course->getDiscountPercent())
+            <div class="discountBadge">
+                <p>{{ $course->getDiscountPercent() }}%</p>
+                تخفیف
+            </div>
+        @endif
         <div class="card-img"><img src="{{ $course->thumb }}" alt="{{ $course->title }}"></div>
         <div class="card-title"><h2>{{ $course->title }}</h2></div>
         <div class="card-body">
@@ -16,8 +18,10 @@
         <div class="card-details">
             <div class="time">{{ $course->formatted_duration }}</div>
             <div class="price">
-                <div class="discountPrice">{{ number_format($course->price) }}</div>
-                <div class="endPrice">{{ number_format($course->price) }}</div>
+                @if($course->getDiscountAmount())
+                    <div class="discountPrice">{{ number_format($course->price) }}</div>
+                @endif
+                <div class="endPrice">{{ number_format($course->getFinalPrice()) }}</div>
             </div>
         </div>
     </a>

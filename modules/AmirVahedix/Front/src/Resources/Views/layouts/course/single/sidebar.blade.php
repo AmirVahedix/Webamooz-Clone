@@ -7,15 +7,19 @@
                 @elseif(auth()->user()->can('download', $course))
                     <p class="mycourse">شما دانشجوی این دوره هستید</p>
                 @else
-                    <div class="discountBadge">
-                        <p>45%</p>
-                        تخفیف
-                    </div>
+                    @if($course->getDiscountPercent())
+                        <div class="discountBadge">
+                            <p>{{ $course->getDiscountPercent() }}%</p>
+                            تخفیف
+                        </div>
+                    @endif
                     <div class="sell_course">
                         <strong>قیمت :</strong>
-                        <del class="discount-Price">{{ number_format($course->price) }}</del>
+                        @if($course->getDiscountAmount())
+                            <del class="discount-Price">{{ number_format($course->price) }}</del>
+                        @endif
                         <p class="price">
-                        <span class="woocommerce-Price-amount amount">250,000
+                        <span class="woocommerce-Price-amount amount">{{ number_format($course->getFinalPrice()) }}
                             <span class="woocommerce-Price-currencySymbol">تومان</span>
                         </span>
                         </p>
@@ -26,19 +30,20 @@
 
             @guest
                 <div class="discountBadge">
-                    <p>45%</p>
+                    <p>{{ $course->getDiscountPercent() }}%</p>
                     تخفیف
                 </div>
                 <div class="sell_course">
                     <strong>قیمت :</strong>
                     <del class="discount-Price">{{ number_format($course->price) }}</del>
                     <p class="price">
-                    <span class="woocommerce-Price-amount amount">250,000
+                    <span class="woocommerce-Price-amount amount">{{ number_format($course->getFinalPrice()) }}
                         <span class="woocommerce-Price-currencySymbol">تومان</span>
                     </span>
                     </p>
                 </div>
-                <a href="{{ route('login') }}" class="btn btn--login width-100" style="color: white !important">ورود به سایت</a>
+                <a href="{{ route('login') }}" class="btn btn--login width-100" style="color: white !important">ورود به
+                    سایت</a>
             @endguest
 
             <div class="average-rating-sidebar">
@@ -113,7 +118,8 @@
                              alt="{{ $course->teacher->name }}"></noscript>
                 </a>
                 <div class="name">
-                    <a href="{{ route('tutor.show', $course->teacher->username ?: $course->teacher->email ?: $course->teacher->mobile) }}" class="btn-link">
+                    <a href="{{ route('tutor.show', $course->teacher->username ?: $course->teacher->email ?: $course->teacher->mobile) }}"
+                       class="btn-link">
                         <h6>{{ $course->teacher->name }}</h6>
                     </a>
                     <span class="job-title">{{ $course->teacher->headline }}</span>
@@ -144,7 +150,7 @@
                         <input type="text" name="code" id="code" class="txt" placeholder="کد تخفیف را وارد کنید">
                         <p id="response"></p>
                     </div>
-                    <button type="button" class="btn i-t " >اعمال
+                    <button type="button" class="btn i-t ">اعمال
                         <img src="/img/loading.gif" alt="" id="loading" class="loading d-none">
                     </button>
 
