@@ -228,26 +228,37 @@ $('.study-mode').click(function () {
     $('.content-left').toggleClass('on');
 })
 
-Number.prototype.format = function(n, x) {
+Number.prototype.format = function (n, x) {
     var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
     return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
 };
 
 function checkDiscountCode(url) {
-    // console.log('ok');
     const code = $("#discount_code").val();
+    const responseSpan = $("#discount_response");
 
     if (code) {
+        $("#discount_loading").removeClass("d-none");
+        responseSpan.removeClass(["text-success", "text-error"]);
+        responseSpan.addClass("d-none");
+
         $.get(url.replace("code", code))
             .done(function (data) {
-                console.log(data);
+                $("#discount_loading").addClass("d-none");
+
                 $("#discountPercent").text(data['discount_percent']);
                 $("#discountAmount").text(data['discount_amount'].format());
                 $("#payableAmount").text(data['amount_after_discount'].format());
-                $("#discount_response").text("تخفیف باموفقیت اعمال شد.");
+                responseSpan.text("تخفیف باموفقیت اعمال شد.");
+                responseSpan.addClass("text-success");
             })
             .fail(function (data) {
-                $("#discount_response").text("کد تخفیف نامعتبر است.");
-            });
+                $("#discount_loading").addClass("d-none");
+
+                responseSpan.text("کد تخفیف نامعتبر است.");
+                responseSpan.addClass("text-error");
+            }).always(function() {
+                responseSpan.removeClass("d-none");
+            })
     }
 }

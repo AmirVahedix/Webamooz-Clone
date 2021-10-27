@@ -19,4 +19,5 @@ Route::delete('/{discount}/delete', [DiscountController::class, 'delete'])
     ->name('admin.discounts.destroy');
 
 Route::get('/{code}/{course}/check', [DiscountController::class, 'check'])
-    ->name('discounts.check');
+    ->name('discounts.check')
+    ->middleware('throttle:6,1');

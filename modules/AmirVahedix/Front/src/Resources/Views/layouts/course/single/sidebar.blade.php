@@ -148,17 +148,34 @@
                 <form method="post" action="{{ route('courses.buy', $course->id) }}">
                     @csrf
 
-                    <div>
+                    <div class="">
                         <div>
                             <p>کد تخفیف</p>
-                            <input type="text" name="code" id="discount_code" class="txt" placeholder="کد تخفیف را وارد کنید">
-                            <p id="discount_response"></p>
+                            <input type="text" name="code" id="discount_code" class="txt"
+                                   placeholder="کد تخفیف را وارد کنید">
+                            <p id="discount_response" class="text-success"></p>
+                        </div>
+                        <div class="d-flex" style="align-items: center">
+                            <button type="button" class="btn i-t"
+                                    onclick="checkDiscountCode('{{ route('discounts.check', ['code', $course->id]) }}')">
+                                اعمال
+                            </button>
+                            <span class="sk-circle d-none" id="discount_loading">
+                                <span class="sk-circle1 sk-child"></span>
+                                <span class="sk-circle2 sk-child"></span>
+                                <span class="sk-circle3 sk-child"></span>
+                                <span class="sk-circle4 sk-child"></span>
+                                <span class="sk-circle5 sk-child"></span>
+                                <span class="sk-circle6 sk-child"></span>
+                                <span class="sk-circle7 sk-child"></span>
+                                <span class="sk-circle8 sk-child"></span>
+                                <span class="sk-circle9 sk-child"></span>
+                                <span class="sk-circle10 sk-child"></span>
+                                <span class="sk-circle11 sk-child"></span>
+                                <span class="sk-circle12 sk-child"></span>
+                            </span>
                         </div>
 
-                        <button type="button" class="btn i-t"
-                                onclick="checkDiscountCode('{{ route('discounts.check', ['code', $course->id]) }}')">
-                            اعمال
-                        </button>
                     </div>
 
 

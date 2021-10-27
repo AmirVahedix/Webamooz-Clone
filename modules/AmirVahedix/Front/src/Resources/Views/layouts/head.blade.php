@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="وبسایت آموزشی وب آموز"/>
 <meta property="og:brand" content="وب آموز"/>
 <meta property="og:locale" content="fa"/>
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('css/style.css?v='.time()) }}">
 <link rel="stylesheet" href="{{ asset('css/font/font.css') }}">
 <link rel="stylesheet" href="{{ asset('css/responsive.css') }}" media="(max-width:991px)">
 
