@@ -11,6 +11,7 @@ use AmirVahedix\Course\Http\Requests\Course\UpdateCourseRequest;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Course\Repositories\LessonRepo;
+use AmirVahedix\Discount\Repositories\DiscountRepo;
 use AmirVahedix\Media\Services\MediaService;
 use AmirVahedix\Payment\Events\SuccessfulPaymentEvent;
 use AmirVahedix\Payment\Gateways\Gateway;
@@ -149,7 +150,11 @@ class CourseController extends Controller
             return redirect($course->path());
         }
 
-        $payment = PaymentService::generate($amount, $course, auth()->user());
+        $discount = $request->get('code')
+            ? resolve(DiscountRepo::class)->findByCode($request->get('code'))
+            : $course->getDiscount();
+
+        $payment = PaymentService::generate($amount, $course, auth()->user(), $discount);
 
         return resolve(Gateway::class)->redirect($payment->invoice_id);
     }

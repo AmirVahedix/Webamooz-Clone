@@ -4,13 +4,15 @@
 namespace AmirVahedix\Payment\Services;
 
 
+use AmirVahedix\Discount\Repositories\DiscountRepo;
+use AmirVahedix\Discount\Services\DiscountService;
 use AmirVahedix\Payment\Gateways\Gateway;
 use AmirVahedix\Payment\Models\Payment;
 use AmirVahedix\Payment\Repositories\PaymentRepo;
 
 class PaymentService
 {
-    public static function generate($amount, $paymentable, $user)
+    public static function generate($amount, $paymentable, $user, $discount)
     {
         if ($amount <= 0 || is_null($paymentable) || is_null($user)) return false;
 
@@ -37,6 +39,7 @@ class PaymentService
             "paymentable_id" => $paymentable->id,
             "paymentable_type" => get_class($paymentable),
             "amount" => $amount,
+            "discount_id" => $discount->id,
             "invoice_id" => $invoice_id,
             "gateway" => $gateway->getName(),
             "seller_percent" => $seller_percent,

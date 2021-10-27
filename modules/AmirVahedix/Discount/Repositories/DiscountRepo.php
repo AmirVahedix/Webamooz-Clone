@@ -93,7 +93,6 @@ class DiscountRepo
     public function getBiggestGlobalDiscount()
     {
         return $this->getDiscountQuery(Discount::TYPE_ALL, Discount::query());
-
     }
 
     public function getBiggestSpecialDiscount(Course $course)

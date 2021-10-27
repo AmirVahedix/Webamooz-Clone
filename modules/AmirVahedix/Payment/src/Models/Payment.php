@@ -25,6 +25,7 @@ class Payment extends Model
         'paymentable_id',
         'paymentable_type',
         'amount',
+        'discount_id',
         'invoice_id',
         'gateway',
         'status',
@@ -47,7 +48,7 @@ class Payment extends Model
 
     public function discounts()
     {
-        return $this->belongsToMany(Discount::class, 'discount_payment');
+        return $this->belongsTo(Discount::class);
     }
     // endregion relations
 }

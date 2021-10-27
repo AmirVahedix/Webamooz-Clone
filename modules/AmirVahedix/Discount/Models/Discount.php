@@ -46,7 +46,7 @@ class Discount extends Model
 
     public function payments()
     {
-        return $this->belongsToMany(Payment::class, 'discount_payment');
+        return $this->hasMany(Payment::class);
     }
     // endregion relations
 }

@@ -174,6 +174,22 @@ class Course extends Model
         return $percent;
     }
 
+    public function getDiscount()
+    {
+        $discountRepo = new DiscountRepo();
+
+        $specialDiscount = $discountRepo->getBiggestSpecialDiscount($this);
+        $globalDiscount = $discountRepo->getBiggestGlobalDiscount();
+
+        if ($specialDiscount) return $specialDiscount;
+
+        if ($globalDiscount && $globalDiscount->percent > $specialDiscount->percent) {
+            return $globalDiscount;
+        }
+
+        return null;
+    }
+
     public function getDiscountAmount()
     {
         $percent = $this->getDiscountPercent();

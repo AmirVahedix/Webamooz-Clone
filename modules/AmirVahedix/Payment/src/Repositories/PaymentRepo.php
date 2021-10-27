@@ -90,6 +90,7 @@ class PaymentRepo
             "paymentable_id" => $data['paymentable_id'],
             "paymentable_type" => $data['paymentable_type'],
             "amount" => $data['amount'],
+            "discount_id" => $data['discount_id'],
             "invoice_id" => $data['invoice_id'],
             "gateway" => $data['gateway'],
             "seller_percent" => $data['seller_percent'],
