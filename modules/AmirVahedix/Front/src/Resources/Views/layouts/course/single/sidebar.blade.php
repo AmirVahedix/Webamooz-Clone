@@ -188,20 +188,20 @@
                         <tr>
                             <th>درصد تخفیف</th>
                             <td>
-                                <span id="discountPercent">0</span>%
+                                <span id="discountPercent">{{ $course->getDiscountPercent() }}</span>%
                             </td>
                         </tr>
                         <tr>
                             <th> مبلغ تخفیف</th>
                             <td class="text-red">
-                                <span id="discountAmount">0</span>
+                                <span id="discountAmount">{{ number_format($course->getDiscountAmount()) }}</span>
                                 تومان
                             </td>
                         </tr>
                         <tr>
                             <th> قابل پرداخت</th>
                             <td class="text-primary">
-                                <span id="payableAmount">{{ number_format($course->price) }}</span>
+                                <span id="payableAmount">{{ number_format($course->getFinalPrice()) }}</span>
                                 تومان
                             </td>
                         </tr>

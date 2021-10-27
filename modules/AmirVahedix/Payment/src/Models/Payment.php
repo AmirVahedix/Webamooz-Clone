@@ -2,6 +2,7 @@
 
 namespace AmirVahedix\Payment\Models;
 
+use AmirVahedix\Discount\Models\Discount;
 use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,6 +34,7 @@ class Payment extends Model
     ];
     // endregion model config
 
+    // region relations
     public function paymentable()
     {
         return $this->morphTo();
@@ -42,4 +44,10 @@ class Payment extends Model
     {
         return $this->belongsTo(User::class, 'buyer_id');
     }
+
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'discount_payment');
+    }
+    // endregion relations
 }

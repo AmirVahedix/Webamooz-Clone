@@ -182,14 +182,15 @@ class Course extends Model
 
     public function getFinalPrice($code = null)
     {
-        $amount = $this->price - $this->getDiscountAmount();
+        if (!$code)
+            return $this->price - $this->getDiscountAmount();
 
-        if ($code && DiscountService::check($code, $this)) {
+        if (DiscountService::check($code, $this)) {
             $discount = resolve(DiscountRepo::class)->findByCode($code);
-            $amount = DiscountService::getAmountAfterDiscount($amount, $discount);
+            return DiscountService::getAmountAfterDiscount($this->price, $discount);
         }
 
-        return $amount;
+        return $this->price;
     }
     // endregion custom methods
 }

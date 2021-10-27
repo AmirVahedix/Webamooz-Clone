@@ -3,6 +3,7 @@
 namespace AmirVahedix\Discount\Models;
 
 use AmirVahedix\Course\Models\Course;
+use AmirVahedix\Payment\Models\Payment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,6 +42,11 @@ class Discount extends Model
     public function courses()
     {
         return $this->morphedByMany(Course::class, 'discountable');
+    }
+
+    public function payments()
+    {
+        return $this->belongsToMany(Payment::class, 'discount_payment');
     }
     // endregion relations
 }
