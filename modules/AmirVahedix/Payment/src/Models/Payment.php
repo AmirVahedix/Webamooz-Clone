@@ -46,7 +46,7 @@ class Payment extends Model
         return $this->belongsTo(User::class, 'buyer_id');
     }
 
-    public function discounts()
+    public function discount()
     {
         return $this->belongsTo(Discount::class);
     }

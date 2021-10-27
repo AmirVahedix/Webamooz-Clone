@@ -73,6 +73,7 @@ class PaymentController extends Controller
 
         event(new SuccessfulPaymentEvent($payment));
         $this->paymentRepo->updateStatus($payment, Payment::STATUS_SUCCESS);
+
         alert("تراکنش موفق", "پرداخت موفقیت آمیز بود.", "success")->showConfirmButton('حله', '#46B2F0');
         return redirect($payment->paymentable->path());
     }
