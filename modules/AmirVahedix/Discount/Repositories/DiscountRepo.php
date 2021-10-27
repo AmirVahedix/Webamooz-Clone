@@ -12,6 +12,11 @@ use Morilog\Jalali\Jalalian;
 
 class DiscountRepo
 {
+    public function findByCode($code)
+    {
+        return Discount::query()->where('code', $code)->first();
+    }
+
     public function paginate(): LengthAwarePaginator
     {
         return Discount::query()->latest()->paginate(25);

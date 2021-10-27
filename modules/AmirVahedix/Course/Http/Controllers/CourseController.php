@@ -20,6 +20,7 @@ use AmirVahedix\Payment\Services\PaymentService;
 use AmirVahedix\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
@@ -135,13 +136,13 @@ class CourseController extends Controller
         return view('Course::details', compact('course', 'lessons'));
     }
 
-    public function buy(Course $course)
+    public function buy(Course $course, Request $request)
     {
         if (!$this->courseCanBePurchased($course)) return back();
 
         if (!$this->userCanPurchaseCourse($course)) return back();
 
-        $amount = $course->getFinalPrice();
+        $amount = $course->getFinalPrice($request->code);
         if ($amount <= 0) {
             $this->courseRepo->addStudentToCourse($course, auth()->user());
             alert("تراکنش موفق", "پرداخت موفقیت آمیز بود.", "success")->showConfirmButton('حله', '#46B2F0');

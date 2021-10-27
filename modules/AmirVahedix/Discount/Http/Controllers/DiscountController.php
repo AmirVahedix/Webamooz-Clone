@@ -10,6 +10,7 @@ use AmirVahedix\Discount\Http\Requests\StoreDiscountRequest;
 use AmirVahedix\Discount\Http\Requests\UpdateDiscountRequest;
 use AmirVahedix\Discount\Models\Discount;
 use AmirVahedix\Discount\Repositories\DiscountRepo;
+use AmirVahedix\Discount\Services\DiscountService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -81,8 +82,8 @@ class DiscountController extends Controller
         if (!$discount)
             return response()->json(["message" => "invalid code" ], 422);
 
-        $discount_amount = $course->price * ($discount->percent/100);
-        $amount_after_discount = $course->price - $discount_amount;
+        $discount_amount = DiscountService::getDiscountAmount($course->price, $discount);
+        $amount_after_discount = DiscountService::getAmountAfterDiscount($course->price, $discount);
         $discount_percent = $discount->percent;
 
         return response()->json([

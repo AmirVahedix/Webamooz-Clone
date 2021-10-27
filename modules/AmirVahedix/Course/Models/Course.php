@@ -10,6 +10,7 @@ use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Course\Repositories\LessonRepo;
 use AmirVahedix\Discount\Models\Discount;
 use AmirVahedix\Discount\Repositories\DiscountRepo;
+use AmirVahedix\Discount\Services\DiscountService;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\Payment\Models\Payment;
 use AmirVahedix\User\Models\User;
@@ -179,9 +180,16 @@ class Course extends Model
         return ($percent/100) * $this->price;
     }
 
-    public function getFinalPrice()
+    public function getFinalPrice($code = null)
     {
-        return $this->price - $this->getDiscountAmount();
+        $amount = $this->price - $this->getDiscountAmount();
+
+        if ($code && DiscountService::check($code, $this)) {
+            $discount = resolve(DiscountRepo::class)->findByCode($code);
+            $amount = DiscountService::getAmountAfterDiscount($amount, $discount);
+        }
+
+        return $amount;
     }
     // endregion custom methods
 }
