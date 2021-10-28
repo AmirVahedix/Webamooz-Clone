@@ -4,10 +4,19 @@
 namespace AmirVahedix\Ticket\Http\Controllers;
 
 
+use AmirVahedix\Media\Services\MediaService;
 use AmirVahedix\Ticket\Http\Requests\StoreTicketRequest;
+use AmirVahedix\Ticket\Repositories\TicketRepo;
 
 class TicketController
 {
+    private $ticketRepo;
+
+    public function __construct(TicketRepo $ticketRepo)
+    {
+        $this->ticketRepo = $ticketRepo;
+    }
+
     public function index()
     {
         return view('Ticket::index');
@@ -20,6 +29,13 @@ class TicketController
 
     public function store(StoreTicketRequest $request)
     {
-        dd($request->validated());
+        $this->ticketRepo->store($request);
+
+        if ($request->hasFile('attachment')) {
+            $media_id = MediaService::privateUpload($request->file('attachment'))->id;
+//            $request->request->add(['media_id', $media_id]);
+        }
+
+
     }
 }

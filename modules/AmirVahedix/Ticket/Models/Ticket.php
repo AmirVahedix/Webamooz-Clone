@@ -10,6 +10,14 @@ class Ticket extends Model
 {
     use HasFactory;
 
+    // region constants
+    const STATUS_WAITING = 'waiting';
+    const STATUS_ANSWERED = 'answered';
+    const STATUS_CLOSED = 'closed';
+
+    const statuses = [self::STATUS_WAITING, self::STATUS_ANSWERED, self::STATUS_CLOSED];
+    // endregion constants
+
     // region model config
     protected $table = 'tickets';
 
