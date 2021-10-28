@@ -23,9 +23,9 @@
                     <div class="t-header-searchbox font-size-13">
                         <input type="text" class="text search-input__box font-size-13" placeholder="جستجوی در تیکت ها">
                         <div class="t-header-search-content ">
-                            <input type="text"  class="text"  placeholder="ایمیل">
-                            <input type="text"  class="text "  placeholder="نام و نام خانوادگی">
-                            <input type="text"  class="text margin-bottom-20"  placeholder="تاریخ">
+                            <input type="text" class="text" placeholder="ایمیل">
+                            <input type="text" class="text " placeholder="نام و نام خانوادگی">
+                            <input type="text" class="text margin-bottom-20" placeholder="تاریخ">
                             <btutton class="btn btn-webamooz_net">جستجو</btutton>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                 </thead>
                 <tbody>
                 @foreach($tickets as $ticket)
-                    <tr role="row" >
+                    <tr role="row">
                         <td>
                             <a href="{{ route('dashboard.tickets.show', $ticket->id) }}">
                                 {{ $ticket->title }}
@@ -66,9 +66,15 @@
                             @endif
                         </td>
                         <td>
-                            <a href="" class="item-delete mlg-15" title="حذف"></a>
-                            <a href="{{ route('dashboard.tickets.show', $ticket->id) }}" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                            <a href="edit-comment.html" class="item-edit " title="ویرایش"></a>
+                            @can(\AmirVahedix\Authorization\Models\Permission::PERMISSION_MANAGE_TICKETS)
+                                <a href="" class="item-delete mlg-15" title="حذف"></a>
+                            @endcan
+                            @if($ticket->status !== \AmirVahedix\Ticket\Models\Ticket::STATUS_CLOSED)
+                                <a href="{{ route('dashboard.tickets.close', $ticket->id) }}" class="item-reject mlg-15"
+                                   title="بستن تیکت"></a>
+                                <a href="{{ route('dashboard.tickets.show', $ticket->id) }}" class="item-eye mlg-15"
+                                   title="مشاهده تیکت"></a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

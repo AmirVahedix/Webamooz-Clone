@@ -64,4 +64,12 @@ class TicketController
         toast('پاسخ باموفقیت ثبت شد.', 'success');
         return redirect(route('dashboard.tickets.show', $ticket->id));
     }
+
+    public function close(Ticket $ticket)
+    {
+        $ticket->update([ 'status' => Ticket::STATUS_CLOSED ]);
+
+        toast('تیکت باموفقیت بسته شد.', 'success');
+        return redirect(route('dashboard.tickets.index'));
+    }
 }
