@@ -43,7 +43,8 @@
             "AmirVahedix\\Authorization\\": "modules/AmirVahedix/Authorization",
             "AmirVahedix\\Course\\": "modules/AmirVahedix/Course",
             "AmirVahedix\\Media\\": "modules/AmirVahedix/Media",
-            "AmirVahedix\\Discount\\": "modules/AmirVahedix/Discount"
+            "AmirVahedix\\Discount\\": "modules/AmirVahedix/Discount",
+            "AmirVahedix\\Ticket\\": "modules/AmirVahedix/Ticket"
         }
     },
     "repositories": [

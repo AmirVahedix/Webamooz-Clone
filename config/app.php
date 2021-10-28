@@ -7,6 +7,7 @@ use AmirVahedix\Dashboard\Providers\DashboardServiceProvider;
 //use AmirVahedix\Front\Providers\FrontServiceProvider;
 use AmirVahedix\Discount\Providers\DiscountServiceProvider;
 use AmirVahedix\Media\Providers\MediaServiceProvider;
+use AmirVahedix\Ticket\Providers\TicketServiceProvider;
 use AmirVahedix\User\Providers\UserServiceProvider;
 
 return [
@@ -177,6 +178,7 @@ return [
         CourseServiceProvider::class,
         MediaServiceProvider::class,
         DiscountServiceProvider::class,
+        TicketServiceProvider::class,
 
         /*
          * Package Service Providers...
