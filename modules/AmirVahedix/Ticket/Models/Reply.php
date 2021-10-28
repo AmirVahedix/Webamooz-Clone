@@ -1,36 +1,29 @@
 <?php
 
+
 namespace AmirVahedix\Ticket\Models;
 
+
 use AmirVahedix\User\Models\User;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ticket extends Model
+class Reply extends Model
 {
-    use HasFactory;
-
     // region model config
-    protected $table = 'tickets';
+    protected $table = 'ticket_replies';
 
     protected $fillable = [
         'user_id',
-        'ticketable_id',
-        'ticketable_type',
-        'title',
-        'status',
+        'ticket_id',
+        'media_id',
+        'body',
     ];
     // endregion model config
 
     // region relations
-    public function replies()
+    public function ticket()
     {
-        return $this->hasMany(Reply::class);
-    }
-
-    public function ticketable()
-    {
-        return $this->morphTo();
+        return $this->belongsTo(Ticket::class);
     }
 
     public function user()

@@ -13,6 +13,7 @@ use AmirVahedix\Discount\Repositories\DiscountRepo;
 use AmirVahedix\Discount\Services\DiscountService;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\Payment\Models\Payment;
+use AmirVahedix\Ticket\Models\Ticket;
 use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -101,6 +102,11 @@ class Course extends Model
     public function discounts()
     {
         return $this->morphToMany(Discount::class, 'discountable');
+    }
+
+    public function tickets()
+    {
+        return $this->morphMany(Ticket::class, 'ticketable');
     }
     // endregion relations
 

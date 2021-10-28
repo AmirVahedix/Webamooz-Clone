@@ -8,6 +8,8 @@ use AmirVahedix\Course\Models\Season;
 use AmirVahedix\Media\Models\Media;
 use AmirVahedix\Payment\Models\Payment;
 use AmirVahedix\Payment\Models\Settlement;
+use AmirVahedix\Ticket\Models\Reply;
+use AmirVahedix\Ticket\Models\Ticket;
 use AmirVahedix\User\Database\factories\UserFactory;
 use AmirVahedix\User\Notifications\ResetPasswordNotification;
 use AmirVahedix\User\Notifications\VerifyEmailNotification;
@@ -118,6 +120,16 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
     public function payments()
     {
         return $this->hasMany(Payment::class, 'buyer_id', 'id');
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function ticketReplies()
+    {
+        return $this->hasMany(Reply::class);
     }
     // endregion relations
 
