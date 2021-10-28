@@ -8,3 +8,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [TicketController::class, 'index'])->name('dashboard.tickets.index');
 
 Route::get('/create', [TicketController::class, 'create'])->name('dashboard.tickets.create');
+
+Route::post('/', [TicketController::class, 'store'])->name('dashboard.tickets.store');

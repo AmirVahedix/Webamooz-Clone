@@ -1,6 +1,6 @@
 @extends('Dashboard::master')
 
-@section('title', 'تیکت ها')
+@section('title', 'ایجاد تیکت')
 
 @section('breadcrumbs')
     <li><a href="{{ route('dashboard.index') }}">پیشخوان</a></li>
@@ -13,10 +13,12 @@
         <p class="box__title">ایجاد تیکت جدید</p>
         <div class="row no-gutters bg-white">
             <div class="col-12">
-                <form action="" class="padding-30">
+                <form action="{{ route('dashboard.tickets.store') }}" method="POST" enctype="multipart/form-data" class="padding-30">
+                    @csrf
+
                     <x-input name="title" class="text" placeholder="عنوان تیکت" />
                     <x-textarea name="body" label="متن تیکت" class="text" />
-                    <x-file name="media" label="انتخاب فایل پیوست" />
+                    <x-file name="attachment" label="انتخاب فایل پیوست" />
 
                     <button class="btn btn-webamooz_net">ایجاد مقاله</button>
                 </form>
