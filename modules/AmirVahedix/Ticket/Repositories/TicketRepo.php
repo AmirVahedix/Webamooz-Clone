@@ -14,7 +14,6 @@ class TicketRepo
         return Ticket::query()->create([
             'user_id' => auth()->id(),
             'title' => $request->get('title'),
-            ''
-            ]);
+        ]);
     }
 }

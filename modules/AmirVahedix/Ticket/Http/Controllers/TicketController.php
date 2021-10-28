@@ -7,6 +7,7 @@ namespace AmirVahedix\Ticket\Http\Controllers;
 use AmirVahedix\Media\Services\MediaService;
 use AmirVahedix\Ticket\Http\Requests\StoreTicketRequest;
 use AmirVahedix\Ticket\Repositories\TicketRepo;
+use AmirVahedix\Ticket\Services\ReplyService;
 
 class TicketController
 {
@@ -29,13 +30,10 @@ class TicketController
 
     public function store(StoreTicketRequest $request)
     {
-        $this->ticketRepo->store($request);
+        $ticket = $this->ticketRepo->store($request);
+        ReplyService::store($ticket, $request->get('body'), $request->file('attachment'));
 
-        if ($request->hasFile('attachment')) {
-            $media_id = MediaService::privateUpload($request->file('attachment'))->id;
-//            $request->request->add(['media_id', $media_id]);
-        }
-
-
+        toast('تیکت باموفقیت ایجاد شد.', 'success');
+        return redirect(route('dashboard.tickets.index'));
     }
 }
