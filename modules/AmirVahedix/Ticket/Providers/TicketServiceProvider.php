@@ -19,6 +19,8 @@ class TicketServiceProvider extends ServiceProvider
     public function register()
     {
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
+        $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Ticket');
+
         Route::middleware(['web', 'auth'])
             ->prefix('dashboard/tickets')
             ->group(__DIR__.'/../Routes/TicketRoutes.php');
@@ -32,6 +34,10 @@ class TicketServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
+        config()->set('sidebar.items.tickets', [
+            'icon' => 'i-tickets',
+            'title' => 'تیکت ها',
+            'url' => 'dashboard.tickets.index'
+        ]);
     }
 }

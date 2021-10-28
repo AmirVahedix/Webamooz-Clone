@@ -8,6 +8,11 @@ class TicketController
 {
     public function index()
     {
-        dd('ok');
+        return view('Ticket::index');
+    }
+
+    public function create()
+    {
+        return view("Ticket::create");
     }
 }
