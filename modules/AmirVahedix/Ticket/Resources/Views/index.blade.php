@@ -37,51 +37,29 @@
             <table class="table">
                 <thead role="rowgroup">
                 <tr role="row" class="title-row">
-                    <th>شناسه</th>
-                    <th>نام ارسال کننده</th>
-                    <th>ایمیل ارسال کننده</th>
+                    <th>عنوان</th>
+                    <th>نام کاربر</th>
+                    <th>ایمیل / تلفن کاربر</th>
                     <th>آخرین بروزرسانی</th>
                     <th>وضعیت</th>
                     <th>عملیات</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr role="row" >
-                    <td><a href="">1</a></td>
-                    <td><a href="">محمد نیکو</a></td>
-                    <td><a href="">mmd@gmail.com</a></td>
-                    <td>1399/05/01</td>
-                    <td class="text-info">جدید</td>
-                    <td>
-                        <a href="" class="item-delete mlg-15" title="حذف"></a>
-                        <a href="show-comment.html" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                        <a href="edit-comment.html" class="item-edit " title="ویرایش"></a>
-                    </td>
-                </tr>
-                <tr role="row" >
-                    <td><a href="">1</a></td>
-                    <td><a href="">محمد نیکو</a></td>
-                    <td><a href="">mmd@gmail.com</a></td>
-                    <td>1399/05/01</td>
-                    <td class="text-success">پاسخ داده شده</td>
-                    <td>
-                        <a href="" class="item-delete mlg-15" title="حذف"></a>
-                        <a href="show-comment.html" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                        <a href="edit-comment.html" class="item-edit " title="ویرایش"></a>
-                    </td>
-                </tr>
-                <tr role="row" class="close-status">
-                    <td><a href="">1</a></td>
-                    <td><a href="">محمد نیکو</a></td>
-                    <td><a href="">mmd@gmail.com</a></td>
-                    <td>1399/05/01</td>
-                    <td>بسته شده</td>
-                    <td>
-                        <a href="" class="item-delete mlg-15" title="حذف"></a>
-                        <a href="show-comment.html" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                        <a href="edit-comment.html" class="item-edit " title="ویرایش"></a>
-                    </td>
-                </tr>
+                @foreach($tickets as $ticket)
+                    <tr role="row" >
+                        <td>{{ $ticket->title }}</td>
+                        <td>{{ $ticket->user->name }}</td>
+                        <td>{{ $ticket->user->email ?: $ticket->user->phone }}</td>
+                        <td>{{ jdate($ticket->updated_at)->format('Y/m/d') }}</td>
+                        <td class="text-info">{{ __($ticket->status) }}</td>
+                        <td>
+                            <a href="" class="item-delete mlg-15" title="حذف"></a>
+                            <a href="show-comment.html" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
+                            <a href="edit-comment.html" class="item-edit " title="ویرایش"></a>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

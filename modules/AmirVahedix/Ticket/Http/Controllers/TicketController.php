@@ -4,10 +4,11 @@
 namespace AmirVahedix\Ticket\Http\Controllers;
 
 
-use AmirVahedix\Media\Services\MediaService;
+use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\Ticket\Http\Requests\StoreTicketRequest;
 use AmirVahedix\Ticket\Repositories\TicketRepo;
 use AmirVahedix\Ticket\Services\ReplyService;
+use AmirVahedix\User\Models\User;
 
 class TicketController
 {
@@ -20,7 +21,13 @@ class TicketController
 
     public function index()
     {
-        return view('Ticket::index');
+        if (auth()->user()->hasAnyPermission([Permission::PERMISSION_MANAGE_TICKETS, Permission::PERMISSION_SUPER_ADMIN])) {
+            $tickets = $this->ticketRepo->paginate();
+        } else {
+            $tickets = $this->ticketRepo->paginateForUser(auth()->id());
+        }
+
+        return view('Ticket::index', compact('tickets'));
     }
 
     public function create()

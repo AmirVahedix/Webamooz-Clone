@@ -15,6 +15,7 @@ class Permission extends \Spatie\Permission\Models\Permission
     const PERMISSION_MANAGE_USERS = 'manage_users';
     const PERMISSION_MANAGE_PAYMENTS = 'manage_payments';
     const PERMISSION_MANAGE_DISCOUNTS = 'manage_discounts';
+    const PERMISSION_MANAGE_TICKETS = 'manage_tickets';
 
     const permissions = [
         self::PERMISSION_MANAGE_AUTHORIZATION,
@@ -26,5 +27,6 @@ class Permission extends \Spatie\Permission\Models\Permission
         self::PERMISSION_MANAGE_USERS,
         self::PERMISSION_MANAGE_PAYMENTS,
         self::PERMISSION_MANAGE_DISCOUNTS,
+        self::PERMISSION_MANAGE_TICKETS,
     ];
 }
