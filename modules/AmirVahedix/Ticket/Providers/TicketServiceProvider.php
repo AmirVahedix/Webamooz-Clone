@@ -20,6 +20,7 @@ class TicketServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Ticket');
+        $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
 
         Route::middleware(['web', 'auth'])
             ->prefix('dashboard/tickets')
@@ -36,7 +37,7 @@ class TicketServiceProvider extends ServiceProvider
     {
         config()->set('sidebar.items.tickets', [
             'icon' => 'i-tickets',
-            'title' => 'تیکت ها',
+            'title' => 'تیکت‌های پشتیبانی',
             'url' => 'dashboard.tickets.index'
         ]);
     }

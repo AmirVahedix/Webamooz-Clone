@@ -13,10 +13,10 @@ class ReplyService
 {
     public static function store(Model $ticket, string $reply, UploadedFile $attachment = null)
     {
-        $media = null;
+        $media_id = null;
         if ($attachment)
-            $media = MediaService::privateUpload($attachment);
+            $media_id = MediaService::privateUpload($attachment)->id;
 
-        return ReplyRepo::store($ticket->id, $reply, $media->id);
+        return ReplyRepo::store($ticket->id, $reply, $media_id);
     }
 }
