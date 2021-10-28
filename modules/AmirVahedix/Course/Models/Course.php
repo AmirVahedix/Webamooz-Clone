@@ -167,7 +167,7 @@ class Course extends Model
 
         if ($specialDiscount) $percent = $specialDiscount->percent;
 
-        if ($globalDiscount && $globalDiscount->percent > $percent) {
+        if ($globalDiscount && ($globalDiscount->percent > $percent)) {
             $percent = $globalDiscount->percent;
         }
 
@@ -182,10 +182,7 @@ class Course extends Model
         $globalDiscount = $discountRepo->getBiggestGlobalDiscount();
 
         if ($specialDiscount) return $specialDiscount;
-
-        if ($globalDiscount && $globalDiscount->percent > $specialDiscount->percent) {
-            return $globalDiscount;
-        }
+        if ($globalDiscount) return $globalDiscount;
 
         return null;
     }

@@ -68,26 +68,19 @@ class DiscountRepo
         }
     }
 
-    private function getDiscountQuery($type, $discounts) {
-        $discount = $discounts
+    private function getDiscountQuery($type, $discounts)
+    {
+        return $discounts
             ->whereNull('code')
-            ->where('expires_at', '>', now())
+            ->where(function($query) {
+                $query->where('expires_at', '>', now())->orWhere('expires_at', null);
+            })
             ->where('type', $type)
             ->where(function ($query) {
                 $query->whereNull('limit')->orWhere('limit', '>', 0);
             })
             ->orderBy('percent', 'desc')
             ->first();
-
-        if ($discount) {
-            if ($discount->limit) {
-                return $discount->where('uses', '<', $discount->limit )->first();
-            } else {
-                return $discount;
-            }
-        } else {
-            return null;
-        }
     }
 
     public function getBiggestGlobalDiscount()
@@ -97,7 +90,17 @@ class DiscountRepo
 
     public function getBiggestSpecialDiscount(Course $course)
     {
+//        dd($course->discounts()->whereNull('code')->get());
         return $this->getDiscountQuery(Discount::TYPE_SPECIAL, $course->discounts());
+
+//        return $course->discounts()->where('code', '=', null)
+//            ->where('expires_at', '>', now())
+//            ->where('type', Discount::TYPE_SPECIAL)
+//            ->where(function ($query) {
+//                $query->whereNull('limit')->orWhere('limit', '>', 0);
+//            })
+//            ->orderBy('percent', 'desc')
+//            ->first();
     }
 
     public function codeIsValid($code, $course)

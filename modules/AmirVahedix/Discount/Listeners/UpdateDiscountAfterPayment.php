@@ -20,13 +20,19 @@ class UpdateDiscountAfterPayment
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param object $event
      * @return void
      */
     public function handle($event)
     {
         $event->payment->discount->update([
-            'uses' => $event->payment->discount->uses + 1
+            'uses' => $event->payment->discount->uses + 1,
         ]);
+
+        if ($event->payment->discount->limit) {
+            $event->payment->discount->update([
+                'limit' => $event->payment->discount->limit - 1
+            ]);
+        }
     }
 }
