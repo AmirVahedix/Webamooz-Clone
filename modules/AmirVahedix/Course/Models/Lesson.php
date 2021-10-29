@@ -97,7 +97,8 @@ class Lesson extends Model
                 [ 'media' => $this->media_id ]
             );
         }
+
+        return null;
     }
     // endregion custom methods
 }
-

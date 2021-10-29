@@ -35,6 +35,9 @@
                     <div class="transition-comment-body padding-30">
                         {{ $reply->body }}
                     </div>
+                    @if($reply->media_id)
+                        <a href="{{ $reply->attachmentLink() }}" class="btn">دانلود پیوست‌ها</a>
+                    @endif
                 </div>
             @endforeach
         </div>
@@ -45,7 +48,7 @@
                     @csrf
                     <x-textarea name="body" label="متن تیکت" class="text" />
                     <x-file name="attachment" label="انتخاب فایل پیوست" />
-                    <button class="btn btn-webamooz_net">ایجاد مقاله</button>
+                    <button class="btn btn-webamooz_net">ارسال پاسخ</button>
                 </form>
             </div>
         @endif
