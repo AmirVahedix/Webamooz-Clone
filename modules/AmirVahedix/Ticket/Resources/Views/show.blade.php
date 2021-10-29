@@ -38,15 +38,17 @@
                 </div>
             @endforeach
         </div>
-        <div class="answer-comment">
-            <p class="p-answer-comment">ارسال پاسخ</p>
-            <form action="{{ route('dashboard.tickets.reply', $ticket->id) }}" method="POST" enctype="multipart/form-data" class="">
-                @csrf
-                <x-textarea name="body" label="متن تیکت" class="text" />
-                <x-file name="attachment" label="انتخاب فایل پیوست" />
-                <button class="btn btn-webamooz_net">ایجاد مقاله</button>
-            </form>
-        </div>
+        @if($ticket->status != \AmirVahedix\Ticket\Models\Ticket::STATUS_CLOSED)
+            <div class="answer-comment">
+                <p class="p-answer-comment">ارسال پاسخ</p>
+                <form action="{{ route('dashboard.tickets.reply', $ticket->id) }}" method="POST" enctype="multipart/form-data" class="">
+                    @csrf
+                    <x-textarea name="body" label="متن تیکت" class="text" />
+                    <x-file name="attachment" label="انتخاب فایل پیوست" />
+                    <button class="btn btn-webamooz_net">ایجاد مقاله</button>
+                </form>
+            </div>
+        @endif
     </div>
 
 @endsection

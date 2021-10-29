@@ -47,7 +47,7 @@
                 </thead>
                 <tbody>
                 @foreach($tickets as $ticket)
-                    <tr role="row">
+                    <tr role="row" x-data="{delete_modal: false}">
                         <td>
                             <a href="{{ route('dashboard.tickets.show', $ticket->id) }}">
                                 {{ $ticket->title }}
@@ -67,14 +67,37 @@
                         </td>
                         <td>
                             @can(\AmirVahedix\Authorization\Models\Permission::PERMISSION_MANAGE_TICKETS)
-                                <a href="" class="item-delete mlg-15" title="حذف"></a>
+                                <a href="#" x-on:click="delete_modal=true" class="item-delete mlg-15" title="حذف"></a>
                             @endcan
                             @if($ticket->status !== \AmirVahedix\Ticket\Models\Ticket::STATUS_CLOSED)
                                 <a href="{{ route('dashboard.tickets.close', $ticket->id) }}" class="item-reject mlg-15"
                                    title="بستن تیکت"></a>
-                                <a href="{{ route('dashboard.tickets.show', $ticket->id) }}" class="item-eye mlg-15"
-                                   title="مشاهده تیکت"></a>
                             @endif
+                            <a href="{{ route('dashboard.tickets.show', $ticket->id) }}" class="item-eye mlg-15"
+                               title="مشاهده تیکت"></a>
+                        </td>
+                        <td class="padding-0">
+                            <div class="modal hidden" x-init="$el.classList.remove('hidden')"
+                                 x-show="delete_modal"
+                                 x-transition.opacity>
+                                <div class="modal-content" x-on:click.outside="delete_modal=false">
+                                    <h3>آیا از حذف این تیکت اطمینان دارید؟</h3>
+                                    <p>با حذف این تیکت دیگر نه شما و نه کاربر قادر به مشاهده آن نخواهید بود.</p>
+                                    <div class="modal-actions">
+                                        <button class="btn margin-left-10" x-on:click="delete_modal=false">
+                                            انصراف
+                                        </button>
+                                        <form action="{{ route('dashboard.tickets.destroy', $ticket) }}"
+                                              method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-webamooz_net">
+                                                حذف تیکت
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

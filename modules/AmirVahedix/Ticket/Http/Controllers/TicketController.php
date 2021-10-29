@@ -7,6 +7,7 @@ namespace AmirVahedix\Ticket\Http\Controllers;
 use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\Ticket\Http\Requests\StoreReplyRequest;
 use AmirVahedix\Ticket\Http\Requests\StoreTicketRequest;
+use AmirVahedix\Ticket\Models\Reply;
 use AmirVahedix\Ticket\Models\Ticket;
 use AmirVahedix\Ticket\Repositories\TicketRepo;
 use AmirVahedix\Ticket\Services\ReplyService;
@@ -79,5 +80,21 @@ class TicketController extends Controller
         return redirect(route('dashboard.tickets.index'));
     }
 
+    public function delete(Ticket $ticket)
+    {
+        $this->authorize('delete', Ticket::class);
 
+        $replies = Reply::where('ticket_id', $ticket->id)->get();
+        foreach ($replies as $reply) {
+            if ($reply->media_id) {
+                $reply->media->delete();
+            }
+            $reply->delete();
+        }
+
+        $ticket->delete();
+
+        toast('تیکت باموفقیت حذف شد.', 'success');
+        return redirect(route('dashboard.tickets.index'));
+    }
 }

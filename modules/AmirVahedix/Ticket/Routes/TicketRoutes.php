@@ -16,3 +16,6 @@ Route::get('/{ticket}/show', [TicketController::class, 'show'])->name('dashboard
 Route::post('/{ticket}/reply', [TicketController::class, 'reply'])->name('dashboard.tickets.reply');
 
 Route::get('/{ticket}/close', [TicketController::class, 'close'])->name('dashboard.tickets.close');
+
+Route::delete('/{ticket}/destroy', [TicketController::class, 'delete'])->name('dashboard.tickets.destroy');
+
