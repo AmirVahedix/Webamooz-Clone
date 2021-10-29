@@ -11,8 +11,9 @@ use AmirVahedix\Ticket\Models\Ticket;
 use AmirVahedix\Ticket\Repositories\TicketRepo;
 use AmirVahedix\Ticket\Services\ReplyService;
 use AmirVahedix\User\Models\User;
+use App\Http\Controllers\Controller;
 
-class TicketController
+class TicketController extends Controller
 {
     private $ticketRepo;
 
@@ -48,11 +49,14 @@ class TicketController
 
     public function show(Ticket $ticket)
     {
+        $this->authorize('manage', [Ticket::class, $ticket]);
         return view('Ticket::show', compact('ticket'));
     }
 
     public function reply(StoreReplyRequest $request, Ticket $ticket)
     {
+        $this->authorize('manage', [Ticket::class, $ticket]);
+
         ReplyService::store($ticket, $request->get('body'), $request->file('attachment'));
 
         if (auth()->id() != $ticket->user_id) {
@@ -67,9 +71,13 @@ class TicketController
 
     public function close(Ticket $ticket)
     {
+        $this->authorize('manage', [Ticket::class, $ticket]);
+
         $ticket->update([ 'status' => Ticket::STATUS_CLOSED ]);
 
         toast('تیکت باموفقیت بسته شد.', 'success');
         return redirect(route('dashboard.tickets.index'));
     }
+
+
 }

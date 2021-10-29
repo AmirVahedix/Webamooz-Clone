@@ -20,7 +20,7 @@
                     <x-textarea name="body" label="متن تیکت" class="text" />
                     <x-file name="attachment" label="انتخاب فایل پیوست" />
 
-                    <button class="btn btn-webamooz_net">ایجاد مقاله</button>
+                    <button class="btn btn-webamooz_net">ایجاد تیکت</button>
                 </form>
             </div>
         </div>
