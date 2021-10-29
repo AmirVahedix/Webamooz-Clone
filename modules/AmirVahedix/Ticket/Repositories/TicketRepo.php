@@ -55,7 +55,7 @@ class TicketRepo
         return $this;
     }
 
-    public function searchStatus($status)
+    public function searchStatus($status): TicketRepo
     {
         if ($status)
             $this->query->where('tickets.status', $status);

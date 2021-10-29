@@ -44,7 +44,8 @@
             "AmirVahedix\\Course\\": "modules/AmirVahedix/Course",
             "AmirVahedix\\Media\\": "modules/AmirVahedix/Media",
             "AmirVahedix\\Discount\\": "modules/AmirVahedix/Discount",
-            "AmirVahedix\\Ticket\\": "modules/AmirVahedix/Ticket"
+            "AmirVahedix\\Ticket\\": "modules/AmirVahedix/Ticket",
+            "AmirVahedix\\Comment\\": "modules/AmirVahedix/Comment"
         }
     },
     "repositories": [

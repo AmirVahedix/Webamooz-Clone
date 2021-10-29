@@ -2,6 +2,7 @@
 
 use AmirVahedix\Authorization\Providers\AuthorizationServiceProvider;
 use AmirVahedix\Category\Providers\CategoryServiceProvider;
+use AmirVahedix\Comment\Providers\CommentServiceProvider;
 use AmirVahedix\Course\Providers\CourseServiceProvider;
 use AmirVahedix\Dashboard\Providers\DashboardServiceProvider;
 //use AmirVahedix\Front\Providers\FrontServiceProvider;
@@ -179,6 +180,7 @@ return [
         MediaServiceProvider::class,
         DiscountServiceProvider::class,
         TicketServiceProvider::class,
+        CommentServiceProvider::class,
 
         /*
          * Package Service Providers...
