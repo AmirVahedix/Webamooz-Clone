@@ -13,6 +13,7 @@ use AmirVahedix\Ticket\Repositories\TicketRepo;
 use AmirVahedix\Ticket\Services\ReplyService;
 use AmirVahedix\User\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
@@ -23,10 +24,17 @@ class TicketController extends Controller
         $this->ticketRepo = $ticketRepo;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        if (auth()->user()->hasAnyPermission([Permission::PERMISSION_MANAGE_TICKETS, Permission::PERMISSION_SUPER_ADMIN])) {
-            $tickets = $this->ticketRepo->paginate();
+        if (auth()->user()->can(Permission::PERMISSION_MANAGE_TICKETS)) {
+            $tickets = $this->ticketRepo
+                ->joinUsers()
+                ->searchEmail($request->get('email'))
+                ->searchMobile($request->get('mobile'))
+                ->searchName($request->get('name'))
+                ->searchDate($request->get('date'))
+                ->searchStatus($request->get('status'))
+                ->paginate();
         } else {
             $tickets = $this->ticketRepo->paginateForUser(auth()->id());
         }
