@@ -63,7 +63,6 @@
                             @unless($comment->status == \AmirVahedix\Comment\Models\Comment::STATUS_APPROVED)
                                 <a href="{{ route('dashboard.comments.approve', $comment->id) }}" class="item-confirm mlg-15" title="تایید"></a>
                             @endunless
-{{--                            <a href="edit-comment.html" class="item-edit " title="ویرایش"></a>--}}
                         </td>
                         <td class="padding-0">
                             <div class="modal hidden" x-init="$el.classList.remove('hidden')"

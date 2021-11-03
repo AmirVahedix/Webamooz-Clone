@@ -1733,7 +1733,6 @@ span.tagRemove:hover {
 .transition-ticket .transition-ticket-header .nav-ticket-status, .nav-comment-status {
     margin-right: 10px;
     position: relative;
-    top: -10px;
 }
 
 .nav-ticket-status .username, .nav-comment-status .username {
