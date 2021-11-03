@@ -5,7 +5,7 @@ namespace AmirVahedix\Course\Models;
 
 
 use AmirVahedix\Category\Models\Category;
-use AmirVahedix\Comment\Models\Comment;
+use AmirVahedix\Comment\Traits\HasComment;
 use AmirVahedix\Course\Database\Factories\CourseFactory;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Course\Repositories\LessonRepo;
@@ -13,16 +13,13 @@ use AmirVahedix\Discount\Models\Discount;
 use AmirVahedix\Discount\Repositories\DiscountRepo;
 use AmirVahedix\Discount\Services\DiscountService;
 use AmirVahedix\Media\Models\Media;
-use AmirVahedix\Payment\Models\Payment;
 use AmirVahedix\Ticket\Models\Ticket;
 use AmirVahedix\User\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    use HasFactory;
+    use HasComment;
 
     // region constants
     const TYPE_FREE = 'free';
@@ -108,19 +105,6 @@ class Course extends Model
     public function tickets()
     {
         return $this->morphMany(Ticket::class, 'ticketable');
-    }
-
-    public function comments ()
-    {
-        return $this->morphMany(Comment::class, 'commentable');
-    }
-
-    public function approvedComments ()
-    {
-        return $this->morphMany(Comment::class, 'commentable')
-            ->where('status', Comment::STATUS_APPROVED)
-            ->whereNull('parent_id')
-            ->with('children');
     }
     // endregion relations
 
