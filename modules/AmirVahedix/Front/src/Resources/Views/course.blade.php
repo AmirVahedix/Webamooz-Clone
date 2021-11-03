@@ -52,7 +52,7 @@
                     @include("Front::layouts.course.single.lessons")
                 </div>
             </div>
-            @include('Front::layouts.comments.index')
+            @include('Front::layouts.comments.index', ["commentable" => $course])
         </div>
     </main>
 @endsection

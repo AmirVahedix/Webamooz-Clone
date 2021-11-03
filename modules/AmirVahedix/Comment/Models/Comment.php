@@ -3,7 +3,7 @@
 
 namespace AmirVahedix\Comment\Models;
 
-
+use AmirVahedix\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
@@ -32,5 +32,10 @@ class Comment extends Model
     public function Commentble ()
     {
         return $this->morphTo();
+    }
+
+    public function user ()
+    {
+        return $this->belongsTo(User::class);
     }
 }
