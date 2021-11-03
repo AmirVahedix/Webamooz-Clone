@@ -20,4 +20,11 @@ class CommentRepo
 
         return Comment::query()->create($request->all());
     }
+
+    public function findApproved ($comment_id)
+    {
+        return Comment::query()->where("id", $comment_id)
+            ->where('status', Comment::STATUS_APPROVED)
+            ->first();
+    }
 }

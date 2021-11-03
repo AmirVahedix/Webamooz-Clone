@@ -118,7 +118,9 @@ class Course extends Model
     public function approvedComments ()
     {
         return $this->morphMany(Comment::class, 'commentable')
-            ->where('status', Comment::STATUS_APPROVED);
+            ->where('status', Comment::STATUS_APPROVED)
+            ->whereNull('parent_id')
+            ->with('children');
     }
     // endregion relations
 

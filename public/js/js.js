@@ -262,3 +262,7 @@ function checkDiscountCode(url) {
             })
     }
 }
+
+function setParentId(comment_id) {
+    $("#parent_id").val(comment_id);
+}

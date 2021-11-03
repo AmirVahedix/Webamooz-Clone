@@ -2,9 +2,10 @@
 
 namespace AmirVahedix\Comment\Rules;
 
+use AmirVahedix\Comment\Repositories\CommentRepo;
 use Illuminate\Contracts\Validation\Rule;
 
-class IsCommentable implements Rule
+class IsCommentApproved implements Rule
 {
     public function __construct()
     {
@@ -13,7 +14,8 @@ class IsCommentable implements Rule
 
     public function passes($attribute, $value)
     {
-        return class_exists($value) && method_exists($value, 'comments');
+        $comment = (new CommentRepo())->findApproved($value);
+        return !is_null($comment);
     }
 
     public function message()
