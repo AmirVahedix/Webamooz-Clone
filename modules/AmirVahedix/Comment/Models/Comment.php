@@ -18,5 +18,14 @@ class Comment extends Model
 
     // region model config
     protected $table = 'comments';
+
+    protected $fillable = [
+        'user_id',
+        'parent_id',
+        'commentable_id',
+        'commentable_type',
+        'body',
+        'status',
+    ];
     // endregion model config
 }
