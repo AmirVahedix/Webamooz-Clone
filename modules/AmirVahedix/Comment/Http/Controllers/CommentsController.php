@@ -23,6 +23,11 @@ class CommentsController extends Controller
         return view('Comment::index', compact('comments'));
     }
 
+    public function show(Comment $comment)
+    {
+        return view('Comment::show', compact('comment'));
+    }
+
     public function store(StoreCommentRequest $request): RedirectResponse
     {
         $this->commentRepo->store($request);
