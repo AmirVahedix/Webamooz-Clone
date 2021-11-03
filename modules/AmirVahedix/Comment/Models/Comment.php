@@ -28,4 +28,9 @@ class Comment extends Model
         'status',
     ];
     // endregion model config
+
+    public function Commentble ()
+    {
+        return $this->morphTo();
+    }
 }

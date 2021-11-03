@@ -3,8 +3,11 @@
         <h3>نظرات ( 180 )</h3>
         <p>نظر خود را در مورد این دوره مطرح کنید</p>
     </div>
-    <form action="{{ route('comments.store', $course->id) }}" method="POST">
+    <form action="{{ route('comments.store') }}" method="POST">
         @csrf
+
+        <input type="hidden" name="commentable_type" value="{{ get_class($course) }}">
+        <input type="hidden" name="commentable_id" value="{{ $course->id }}">
 
         <div class="ct-row">
             <div class="ct-textarea">

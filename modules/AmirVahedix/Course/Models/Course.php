@@ -5,6 +5,7 @@ namespace AmirVahedix\Course\Models;
 
 
 use AmirVahedix\Category\Models\Category;
+use AmirVahedix\Comment\Models\Comment;
 use AmirVahedix\Course\Database\Factories\CourseFactory;
 use AmirVahedix\Course\Repositories\CourseRepo;
 use AmirVahedix\Course\Repositories\LessonRepo;
@@ -107,6 +108,11 @@ class Course extends Model
     public function tickets()
     {
         return $this->morphMany(Ticket::class, 'ticketable');
+    }
+
+    public function comments ()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
     // endregion relations
 
