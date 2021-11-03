@@ -5,6 +5,7 @@ namespace AmirVahedix\Comment\Http\Controllers;
 use AmirVahedix\Comment\Http\Requests\StoreCommentRequest;
 use AmirVahedix\Comment\Repositories\CommentRepo;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 
 class CommentsController extends Controller
 {
@@ -15,12 +16,17 @@ class CommentsController extends Controller
         $this->commentRepo = $commentRepo;
     }
 
-    public function store (StoreCommentRequest $request)
+    public function index()
+    {
+        $comments = $this->commentRepo->paginate();
+        return view('Comment::index', compact('comments'));
+    }
+
+    public function store(StoreCommentRequest $request): RedirectResponse
     {
         $this->commentRepo->store($request);
 
         toast('نظر باموفقیت ثبت شد و پس از تایید نمایش داده میشود.', 'success');
-        // $commentable =  $request->commentable_type::findOrFail($request->commentable_id);
         return back();
     }
 }

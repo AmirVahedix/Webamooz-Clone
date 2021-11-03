@@ -4,5 +4,9 @@ use AmirVahedix\Comment\Http\Controllers\CommentsController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::post('/coments', [CommentsController::class, 'store'])
+Route::post('/comments', [CommentsController::class, 'store'])
     ->name('comments.store');
+
+Route::prefix('/dashboard/comments')->name('dashboard.comments.')->group(function() {
+    Route::get('/', [CommentsController::class, 'index'])->name('index');
+});

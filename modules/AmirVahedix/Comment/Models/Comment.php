@@ -29,7 +29,7 @@ class Comment extends Model
     ];
     // endregion model config
 
-    public function Commentble ()
+    public function commentable ()
     {
         return $this->morphTo();
     }

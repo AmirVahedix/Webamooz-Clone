@@ -9,6 +9,7 @@ return [
         'my-purchases' => [],
         'checkouts' => [],
         'settlement-request' => [],
+        'comments' => [],
         'tickets' => [],
         'discounts' => [],
         'authorization' => [],
