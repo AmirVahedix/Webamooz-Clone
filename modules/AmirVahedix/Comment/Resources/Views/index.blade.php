@@ -56,9 +56,13 @@
                         <td class="{{ $comment->status_class }}">{{ __($comment->status) }}</td>
                         <td>
                             <a href="#" x-on:click="delete_modal=true" class="item-delete mlg-15" title="حذف"></a>
-                            <a href="show-comment.html" class="item-reject mlg-15" title="رد"></a>
-                            <a href="show-comment.html" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                            <a href="show-comment.html" class="item-confirm mlg-15" title="تایید"></a>
+                            @unless($comment->status == \AmirVahedix\Comment\Models\Comment::STATUS_REJECTED)
+                                <a href="{{ route('dashboard.comments.reject', $comment->id) }}" class="item-reject mlg-15" title="رد"></a>
+                            @endunless
+                            <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
+                            @unless($comment->status == \AmirVahedix\Comment\Models\Comment::STATUS_APPROVED)
+                                <a href="{{ route('dashboard.comments.approve', $comment->id) }}" class="item-confirm mlg-15" title="تایید"></a>
+                            @endunless
                             <a href="edit-comment.html" class="item-edit " title="ویرایش"></a>
                         </td>
                         <td class="padding-0">

@@ -39,4 +39,18 @@ class CommentsController extends Controller
         toast('نظر باموفقیت حذف شد.', 'success');
         return back();
     }
+
+    public function approve(Comment $comment)
+    {
+        $comment->update([ 'status' => Comment::STATUS_APPROVED ]);
+        toast('نظر تایید شد.', 'success');
+        return back();
+    }
+
+    public function reject(Comment $comment)
+    {
+        $comment->update([ 'status' => Comment::STATUS_REJECTED ]);
+        toast('نظر رد شد.', 'success');
+        return back();
+    }
 }
