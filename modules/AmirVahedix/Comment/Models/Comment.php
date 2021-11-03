@@ -29,6 +29,7 @@ class Comment extends Model
     ];
     // endregion model config
 
+    // region relations
     public function commentable ()
     {
         return $this->morphTo();
@@ -47,5 +48,13 @@ class Comment extends Model
     public function children ()
     {
         return $this->hasMany(Comment::class, 'parent_id', 'id');
+    }
+    // endregion
+
+    public function getStatusClassAttribute()
+    {
+        if ($this->status == self::STATUS_WAITING) return 'text-warning';
+        if ($this->status == self::STATUS_REJECTED) return 'text-error';
+        if ($this->status == self::STATUS_APPROVED) return 'text-success';
     }
 }

@@ -16,6 +16,7 @@ class CommentServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Comment');
+        $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
     }
 
     public function boot()

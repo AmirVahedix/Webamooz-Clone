@@ -47,19 +47,42 @@
                 </thead>
                 <tbody>
                 @foreach($comments as $comment)
-                    <tr role="row">
+                    <tr role="row" x-data="{delete_modal: false}">
                         <td>{{ $comment->user->name }}</td>
                         <td>{{ $comment->commentable->title }}</td>
                         <td>{{ $comment->body }}</td>
                         <td>{{ jdate($comment->created_at)->format('Y/m/d') }}</td>
-                        <td>{{ $comment->children->count() }}</td>
-                        <td>{{ __($comment->status) }}</td>
+                        <td>{{ $comment->children->count() }} ({{ $comment->children->where('status', \AmirVahedix\Comment\Models\Comment::STATUS_APPROVED)->count() }})</td>
+                        <td class="{{ $comment->status_class }}">{{ __($comment->status) }}</td>
                         <td>
-                            <a href="" class="item-delete mlg-15" title="حذف"></a>
+                            <a href="#" x-on:click="delete_modal=true" class="item-delete mlg-15" title="حذف"></a>
                             <a href="show-comment.html" class="item-reject mlg-15" title="رد"></a>
                             <a href="show-comment.html" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                             <a href="show-comment.html" class="item-confirm mlg-15" title="تایید"></a>
                             <a href="edit-comment.html" class="item-edit " title="ویرایش"></a>
+                        </td>
+                        <td class="padding-0">
+                            <div class="modal hidden" x-init="$el.classList.remove('hidden')"
+                                 x-show="delete_modal"
+                                 x-transition.opacity>
+                                <div class="modal-content" x-on:click.outside="delete_modal=false">
+                                    <h3>آیا از حذف این نظر اطمینان دارید؟</h3>
+                                    <p>با حذف این کامنت، پاسخ‌های این کامنت نیز به طور کامل حذف خواهد شد.</p>
+                                    <div class="modal-actions">
+                                        <button class="btn margin-left-10" x-on:click="delete_modal=false">
+                                            انصراف
+                                        </button>
+                                        <form action="{{ route('dashboard.comments.destroy', $comment) }}"
+                                              method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-webamooz_net">
+                                                حذف نظر
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
