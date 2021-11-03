@@ -1,11 +1,8 @@
 <?php
 
+use AmirVahedix\Comment\Http\Controllers\CommentsController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/comment-test', function() {
-    return 'ok';
-});
 
-
-
-
+Route::post('/coments/{commentable}', [CommentsController::class, 'store'])
+    ->name('comments.store');

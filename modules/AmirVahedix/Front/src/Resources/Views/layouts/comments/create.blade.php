@@ -3,7 +3,9 @@
         <h3>نظرات ( 180 )</h3>
         <p>نظر خود را در مورد این دوره مطرح کنید</p>
     </div>
-    <form action="{{ route('comments.store', $course->id) }}" method="post">
+    <form action="{{ route('comments.store', $course->id) }}" method="POST">
+        @csrf
+
         <div class="ct-row">
             <div class="ct-textarea">
                 <x-textarea name="body" class="txt ct-textarea-field" label="کامنت خود را بنویسید..." />
