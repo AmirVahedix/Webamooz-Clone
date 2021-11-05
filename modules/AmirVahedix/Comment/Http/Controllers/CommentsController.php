@@ -20,6 +20,8 @@ class CommentsController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('manage', Comment::class);
+
         $comments = $this->commentRepo
             ->searchBody($request->get('body'))
             ->searchEmail($request->get('email'))
@@ -32,11 +34,15 @@ class CommentsController extends Controller
 
     public function show(Comment $comment)
     {
+        $this->authorize('manage', Comment::class);
+
         return view('Comment::show', compact('comment'));
     }
 
     public function store(StoreCommentRequest $request): RedirectResponse
     {
+        $this->authorize('manage', Comment::class);
+
         $this->commentRepo->store($request);
 
         toast('نظر باموفقیت ثبت شد و پس از تایید نمایش داده میشود.', 'success');
@@ -45,6 +51,8 @@ class CommentsController extends Controller
 
     public function delete(Comment $comment): RedirectResponse
     {
+        $this->authorize('manage', Comment::class);
+
         $comment->children()->delete();
         $comment->delete();
 
@@ -54,6 +62,8 @@ class CommentsController extends Controller
 
     public function approve(Comment $comment): RedirectResponse
     {
+        $this->authorize('manage', Comment::class);
+
         $comment->update([ 'status' => Comment::STATUS_APPROVED ]);
         toast('نظر تایید شد.', 'success');
         return back();
@@ -61,6 +71,8 @@ class CommentsController extends Controller
 
     public function reject(Comment $comment): RedirectResponse
     {
+        $this->authorize('manage', Comment::class);
+
         $comment->update([ 'status' => Comment::STATUS_REJECTED ]);
         toast('نظر رد شد.', 'success');
         return back();
