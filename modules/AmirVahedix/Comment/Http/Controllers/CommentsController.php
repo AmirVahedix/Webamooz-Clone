@@ -7,6 +7,7 @@ use AmirVahedix\Comment\Models\Comment;
 use AmirVahedix\Comment\Repositories\CommentRepo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class CommentsController extends Controller
 {
@@ -17,9 +18,15 @@ class CommentsController extends Controller
         $this->commentRepo = $commentRepo;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $comments = $this->commentRepo->paginate();
+        $comments = $this->commentRepo
+            ->searchBody($request->get('body'))
+            ->searchEmail($request->get('email'))
+            ->searchName($request->get('name'))
+            ->searchStatus($request->get('status'))
+            ->paginate();
+
         return view('Comment::index', compact('comments'));
     }
 
@@ -36,7 +43,7 @@ class CommentsController extends Controller
         return back();
     }
 
-    public function delete(Comment $comment)
+    public function delete(Comment $comment): RedirectResponse
     {
         $comment->children()->delete();
         $comment->delete();
@@ -45,14 +52,14 @@ class CommentsController extends Controller
         return back();
     }
 
-    public function approve(Comment $comment)
+    public function approve(Comment $comment): RedirectResponse
     {
         $comment->update([ 'status' => Comment::STATUS_APPROVED ]);
         toast('نظر تایید شد.', 'success');
         return back();
     }
 
-    public function reject(Comment $comment)
+    public function reject(Comment $comment): RedirectResponse
     {
         $comment->update([ 'status' => Comment::STATUS_REJECTED ]);
         toast('نظر رد شد.', 'success');

@@ -11,26 +11,21 @@
     <div class="main-content">
         <div class="tab__box">
             <div class="tab__items">
-                <a class="tab__item is-active" href="{{ route('dashboard.comments.index') }}"> همه نظرات</a>
-                <a class="tab__item " href="comments.html">نظرات تاییده نشده</a>
-                <a class="tab__item " href="comments.html">نظرات تاییده شده</a>
+                <a class="tab__item {{ request()->get('status') == '' ? 'is-active' : '' }}"
+                   href="{{ route('dashboard.comments.index') }}">
+                    همه نظرات
+                </a>
+                <a class="tab__item {{ request()->get('status') == \AmirVahedix\Comment\Models\Comment::STATUS_REJECTED ? 'is-active' : '' }}"
+                   href="{{ route('dashboard.comments.index', ['status' => \AmirVahedix\Comment\Models\Comment::STATUS_REJECTED]) }}">
+                    نظرات تاییده نشده
+                </a>
+                <a class="tab__item {{ request()->get('status') == \AmirVahedix\Comment\Models\Comment::STATUS_APPROVED ? 'is-active' : '' }}"
+                   href="{{ route('dashboard.comments.index', ['status' => \AmirVahedix\Comment\Models\Comment::STATUS_APPROVED]) }}">
+                    نظرات تاییده شده
+                </a>
             </div>
         </div>
-        <div class="bg-white padding-20">
-            <div class="t-header-search">
-                <form action="" onclick="event.preventDefault();">
-                    <div class="t-header-searchbox font-size-13">
-                        <input type="text" class="text search-input__box font-size-13" placeholder="جستجوی در نظرات">
-                        <div class="t-header-search-content ">
-                            <input type="text" class="text" placeholder="قسمتی از متن">
-                            <input type="text" class="text" placeholder="ایمیل">
-                            <input type="text" class="text margin-bottom-20" placeholder="نام و نام خانوادگی">
-                            <btutton class="btn btn-webamooz_net">جستجو</btutton>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        @include("Comment::search")
 
         <div class="table__box">
             <table class="table">
