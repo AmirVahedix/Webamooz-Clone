@@ -30,7 +30,7 @@ class ProfileController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
+        $user->update($request->except('password'));
 
         toast('تغییرات باموفقیت انجام شد.', 'success');
         return redirect(route('users.profile.show'));

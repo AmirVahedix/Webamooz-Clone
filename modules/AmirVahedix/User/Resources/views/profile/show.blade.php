@@ -33,7 +33,7 @@
                     <x-input name="twitter" value="{{ $user->twitter }}" class="text" placeholder="توییتر"/>
                     <x-input name="instagram" value="{{ $user->instagram }}" class="text" placeholder="اینستاگرام"/>
                     <x-input name="youtube" value="{{ $user->youtube }}" class="text" placeholder="یوتیوب"/>
-                    <x-input name="telegram" value="{{ $user->telegram }}" class="text" placeholder="تلگرام"/>
+                    <x-input name="telegram" value="{{ $user->telegram }}" class="text" placeholder="آیدی تلگرام"/>
 
                     <span>تغییر رمز عبور</span>
                     <x-input type="password" name="password" class="text" placeholder="رمزعبور جدید"/>
