@@ -21,7 +21,7 @@
 
                     <x-input name="name" value="{{ $user->name }}" class="text" placeholder="نام کاربر"/>
                     <x-input name="email" value="{{ $user->email }}" class="text" placeholder="ایمیل" ltr readonly/>
-                    <x-input name="phone" value="{{ $user->phone }}" class="text" placeholder="شماره تلفن" ltr
+                    <x-input name="phone" value="{{ $user->mobile }}" class="text" placeholder="شماره تلفن" ltr
                              readonly/>
                     <x-input name="username" value="{{ $user->username }}" class="text" placeholder="نام کاربری" ltr/>
                     <span>https://webamooz.net/toturs/{{ $user->username ?? 'username' }}</span>

@@ -157,4 +157,9 @@ class User extends Authenticatable implements MustVerifyEmail, Authorizable
             ->count();
     }
     // endregion custom methods
+
+    public function routeNotificationForSms()
+    {
+        return $this->mobile;
+    }
 }

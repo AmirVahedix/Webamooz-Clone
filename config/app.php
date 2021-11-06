@@ -172,6 +172,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Kavenegar\LaravelNotification\KavenegarServiceProvider::class,
+
         UserServiceProvider::class,
         DashboardServiceProvider::class,
         CategoryServiceProvider::class,
