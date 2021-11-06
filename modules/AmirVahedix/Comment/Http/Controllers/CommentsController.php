@@ -2,6 +2,7 @@
 
 namespace AmirVahedix\Comment\Http\Controllers;
 
+use AmirVahedix\Comment\Events\CommentSubmittedEvent;
 use AmirVahedix\Comment\Http\Requests\StoreCommentRequest;
 use AmirVahedix\Comment\Models\Comment;
 use AmirVahedix\Comment\Repositories\CommentRepo;
@@ -41,9 +42,8 @@ class CommentsController extends Controller
 
     public function store(StoreCommentRequest $request): RedirectResponse
     {
-        $this->authorize('manage', Comment::class);
-
-        $this->commentRepo->store($request);
+        $comment = $this->commentRepo->store($request);
+        event(new CommentSubmittedEvent($comment));
 
         toast('نظر باموفقیت ثبت شد و پس از تایید نمایش داده میشود.', 'success');
         return back();

@@ -26,6 +26,8 @@ class CommentServiceProvider extends ServiceProvider
         Gate::before(function(User $user) {
            return $user->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN) ? true : null;
         });
+
+        $this->app->register(EventServiceProvider::class);
     }
 
     public function boot()

@@ -2,7 +2,6 @@
 
 namespace AmirVahedix\User\Models;
 
-use AmirVahedix\Authorization\Models\Permission;
 use AmirVahedix\Course\Models\Course;
 use AmirVahedix\Course\Models\Season;
 use AmirVahedix\Media\Models\Media;
@@ -15,7 +14,6 @@ use AmirVahedix\User\Notifications\ResetPasswordNotification;
 use AmirVahedix\User\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
