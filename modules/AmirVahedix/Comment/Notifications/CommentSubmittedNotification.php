@@ -2,6 +2,7 @@
 
 namespace AmirVahedix\Comment\Notifications;
 
+use AmirVahedix\Comment\Mail\CommentSubmittedMail;
 use AmirVahedix\Comment\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -24,13 +25,10 @@ class CommentSubmittedNotification extends Notification
         return ['mail'];
     }
 
-    public function toMail($notifiable): MailMessage
+    public function toMail($notifiable): CommentSubmittedMail
     {
-        dd("comment submitted notification", $this->comment);
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return (new CommentSubmittedMail($this->comment))
+            ->to($notifiable->email);
     }
 
     public function toArray($notifiable): array
